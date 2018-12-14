@@ -1,0 +1,19 @@
+@(entry: models.sample.Enquete)
+
+@register("投稿完了") {
+    <h2>Thank you</h2>
+    <p>以下の内容でアンケートの投稿を完了しました</p>
+    <dl>
+        <dt>ID</dt>
+        <dd>@entry.id</dd>
+        <dt>名前</dt>
+        <dd>@entry.name</dd>
+        <dt>性別</dt>
+        <dd>@entry.sex.display()</dd>
+        <dt>感想</dt>
+        <dd>@entry.impressions</dd>
+        <dt>投稿日時</dt>
+        <dd>@entry.registeredAt</dd>
+    </dl>
+    <a href="/sample/enquete">一覧に戻る</a>
+}

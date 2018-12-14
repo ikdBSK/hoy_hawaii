@@ -1,0 +1,11 @@
+@register("名前入力") {
+    <h2>名前入力</h2>
+    <form id="nameForm" method="post" action="/sample/enquete/register/impressions">
+        <dl>
+            <dt><label>名前</label></dt>
+            <dd><input type="text" name="name" autocomplete="on" required></dd>
+        </dl>
+        @helper.CSRF.formField
+        <input type="submit" value="送信">
+    </form>
+}
