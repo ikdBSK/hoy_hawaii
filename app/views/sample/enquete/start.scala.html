@@ -1,0 +1,7 @@
+@register("開始") {
+    <h2>アンケートの開始</h2>
+    <form method="post" action="/sample/enquete/register/sex">
+        @helper.CSRF.formField
+        <input type="submit" value="送信">
+    </form>
+}
