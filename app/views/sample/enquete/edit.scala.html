@@ -1,0 +1,27 @@
+@import models.sample.Enquete
+@import models.sample.Enquete.SexTag
+@(entry: Enquete)
+
+@main("更新") {
+    <h1>投稿済みアンケートの編集</h1>
+    <form method="post" action="/sample/enquete/edit/update">
+        <dl>
+            <dt><label for="sex">性別</label></dt>
+            <dd>
+            @for(sexTag: SexTag <- SexTag.values()) {
+                @if(sexTag == entry.sex) {
+                <input type="radio" name="sex" value="@sexTag.name()" required checked>@sexTag.display()
+                } else {
+                <input type="radio" name="sex" value="@sexTag.name()" required>@sexTag.display()
+                }
+            }
+            </dd>
+            <dt><label for="name">名前</label></dt>
+            <dd><input type="text" name="name" value="@entry.name" required></dd>
+            <dt><label for="impressions">感想</label></dt>
+            <dd><textarea name="impressions" required>@entry.impressions</textarea></dd>
+        </dl>
+        @helper.CSRF.formField
+        <input type="submit" value="更新">
+    </form>
+}

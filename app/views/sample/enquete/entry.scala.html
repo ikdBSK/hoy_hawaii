@@ -1,0 +1,20 @@
+@(entry: models.sample.Enquete)
+
+@main("#" + entry.id) {
+    <h1>アンケート #@entry.id</h1>
+    <a href="/sample/enquete/edit/@entry.id">編集</a>
+    <a href="/sample/enquete/delete/@entry.id" onclick="return confirm_delete(@entry.id);">削除</a>
+    <dl>
+        <dt>投稿者</dt>
+        <dd>@entry.name</dd>
+        <dt>性別</dt>
+        <dd>@entry.sex.display</dd>
+        <dt>感想</dt>
+        <dd>@entry.impressions</dd>
+        <dt>投稿日時</dt>
+        <dd>@entry.registeredAt</dd>
+        <dt>最終更新日時</dt>
+        <dd>@entry.updatedAt</dd>
+    </dl>
+    <a href="/sample/enquete">戻る</a>
+}

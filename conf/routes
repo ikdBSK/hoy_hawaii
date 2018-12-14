@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# 以下にアプリケーションのルーティングを記述する
+GET     /                                       controllers.TodoListController.index
+
+# サンプルルーティング
+## アンケート
+GET     /sample/enquete                         controllers.sample.EnqueteController.index
+GET     /sample/enquete/register                controllers.sample.EnqueteController.startRegistration
+POST    /sample/enquete/register/sex            controllers.sample.EnqueteController.sexForm
+POST    /sample/enquete/register/name           controllers.sample.EnqueteController.handleSexForm
+POST    /sample/enquete/register/impressions    controllers.sample.EnqueteController.handleNameForm
+POST    /sample/enquete/register/confirm        controllers.sample.EnqueteController.handleImpressionsForm
+GET     /sample/enquete/register/complete       controllers.sample.EnqueteController.save
+GET     /sample/enquete/edit/:id                controllers.sample.EnqueteController.edit(id: Long)
+POST    /sample/enquete/edit/update             controllers.sample.EnqueteController.update
+GET     /sample/enquete/delete/:id              controllers.sample.EnqueteController.delete(id: Long)
+GET     /sample/enquete/:id                     controllers.sample.EnqueteController.entry(id: Long)
+## Ajax
+GET     /sample/ajax                            controllers.sample.AjaxController.index
+GET     /sample/ajax/entries                    controllers.sample.AjaxController.list
+POST    /sample/ajax/create                     controllers.sample.AjaxController.create
+GET     /sample/ajax/entry/:id                  controllers.sample.AjaxController.fetch(id: Long)
+GET     /sample/ajax/delete/:id                 controllers.sample.AjaxController.delete(id: Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /robot.txt                              controllers.Default.notFound
+GET     /favicon.ico                            controllers.Assets.at(path="/public/images", file="favicon.png")
+GET     /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
