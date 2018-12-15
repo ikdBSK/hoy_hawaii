@@ -1,0 +1,13 @@
+2018-12-15 23:36:18,442 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-8 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-15 23:36:18,461 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2018-12-15 23:36:20,656 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-15 23:36:20,929 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev)
+2018-12-15 23:36:21,288 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-15 23:36:21,288 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-15 23:36:21,749 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-15 23:36:21,757 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
