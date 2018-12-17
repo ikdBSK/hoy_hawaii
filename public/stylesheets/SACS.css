@@ -1,0 +1,48 @@
+/********** CSS for SACS **********/
+html, body {
+    background-color: #BFF557;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.invisible table {
+    border: 0;
+    border-spacing: 0;
+    padding: 0;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+.full_width {
+    width: 100%;
+}
+
+/** header **/
+.header {
+    background-color: #556B2F;
+    border: 15px outset #2F4F4F;
+    padding: 10px;
+}
+
+.header_container {
+    color: #000000;
+    text-decoration: none;
+    text-shadow: 3px 2px gray;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 36pt;
+}
+
+.header_name {
+    font-size: 20pt;
+}
+
+/** login **/
+#login_table {
+    background-color: #556B2F;
+    border: 2px solid black;
+    padding: 10px;
+}

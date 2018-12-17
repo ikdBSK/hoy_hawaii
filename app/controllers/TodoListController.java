@@ -15,7 +15,7 @@ public class TodoListController extends Controller {
      * @return トップページ
      */
     public Result index() {
-        return ok(index.render("Let's get started!!"));  // `200 OK`でトップページをクライアントへ返す
+        return ok(login.render());  // `200 OK`でトップページをクライアントへ返す
     }
 
 }
