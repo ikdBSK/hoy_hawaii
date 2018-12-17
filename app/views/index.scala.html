@@ -1,19 +1,26 @@
 @*
  * インデックスページを表示する
- * 引数としてString型のmessageを受け取る
  *@
-@(message: String)
 
 @*
  * mainテンプレートを呼び出す
  * 引数としてタイトルとBodyを渡す
  *@
-@main("Welcome to Play") {
-    <h1>Play is working</h1>
-    <p>@message</p>
-    <h2>Sample applications</h2>
-    <ul>
-        <li><a href="/sample/enquete">アンケート（セッション方式）</a></li>
-        <li><a href="/sample/ajax">JavaScriptとAjax</a></li>
-    </ul>
+@main("SACS") {
+    <h1>welcome to SACS</h1>
+    <h2>IDとpasswordを入力してください</h2>
+    <form id="accountForm" method="post" action="/login">
+        <dl>
+            <dt><label>ID</label></dt>
+            <dd><input type="text" name="id" autocomplete="on" required></dd>
+            <dt><label>password</label></dt>
+            <dd><input type="password" name="password" required></dd>
+        </dl>
+        @helper.CSRF.formField
+        <input type="submit" value="送信">
+    </form>
+
+    @if(flash.get("errormsg") != null){
+    <p><font color="red">@flash.get("errormsg")</font></p>
+    }
 }

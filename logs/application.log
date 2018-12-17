@@ -1,13 +1,295 @@
-2018-12-15 23:36:18,442 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-8 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
-2018-12-15 23:36:18,461 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
-2018-12-15 23:36:20,656 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2018-12-16 17:53:55,148 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-23 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 17:53:55,174 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-23 - Creating Pool for datasource 'default'
+2018-12-16 17:53:57,133 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-23 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.gzip.GzipFilter
     filters.sample.LoggingFilter
 
-2018-12-15 23:36:20,929 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev)
-2018-12-15 23:36:21,288 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
-2018-12-15 23:36:21,288 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
-2018-12-15 23:36:21,749 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
-2018-12-15 23:36:21,757 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:53:57,507 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-23 - Application started (Dev)
+2018-12-16 17:53:57,873 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 17:53:58,184 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:53:58,188 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 17:53:58,478 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/images/favicon.png
+2018-12-16 17:54:21,943 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-23 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 17:54:22,101 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 17:54:22,137 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:54:22,148 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 17:54:31,907 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-24 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 17:54:31,929 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 17:54:31,967 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 17:54:31,971 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:55:56,994 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-24 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 17:55:57,009 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 17:55:57,035 [INFO] from application in application-akka.actor.default-dispatcher-9 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 17:55:57,035 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:57:01,561 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-34 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 17:57:01,572 [INFO] from application in application-akka.actor.default-dispatcher-11 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 17:57:01,605 [INFO] from application in application-akka.actor.default-dispatcher-12 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 17:57:01,608 [INFO] from application in application-akka.actor.default-dispatcher-10 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:00:25,433 [INFO] from application in application-akka.actor.default-dispatcher-17 - Shutting down connection pool.
+2018-12-16 18:00:25,785 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-35 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 18:00:25,785 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-35 - Creating Pool for datasource 'default'
+2018-12-16 18:00:25,981 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-35 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 18:00:25,998 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-35 - Application started (Dev)
+2018-12-16 18:00:26,020 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:00:26,090 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:00:26,092 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:00:26,118 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/images/favicon.png
+2018-12-16 18:00:35,182 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-35 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 18:00:35,196 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:00:35,225 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:00:35,227 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:07,724 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2018-12-16 18:02:08,019 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 18:02:08,020 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-12-16 18:02:08,182 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 18:02:08,193 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-12-16 18:02:08,210 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:02:08,275 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:08,278 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:08,309 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/images/favicon.png
+2018-12-16 18:02:13,413 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-43 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 18:02:13,463 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:13,463 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:20,965 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:02:21,018 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:21,018 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:21,845 [INFO] from application in application-akka.actor.default-dispatcher-8 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:30,235 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-38 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 18:02:30,273 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:30,273 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:38,119 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:02:38,149 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:02:38,154 [INFO] from application in application-akka.actor.default-dispatcher-9 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:52,994 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 18:02:53,014 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 18:02:53,043 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 18:02:53,047 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:03:00,228 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-43 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 18:03:00,269 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 18:03:00,270 [INFO] from application in application-akka.actor.default-dispatcher-9 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 19:43:29,660 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-3 housekeeper - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=1h7m21s229ms).
+2018-12-16 19:58:26,038 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-3 housekeeper - HikariPool-3 - Retrograde clock change detected (housekeeper delta=26s278ms), soft-evicting connections from pool.
+2018-12-16 20:44:41,154 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-3 housekeeper - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=29m15s2ms).
+2018-12-16 21:02:28,364 [INFO] from application in application-akka.actor.default-dispatcher-13 - Shutting down connection pool.
+2018-12-16 21:02:28,679 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-52 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 21:02:28,680 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - Creating Pool for datasource 'default'
+2018-12-16 21:02:28,879 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-52 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 21:02:28,890 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-52 - Application started (Dev)
+2018-12-16 21:02:28,920 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:02:28,920 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:02:29,035 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:02:29,035 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:02:39,696 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:02:39,728 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:02:39,758 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:02:39,758 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:02:44,963 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:02:44,981 [INFO] from application in application-akka.actor.default-dispatcher-8 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:02:45,018 [INFO] from application in application-akka.actor.default-dispatcher-8 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:02:45,019 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:21,658 [INFO] from application in application-akka.actor.default-dispatcher-5 - Shutting down connection pool.
+2018-12-16 21:03:21,914 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-56 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 21:03:21,915 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-56 - Creating Pool for datasource 'default'
+2018-12-16 21:03:22,096 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-56 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 21:03:22,103 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-56 - Application started (Dev)
+2018-12-16 21:03:22,121 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:03:22,212 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:22,212 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:03:22,239 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/images/favicon.png
+2018-12-16 21:03:27,659 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-56 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:03:27,671 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:03:27,703 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:03:27,706 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:33,321 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:03:33,362 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:03:33,362 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:39,368 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 21:03:39,399 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:03:39,399 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:45,490 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:03:45,538 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:03:45,542 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:56,892 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-52 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 21:03:56,934 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 21:03:56,935 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 21:42:36,283 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-5 housekeeper - HikariPool-5 - Thread starvation or clock leap detected (housekeeper delta=27m14s173ms).
+2018-12-16 22:25:37,374 [INFO] from application in application-akka.actor.default-dispatcher-10 - Shutting down connection pool.
+2018-12-16 22:25:37,734 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-61 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 22:25:37,735 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-61 - Creating Pool for datasource 'default'
+2018-12-16 22:25:37,917 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-61 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 22:25:37,922 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-61 - Application started (Dev)
+2018-12-16 22:25:37,949 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 22:25:37,950 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 22:25:38,026 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:25:38,031 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:25:44,639 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-61 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 22:25:44,678 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:25:44,682 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:28:25,428 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-67 - 
+
+! @7a96h301c - Internal server error, for (GET) [/] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[value id is not a member of data.Account]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:569)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:241)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:138)
+	at akka.stream.impl.fusing.MapAsyncUnordered$$anon$26.onPush(Ops.scala:1304)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:588)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:472)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:563)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:745)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:760)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:670)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:588)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:557)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:258)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:225)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:235)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-12-16 22:29:36,796 [INFO] from application in application-akka.actor.default-dispatcher-11 - Shutting down connection pool.
+2018-12-16 22:29:37,079 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-69 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-16 22:29:37,079 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-69 - Creating Pool for datasource 'default'
+2018-12-16 22:29:37,245 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-69 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-16 22:29:37,253 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-69 - Application started (Dev)
+2018-12-16 22:29:37,271 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 22:29:37,340 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:29:37,340 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:29:37,372 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/images/favicon.png
+2018-12-16 22:29:44,501 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-69 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 22:29:44,537 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:29:44,538 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:29:51,272 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-16 22:29:51,304 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:29:51,304 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:29:57,099 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-71 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-16 22:29:57,139 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-16 22:29:57,142 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-16 22:41:21,815 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=8m14s610ms).
+2018-12-16 23:58:28,069 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=39m34s588ms).
+2018-12-16 23:58:53,805 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Retrograde clock change detected (housekeeper delta=25s737ms), soft-evicting connections from pool.
+2018-12-17 03:05:32,073 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=3h6m38s268ms).
+2018-12-17 09:26:37,282 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Thread starvation or clock leap detected (housekeeper delta=6h21m4s975ms).
+2018-12-17 09:27:03,321 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-7 housekeeper - HikariPool-7 - Retrograde clock change detected (housekeeper delta=26s273ms), soft-evicting connections from pool.
+2018-12-17 11:10:10,910 [INFO] from application in application-akka.actor.default-dispatcher-12 - Shutting down connection pool.
+2018-12-17 11:10:11,214 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-82 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-17 11:10:11,215 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-82 - Creating Pool for datasource 'default'
+2018-12-17 11:10:11,395 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-82 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-17 11:10:11,407 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-82 - Application started (Dev)
+2018-12-17 11:10:11,440 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 11:10:11,440 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 11:10:11,568 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 11:10:11,574 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 11:10:17,947 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-81 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 11:10:17,964 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 11:10:18,003 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 11:10:18,005 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 11:10:23,464 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-79 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 11:10:23,505 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 11:10:23,505 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 11:10:27,388 [INFO] from application in application-akka.actor.default-dispatcher-8 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 11:10:27,416 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 11:10:27,416 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 11:10:33,042 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-79 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 11:10:33,098 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 11:10:33,104 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 12:28:01,767 [WARN] from com.zaxxer.hikari.pool.HikariPool in HikariPool-8 housekeeper - HikariPool-8 - Thread starvation or clock leap detected (housekeeper delta=22m20s41ms).
+2018-12-17 13:24:40,141 [INFO] from application in application-akka.actor.default-dispatcher-9 - Shutting down connection pool.
+2018-12-17 13:24:40,422 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-86 - Database [default] initialized at jdbc:h2:mem:play;DB_CLOSE_DELAY=-1
+2018-12-17 13:24:40,422 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-86 - Creating Pool for datasource 'default'
+2018-12-17 13:24:40,585 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-86 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.gzip.GzipFilter
+    filters.sample.LoggingFilter
+
+2018-12-17 13:24:40,593 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-86 - Application started (Dev)
+2018-12-17 13:24:40,616 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:24:40,616 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:24:40,745 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:24:40,747 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:24:47,817 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-83 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 13:24:47,855 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:24:47,857 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:24:50,245 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /logout
+2018-12-17 13:24:50,264 [INFO] from application in application-akka.actor.default-dispatcher-2 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:24:50,294 [INFO] from application in application-akka.actor.default-dispatcher-3 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:24:50,295 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:24:56,827 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-86 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 13:24:56,864 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:24:56,874 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:25:00,144 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /logout
+2018-12-17 13:25:00,157 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:25:00,180 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:25:00,180 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:25:04,706 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-85 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 13:25:04,741 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:25:04,742 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:25:06,501 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /logout
+2018-12-17 13:25:06,514 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:25:06,538 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css
+2018-12-17 13:25:06,541 [INFO] from application in application-akka.actor.default-dispatcher-5 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:25:10,865 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-85 - access from 0:0:0:0:0:0:0:1 to /login
+2018-12-17 13:25:10,877 [INFO] from application in application-akka.actor.default-dispatcher-6 - access from 0:0:0:0:0:0:0:1 to /
+2018-12-17 13:25:10,912 [INFO] from application in application-akka.actor.default-dispatcher-4 - access from 0:0:0:0:0:0:0:1 to /assets/javascripts/todolist.js
+2018-12-17 13:25:10,912 [INFO] from application in application-akka.actor.default-dispatcher-7 - access from 0:0:0:0:0:0:0:1 to /assets/stylesheets/todolist.css

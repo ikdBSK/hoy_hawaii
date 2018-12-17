@@ -1,0 +1,7 @@
+@(admin: data.Account)
+
+@main("SACS|admin") {
+<h1>管理者用ページ</h1>
+<h2>ID: @admin.get_id() </h2>
+<a href="/logout">ログアウト</a>
+}
