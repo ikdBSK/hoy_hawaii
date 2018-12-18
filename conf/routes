@@ -3,7 +3,12 @@
 # ~~~~
 
 # 以下にアプリケーションのルーティングを記述する
-GET     /                                       controllers.TodoListController.index
+GET     /                                       controllers.DataController.index
+POST    /login                                  controllers.DataController.login
+GET     /logout                                 controllers.DataController.logout
+GET     /admin/student_list                     controllers.DataController.student_list
+GET     /admin/teacher_list                     controllers.DataController.teacher_list
+POST    /admin/signup                           controllers.DataController.signup
 
 # サンプルルーティング
 ## アンケート
