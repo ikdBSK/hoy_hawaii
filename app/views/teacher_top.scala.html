@@ -1,0 +1,7 @@
+@(teacher: data.Teacher)
+
+@main("SACS|teacher") {
+<h1>教師用ページ</h1>
+<h2>@teacher.get_name() さん</h2>
+<a href="/logout">ログアウト</a>
+}
