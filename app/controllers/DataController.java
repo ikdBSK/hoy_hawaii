@@ -65,7 +65,7 @@ public class DataController extends Controller {
      * @return ログインページ
      */
     public Result index() {
-        return ok(index.render());
+        return ok(login.render());
     }
 
 
