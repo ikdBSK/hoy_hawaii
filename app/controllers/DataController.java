@@ -12,9 +12,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class DataController extends Controller {
-    final String default_password = "0000";
+    final private String default_password = "0000";
+    final private String admin_id = "admin";
 
-    Account admin = new Account("admin", default_password, null, null, null);//管理者アカウント
+    Account admin = new Account(admin_id, default_password, null, null, null);//管理者アカウント
     List<Student> students = new ArrayList<Student>();
     List<Teacher> teachers = new ArrayList<Teacher>();
 
@@ -28,7 +29,7 @@ public class DataController extends Controller {
         return null;
     }
 
-    //idが一致する生徒を検索
+    //idが一致する教師を検索
     public Teacher get_teacher(String id) {
         for(Teacher t : teachers){
             if(t.get_id().equals(id)){
@@ -38,8 +39,25 @@ public class DataController extends Controller {
         return null;
     }
 
+    //生徒情報を更新
+    public void update_student(Student student){
+        students.forEach(s -> {
+            if(s.get_id().equals(student.get_id())){
+                students.set(students.indexOf(s), student);
+            }
+        });
+    }
+
+    //教師情報を更新
+    public void update_teacher(Teacher teacher){
+        teachers.forEach(t -> {
+            if(t.get_id().equals(teacher.get_id())){
+                teachers.set(teachers.indexOf(t), teacher);
+            }
+        });
+    }
+
     //ログインするアカウントIDをsessionに保持し、そのsessionIdをクライアントのCookieに保持して紐付ける
-    //必要ないかも？
     public void connect_session(String id) {
         final String sessionId = UUID.randomUUID().toString();
         session(sessionId, id);
@@ -58,13 +76,23 @@ public class DataController extends Controller {
         }
     }
 
+    //sessionに保持したアカウントIDを確認
+    public String get_id() {
+        final Http.Cookie sessionId = request().cookie("sessId");
+        if(sessionId == null || !session().containsKey(sessionId.value())){
+            //ユーザー情報がなければタスクの表示が無いページ返す
+            return null;
+        }
+        return session(sessionId.value());
+    }
+
 
 
 
     /**
      * @return ログインページ
      */
-    public Result index() {
+    public Result login() {
         return ok(login.render());
     }
 
@@ -90,20 +118,19 @@ public class DataController extends Controller {
      * アカウントのタイプに対応するページ返す
      * @return ログイン後のトップページ
      */
-    public Result login() {
+    public Result authenticate() {
         //リクエストbodyからidとpasswordを受け取る
         final Map<String, String[]> request = request().body().asFormUrlEncoded();
         final String id = request.get("id")[0];
         final String password = request.get("password")[0];
 
-        //アカウント検索を楽にするため、生徒のidはSで始まり教師のidはTで始まることを想定
+        //生徒のidはSで始まり教師のidはTで始まることを想定
         if(id.startsWith("S")){
             //idが一致するアカウント取得
             final Student student = get_student(id);
-            //idかpasswordが一致しなければエラーメッセージをつけてリダイレクト
+            //idかpasswordが一致しないとき
             if(student == null || !student.check_password(password)){
-                flash("errormsg", "IDかpasswordが間違っています");
-                return redirect("/");
+                return unauthorized();
             }
             connect_session(id);
             //生徒情報を引数として付加した生徒用のトップページを返す
@@ -113,17 +140,15 @@ public class DataController extends Controller {
         if(id.startsWith("T")){
             final Teacher teacher = get_teacher(id);
             if(teacher == null || !teacher.check_password(password)){
-                flash("errormsg", "IDかpasswordが間違っています");
-                return redirect("/");
+                return unauthorized();
             }
             connect_session(id);
             return ok(teacher_top.render(teacher));
         }
 
-        //管理者アカウントと一致しなければエラーメッセージをつけてリダイレクト
+        //管理者アカウントと一致しないとき
         if(!admin.get_id().equals(id) || !admin.check_password(password)){
-            flash("errormsg", "IDかpasswordが間違っています");
-            return redirect("/");
+            return unauthorized();
         }
         connect_session(id);
         //debug用にstudentとteacher登録
@@ -152,6 +177,9 @@ public class DataController extends Controller {
      */
     public Result signup() {
         try {
+            //管理者からのアクセスであることを確認
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             final String id = form.get("id")[0];
             final String password = form.get("password")[0];
@@ -173,6 +201,72 @@ public class DataController extends Controller {
                 return badRequest();
             }
         }catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * アカウント情報を編集する
+     * @param id 編集するアカウントのid
+     * @return 編集後のアカウントリスト
+     */
+    public Result edit(String id) {
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            if(id.startsWith("S")){
+                Student student = get_student(id);
+                if(student == null) return unauthorized();
+                student.set_password(form.get("password")[0]);
+                student.set_address(form.get("address")[0]);
+                update_student(student);
+                return student_list();
+            }
+            if(id.startsWith("T")){
+                Teacher teacher = get_teacher(id);
+                if(teacher == null) return unauthorized();
+                teacher.set_password(form.get("password")[0]);
+                teacher.set_address(form.get("address")[0]);
+                update_teacher(teacher);
+                return teacher_list();
+            }
+            if(id.equals(admin_id)){
+                admin.set_password(form.get("password")[0]);
+            }
+            return ok(Json.toJson(0));
+        }catch (Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 特定のアカウントのみを返す
+     * @param id　返して欲しいアカウントのID
+     * @return JSON形式でアカウントを返す
+     */
+    public Result fetch(String id) {
+        try {
+            //管理者からのアクセスのとき
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            if(id.startsWith("S")){
+                Student student = get_student(id);
+                if(student != null) return ok(Json.toJson(student));
+            }
+            if(id.startsWith("T")){
+                Teacher teacher = get_teacher(id);
+                if(teacher != null) return ok(Json.toJson(teacher));
+            }
+            if(id.equals(admin_id)){
+                return ok(Json.toJson(admin));
+            }
+            return notFound();
+        } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
         }
