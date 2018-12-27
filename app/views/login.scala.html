@@ -1,41 +1,22 @@
-@main {
-    <div align="center">
-        <form>
-            <table id="login_table">
-                <tr>
-                    <td colspan="2" align="center">ログイン</td>
-                </tr>
-                <tr>
-                    <td>
-                        ユーザーID
-                    </td>
-                    <td>
-                        <label>
-                            <input type="text">
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        パスワード
-                    </td>
-                    <td>
-                        <label>
-                            <input type="password">
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
+@*
+ * インデックスページを表示する
+ *@
 
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button>ログイン</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+@*
+ * mainテンプレートを呼び出す
+ * 引数としてタイトルとBodyを渡す
+ *@
+@main("login") {
+    <h1>welcome to SACS</h1>
+    <h2>IDとpasswordを入力してください</h2>
+    <form id="accountForm" method="post" action="/login">
+        <dl>
+            <dt><label>ID</label></dt>
+            <dd><input type="text" name="id" autocomplete="on" required></dd>
+            <dt><label>password</label></dt>
+            <dd><input type="password" name="password" required></dd>
+        </dl>
+        @helper.CSRF.formField
+        <input type="submit" value="送信">
+    </form>
 }
