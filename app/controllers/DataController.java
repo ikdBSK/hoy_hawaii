@@ -106,7 +106,11 @@ public class DataController extends Controller {
      * @return JSON形式の生徒リスト
      */
     public Result student_list() {
-        return ok(Json.toJson(students));
+        final String account_id = get_id();
+        if(account_id == null) return badRequest();
+        if(account_id.equals(admin_id)) return ok(Json.toJson(students));
+        //if(get_teacher(account_id) != null) return ok(Json.toJson(get_teacher(account_id).getStudent());
+        return badRequest();
     }
 
 
@@ -114,6 +118,8 @@ public class DataController extends Controller {
      * @return JSON形式の教師リスト
      */
     public Result teacher_list() {
+        final String account_id = get_id();
+        if(account_id == null || !account_id.equals(admin_id)) return badRequest();
         return ok(Json.toJson(teachers));
     }
 
@@ -256,18 +262,23 @@ public class DataController extends Controller {
      */
     public Result fetch(String id) {
         try {
-            //管理者からのアクセスのとき
             final String account_id = get_id();
-            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            if(account_id == null) return badRequest();
             if(id.startsWith("S")){
+                //生徒のアカウントを見れるのは教師or管理者
+                if(get_teacher(account_id) == null && !account_id.equals(admin_id)) return badRequest();
                 Student student = get_student(id);
                 if(student != null) return ok(Json.toJson(student));
             }
             if(id.startsWith("T")){
+                //教師のアカウントを見れるのは教師or管理者
+                if(get_teacher(account_id) == null && !account_id.equals(admin_id)) return badRequest();
                 Teacher teacher = get_teacher(id);
                 if(teacher != null) return ok(Json.toJson(teacher));
             }
             if(id.equals(admin_id)){
+                //管理者のアカウントを見れるのは管理者
+                if(!account_id.equals(admin_id)) return badRequest();
                 return ok(Json.toJson(admin));
             }
             return notFound();
