@@ -59,4 +59,10 @@ public class SubjectClass {
     public void setGrades(HashMap<Student, SubjectGrade> grades) {
         this.grades = grades;
     }
+
+    //method
+
+    public boolean equals(Subject subject){
+        return this.subject.equals(subject);
+    }
 }
