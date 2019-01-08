@@ -11,6 +11,12 @@ public class SchoolRecord {
     private HashMap<SchoolExamTime, SchoolExam> exams;
     private ArrayList<SubjectClass> record;
 
+    public SchoolRecord(Student student) {
+        this.student = student;
+        exams = new HashMap<>();
+        record = new ArrayList<>();
+    }
+
     public SchoolRecord(Student student, HashMap<SchoolExamTime, SchoolExam> exams, ArrayList<SubjectClass> record) {
         this.student = student;
         this.exams = exams;
