@@ -46,4 +46,16 @@ public class SchoolExam {
         }
         return results;
     }
+
+    public TestResult getExam(Student student, Subject subject){
+        for(SchoolTest test : tests){
+            if(test.getSubject().equals(subject)){
+                TestResult result = test.getResult().get(student);
+                if(result != null){
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
 }
