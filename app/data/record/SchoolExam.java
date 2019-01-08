@@ -1,5 +1,6 @@
 package data.record;
 
+import data.*;
 import java.util.ArrayList;
 
 public class SchoolExam {
@@ -26,5 +27,23 @@ public class SchoolExam {
 
     public void setTests(ArrayList<SchoolTest> tests) {
         this.tests = tests;
+    }
+
+    //method
+
+    /**
+     * 指定された生徒のテスト結果を返却
+     * @param student テストを返却したい対象生徒
+     * @return 該当する生徒のテスト結果のリスト
+     */
+    public ArrayList<TestResult> getExam(Student student){
+        ArrayList<TestResult> results = new ArrayList<TestResult>();
+        for(SchoolTest test : tests){
+            TestResult result = test.getResult().get(student);
+            if(result != null){
+                results.add(result);
+            }
+        }
+        return results;
     }
 }

@@ -1,14 +1,20 @@
 package data.record;
 
+import data.*;
+
 public class TestResult {
     private int score;
     private boolean attendance;
     private boolean late;
+    private Student student;
+    private SubjectClass subject;
 
-    TestResult(int score, boolean attendance, boolean late){
+    public TestResult(int score, boolean attendance, boolean late, Student student, SubjectClass subject) {
         this.score = score;
         this.attendance = attendance;
         this.late = late;
+        this.student = student;
+        this.subject = subject;
     }
 
     //getter and setter
@@ -36,4 +42,19 @@ public class TestResult {
         this.late = late;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public SubjectClass getSubject() {
+        return subject;
+    }
+
+    public void setSubject(SubjectClass subject) {
+        this.subject = subject;
+    }
 }
