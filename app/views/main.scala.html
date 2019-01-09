@@ -3,14 +3,13 @@
  * HTMLの構造を受け取り，ページ全体を描画する
  *@
 
-@(title: String)(content: Html)
+@(content: Html)
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     @* 変数へは`@変数名`の形式でアクセス可能 *@
-    <title>SACS|@title</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/SACS.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 </head>
@@ -24,8 +23,7 @@
                             <td>
                                 <a class="header_container" href="/">SACS</a>
                             </td>
-                            <td align="right">
-                                ようこそ、<b class="header_name">渡部太郎</b>さん！
+                            <td align="right" id="username_display">
                             </td>
                         </tr>
                     </table>

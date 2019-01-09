@@ -94,7 +94,7 @@ class table{
 
     // サーバからデータを取得し、テーブルの表示を更新
     update(){
-        const uri = "/" + "watabe" + "/" + this.uri;
+        const uri = "/" + this.uri;
         this.display(LOADING);
         return fetch_json(uri)
             .then(items => {

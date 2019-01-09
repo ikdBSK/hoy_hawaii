@@ -46,7 +46,7 @@ class form{
                 console.log(response.statusText);
                 throw new Error("Failed to post form: \"" + this.prefix + "\"");
             }
-            return "Success!";
+            return response.json();
         });
     }
 

@@ -94,7 +94,7 @@ public class DataController extends Controller {
      */
     public Result login() {
         String account_id = get_id();
-        if(account_id == null) return ok(login.render());
+        if(account_id == null) return ok(index.render());
         if(account_id.startsWith("S")) return ok(Json.toJson(get_student(account_id).get_name()));
         if(account_id.startsWith("T")) return ok(Json.toJson(get_teacher(account_id).get_name()));
         if(account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
