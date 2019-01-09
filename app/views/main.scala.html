@@ -10,7 +10,6 @@
 <head>
     <meta charset="UTF-8">
     @* 変数へは`@変数名`の形式でアクセス可能 *@
-    <title>SACS</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/SACS.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 </head>
@@ -24,8 +23,7 @@
                             <td>
                                 <a class="header_container" href="/">SACS</a>
                             </td>
-                            <td align="right">
-                                ようこそ、<b class="header_name">渡部太郎</b>さん！
+                            <td align="right" id="username_display">
                             </td>
                         </tr>
                     </table>
@@ -36,10 +34,12 @@
             <td>
                 <table class="invisible, full" cellpadding="0" CELLSPACING="0">
                     <tr>
-                        <td>
+                        <td width=15vw>
                             <div class="menu_bar">
                                 <ul style="">
-                                    <li><a href="">成績</a></li>
+                                    <li><a href="" onclick="home(); return false;">成績</a></li>
+                                    <li><a href="" onclick="school_test_list(); return false;">定期試験ごとの成績</a></li>
+                                    <li><a href="" onclick="subject_graph_screen(); return false;">科目ごとの成績遷移</a></li>
                                     <li><a href="">プロフィール</a></li>
                                     <li><a href="">設定</a></li>
                                 </ul>

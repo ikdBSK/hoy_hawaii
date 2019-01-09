@@ -2,6 +2,7 @@
 
     @* ログイン画面 *@
     <div align="center" id="login_screen">
+        <h1>SACSへようこそ！</h1>
         <form id="login_form">
             <table id="login_table">
                 <tr>
@@ -34,7 +35,12 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button onclick="login_form.post(); return false;">ログイン</button>
+                        <button onclick="login_form.post().then(result => {
+                            login(result);
+                            home();
+                        }, error =>{
+                            console.log(error);
+                        }); return false;">ログイン</button>
                     </td>
                 </tr>
             </table>
@@ -46,22 +52,25 @@
 
 
     @* ホーム画面 *@
-    <div id="home_screen">
+    <div id="home_screen" style="display: none;">
+        <h1>あなたの成績のまとめ</h1>
         @* 今のところは真っ白 *@
     </div>
 
     @* 定期試験の一覧 *@
-    <div id="school_test_list_screen">
-
+    <div id="school_test_list_screen" style="display: none;">
+        <h1>定期試験の一覧</h1>
+        <div id="school_test_list_display"></div>
     </div>
 
     @* 定期試験の詳細 *@
-    <div id="school_test_detail_screen">
-
+    <div id="school_test_detail_screen" style="display: none;">
+        <h1>n年m学期中間の成績</h1>
+        <div id="school_test_detail_display"></div>
     </div>
 
     @* 科目ごとの成績繊維 *@
-    <div id="subject_graph_screen">
-
+    <div id="subject_graph_screen" style="display: none;">
+        <h1>科目ごとの成績の移り変わり</h1>
     </div>
 }
