@@ -8,3 +8,8 @@ function fetch_json(uri){
             }
         });
 }
+
+// ディスプレイメッセージ
+const ERROR = $("<p>").attr("style", "color:red").append("通信に失敗しました。");
+const LOADING = "LOADING...";
+const NO_ITEM = "データがありません。";

@@ -95,10 +95,10 @@ public class DataController extends Controller {
     public Result login() {
         String account_id = get_id();
         if(account_id == null) return ok(login.render());
-        if(account_id.startsWith("S")) return ok(student_top.render());
-        if(account_id.startsWith("T")) return ok(teacher_top.render());
-        if(account_id.equals(admin_id)) return ok(admin_top.render());
-        return ok(login.render());
+        if(account_id.startsWith("S")) return ok(Json.toJson(get_student(account_id).get_name()));
+        if(account_id.startsWith("T")) return ok(Json.toJson(get_teacher(account_id).get_name()));
+        if(account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
+        return ok(index.render());
     }
 
 
@@ -159,7 +159,7 @@ public class DataController extends Controller {
             }
             connect_session(id);
             //生徒情報を引数として付加した生徒用のトップページを返す
-            return ok(student_top.render());
+            return ok(Json.toJson(student.get_name()));
         }
 
         if(id.startsWith("T")){
@@ -168,7 +168,7 @@ public class DataController extends Controller {
                 return unauthorized();
             }
             connect_session(id);
-            return ok(teacher_top.render());
+            return ok(Json.toJson(teacher.get_name()));
         }
 
         //管理者アカウントと一致しないとき
@@ -181,7 +181,7 @@ public class DataController extends Controller {
         students.add(s1);
         Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
         teachers.add(t1);
-        return ok(admin_top.render());
+        return ok(Json.toJson("管理者"));
     }
 
 
@@ -276,23 +276,18 @@ public class DataController extends Controller {
      */
     public Result fetch(String id) {
         try {
+            //管理者からのアクセスのとき
             final String account_id = get_id();
-            if(account_id == null) return badRequest();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
             if(id.startsWith("S")){
-                //生徒のアカウントを見れるのは教師or管理者
-                if(get_teacher(account_id) == null && !account_id.equals(admin_id)) return badRequest();
                 Student student = get_student(id);
                 if(student != null) return ok(Json.toJson(student));
             }
             if(id.startsWith("T")){
-                //教師のアカウントを見れるのは教師or管理者
-                if(get_teacher(account_id) == null && !account_id.equals(admin_id)) return badRequest();
                 Teacher teacher = get_teacher(id);
                 if(teacher != null) return ok(Json.toJson(teacher));
             }
             if(id.equals(admin_id)){
-                //管理者のアカウントを見れるのは管理者
-                if(!account_id.equals(admin_id)) return badRequest();
                 return ok(Json.toJson(admin));
             }
             return notFound();

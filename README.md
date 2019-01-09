@@ -109,3 +109,4 @@
 ### 情報
 
 * クラス図: https://www.lucidchart.com/invitations/accept/c7acc212-313e-4e66-9dc6-3c4a08134507
+>>>>>>> upstream/master

@@ -40,9 +40,17 @@ html, body {
     font-size: 20pt;
 }
 
-/** login **/
+/** index **/
 #login_table {
     background-color: #556B2F;
     border: 2px solid black;
     padding: 10px;
+}
+
+.menu_bar {
+    background-color: #556B2F;
+    border: 5px solid #2F4F4F;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
 }

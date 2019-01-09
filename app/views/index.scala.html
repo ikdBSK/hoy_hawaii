@@ -1,0 +1,67 @@
+@main {
+
+    @* ログイン画面 *@
+    <div align="center" id="login_screen">
+        <form id="login_form">
+            <table id="login_table">
+                <tr>
+                    <td colspan="2" align="center">ログイン</td>
+                </tr>
+                <tr>
+                    <td>
+                        ユーザーID
+                    </td>
+                    <td>
+                        <label>
+                            <input id="login_id" name="id" type="text" required>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        パスワード
+                    </td>
+                    <td>
+                        <label>
+                            <input id="login_password" name="password" type="password" required>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button onclick="login_form.post(); return false;">ログイン</button>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" id="login_submit" style="display: none"></button>
+            <div id="login_display"></div>
+            @helper.CSRF.formField
+        </form>
+    </div>
+
+
+    @* ホーム画面 *@
+    <div id="home_screen">
+        @* 今のところは真っ白 *@
+    </div>
+
+    @* 定期試験の一覧 *@
+    <div id="school_test_list_screen">
+
+    </div>
+
+    @* 定期試験の詳細 *@
+    <div id="school_test_detail_screen">
+
+    </div>
+
+    @* 科目ごとの成績繊維 *@
+    <div id="subject_graph_screen">
+
+    </div>
+}

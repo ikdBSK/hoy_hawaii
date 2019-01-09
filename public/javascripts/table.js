@@ -1,10 +1,5 @@
 const $ = jQuery;
 
-// ディスプレイメッセージ
-const ERROR = $("<p>").attr("style", "color:red").append("ERROR.");
-const LOADING = "LOADING...";
-const NO_ITEM = "データがありません。";
-
 class table{
     constructor(update_uri, tag_prefix, labels, types, options, items_per_page){
         // テーブル更新の問い合わせ先
