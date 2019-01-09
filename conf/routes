@@ -6,11 +6,12 @@
 GET     /                                       controllers.DataController.login
 POST    /login                                  controllers.DataController.authenticate
 GET     /logout                                 controllers.DataController.logout
-GET     /admin/student_list                     controllers.DataController.student_list
-GET     /admin/teacher_list                     controllers.DataController.teacher_list
-POST    /admin/signup                           controllers.DataController.signup
-GET     /admin/fetch/:id                        controllers.DataController.fetch(id: String)
-POST    /admin/edit/:id                         controllers.DataController.edit(id: String)
+GET     /account_list                           controllers.DataController.account_list
+GET     /student_list                           controllers.DataController.student_list
+GET     /teacher_list                           controllers.DataController.teacher_list
+POST    /signup                                 controllers.DataController.signup
+GET     /fetch/:id                              controllers.DataController.fetch(id: String)
+POST    /edit/:id                               controllers.DataController.edit(id: String)
 
 # サンプルルーティング
 ## アンケート

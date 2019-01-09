@@ -102,6 +102,20 @@ public class DataController extends Controller {
     }
 
 
+
+    /**
+     * @return JSON形式のアカウントリスト
+     */
+    public Result account_list() {
+        final String account_id = get_id();
+        if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+        List<Account> accounts = new ArrayList<Account>();
+        accounts.addAll(teachers);
+        accounts.addAll(students);
+        return ok(Json.toJson(accounts));
+    }
+
+
     /**
      * @return JSON形式の生徒リスト
      */
@@ -109,7 +123,7 @@ public class DataController extends Controller {
         final String account_id = get_id();
         if(account_id == null) return badRequest();
         if(account_id.equals(admin_id)) return ok(Json.toJson(students));
-        //if(get_teacher(account_id) != null) return ok(Json.toJson(get_teacher(account_id).getStudent());
+        //if(get_teacher(account_id) != null) return ok(Json.toJson(get_teacher(account_id).get_subjectClass().getstudent());
         return badRequest();
     }
 
