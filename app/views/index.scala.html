@@ -1,26 +1,44 @@
-@*
- * インデックスページを表示する
- *@
+@main {
+    <div align="center">
+        <form id="login_form">
+            <table id="login_table">
+                <tr>
+                    <td colspan="2" align="center">ログイン</td>
+                </tr>
+                <tr>
+                    <td>
+                        ユーザーID
+                    </td>
+                    <td>
+                        <label>
+                            <input id="login_id" name="id" type="text" required>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        パスワード
+                    </td>
+                    <td>
+                        <label>
+                            <input id="login_password" name="password" type="password" required>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
 
-@*
- * mainテンプレートを呼び出す
- * 引数としてタイトルとBodyを渡す
- *@
-@main("SACS") {
-    <h1>welcome to SACS</h1>
-    <h2>IDとpasswordを入力してください</h2>
-    <form id="accountForm" method="post" action="/login">
-        <dl>
-            <dt><label>ID</label></dt>
-            <dd><input type="text" name="id" autocomplete="on" required></dd>
-            <dt><label>password</label></dt>
-            <dd><input type="password" name="password" required></dd>
-        </dl>
-        @helper.CSRF.formField
-        <input type="submit" value="送信">
-    </form>
-
-    @if(flash.get("errormsg") != null){
-    <p><font color="red">@flash.get("errormsg")</font></p>
-    }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button onclick="login_form.post(); return false;">ログイン</button>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" id="login_submit" style="display: none"></button>
+            @helper.CSRF.formField
+        </form>
+        <div id="test_display"></div>
+    </div>
 }
