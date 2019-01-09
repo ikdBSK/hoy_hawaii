@@ -33,10 +33,19 @@
         </tr>
         <tr>
             <td>
-                <main id="main-content">
-                    @* 引数として渡されるHTMLを埋め込む *@
-                    @content
-                </main>
+                <table class="invisible, full" cellpadding="0" CELLSPACING="0">
+                    <tr>
+                        <td>
+                            <div class="menu_bar"></div>
+                        </td>
+                        <td>
+                            <main id="main-content">
+                                @* 引数として渡されるHTMLを埋め込む *@
+                                @content
+                            </main>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
