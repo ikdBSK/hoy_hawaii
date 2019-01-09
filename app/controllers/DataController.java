@@ -93,7 +93,26 @@ public class DataController extends Controller {
      * @return ログインページ
      */
     public Result login() {
+        String account_id = get_id();
+        if(account_id == null) return ok(login.render());
+        if(account_id.startsWith("S")) return ok(Json.toJson(get_student(account_id).get_name()));
+        if(account_id.startsWith("T")) return ok(Json.toJson(get_teacher(account_id).get_name()));
+        if(account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
         return ok(index.render());
+    }
+
+
+
+    /**
+     * @return JSON形式のアカウントリスト
+     */
+    public Result account_list() {
+        final String account_id = get_id();
+        if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+        List<Account> accounts = new ArrayList<Account>();
+        accounts.addAll(teachers);
+        accounts.addAll(students);
+        return ok(Json.toJson(accounts));
     }
 
 
@@ -101,7 +120,11 @@ public class DataController extends Controller {
      * @return JSON形式の生徒リスト
      */
     public Result student_list() {
-        return ok(Json.toJson(students));
+        final String account_id = get_id();
+        if(account_id == null) return badRequest();
+        if(account_id.equals(admin_id)) return ok(Json.toJson(students));
+        //if(get_teacher(account_id) != null) return ok(Json.toJson(get_teacher(account_id).get_subjectClass().getstudent());
+        return badRequest();
     }
 
 
@@ -109,6 +132,8 @@ public class DataController extends Controller {
      * @return JSON形式の教師リスト
      */
     public Result teacher_list() {
+        final String account_id = get_id();
+        if(account_id == null || !account_id.equals(admin_id)) return badRequest();
         return ok(Json.toJson(teachers));
     }
 
