@@ -1,3 +1,4 @@
+// JSON形式のデータを取得
 function fetch_json(uri){
     return fetch(uri)
         .then(response => {

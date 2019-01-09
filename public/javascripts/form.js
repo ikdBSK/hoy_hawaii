@@ -44,7 +44,9 @@ class form{
             if(!response.ok){
                 this.display(this.error_message);
                 console.log(response.statusText);
+                throw new Error("Failed to post form: \"" + this.prefix + "\"");
             }
+            return "Success!";
         });
     }
 
