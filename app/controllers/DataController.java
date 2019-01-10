@@ -1,15 +1,15 @@
 package controllers;
 
+import data.record.SchoolExamTime;
+import data.record.Subject;
+import data.record.TestResult;
 import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
 import data.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class DataController extends Controller {
     final private String default_password = "0000";
@@ -18,6 +18,7 @@ public class DataController extends Controller {
     Account admin = new Account(admin_id, default_password, null, null, null);//管理者アカウント
     List<Student> students = new ArrayList<Student>();
     List<Teacher> teachers = new ArrayList<Teacher>();
+    List<Subject> subjects = new ArrayList<Subject>();
 
     //idが一致する生徒を検索
     public Student get_student(String id) {
@@ -135,6 +136,15 @@ public class DataController extends Controller {
         final String account_id = get_id();
         if(account_id == null || !account_id.equals(admin_id)) return badRequest();
         return ok(Json.toJson(teachers));
+    }
+
+
+    /**
+     * 科目のリストを返す
+     * @return JSON形式のSubjectリスト
+     */
+    public Result subject_list() {
+        return ok(Json.toJson(subjects));
     }
 
 
@@ -289,6 +299,79 @@ public class DataController extends Controller {
             }
             if(id.equals(admin_id)){
                 return ok(Json.toJson(admin));
+            }
+            return notFound();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+/* ****************** 以下、生徒からのアクセスに対処するメソッド ************************* */
+
+    /**
+     * 自身のアカウントの定期テスト一覧を返す
+     * @return JSON形式でテスト情報のリストを返す
+     */
+    public Result school_exam_list() {
+        try {
+            //生徒からのアクセスのみ処理
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            List<SchoolExamTime> list = new ArrayList<>(student.getRecord().getExams().keySet());
+            return ok(Json.toJson(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 自身のアカウントの特定の定期テスト結果を返す
+     * @return JSON形式でTestResultのリストを返す
+     */
+    public Result school_exam_detail(int year, int semester, int term) {
+        try {
+            //生徒からのアクセスのみ処理
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            Set<SchoolExamTime> time = student.getRecord().getExams().keySet();
+            //year,semester,termが一致するSchoolExamTimeの成績一覧を探す
+            for(SchoolExamTime t : time){
+                if(t.getYear()==year && t.getSemester()==semester && t.getTerm()==term){
+                    return ok(Json.toJson(student.getRecord().getExam(t)));
+                }
+            }
+            return notFound();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 自身のアカウントのある科目の結果一覧を返す
+     * @return JSON形式でTestResultのリストを返す
+     */
+    public Result subject_history(String name){
+        try {
+            //生徒からのアクセスのみ処理
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            //nameが一致するSubjectの成績一覧を探す
+            for(Subject s : subjects){
+                if(s.getName().equals(name)){
+                    return ok(Json.toJson(student.getRecord().getExam(s)));
+                }
             }
             return notFound();
         } catch (Exception e) {
