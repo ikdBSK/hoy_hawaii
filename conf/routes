@@ -10,6 +10,7 @@ GET     /account_list                           controllers.DataController.accou
 GET     /student_list                           controllers.DataController.student_list
 GET     /teacher_list                           controllers.DataController.teacher_list
 GET     /fetch/:id                              controllers.DataController.fetch(id: String)
+GET     /username                               controllers.DataController.username
 #admin
 POST    /signup                                 controllers.DataController.signup
 POST    /edit/:id                               controllers.DataController.edit(id: String)

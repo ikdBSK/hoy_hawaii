@@ -95,13 +95,24 @@ public class DataController extends Controller {
      */
     public Result login() {
         String account_id = get_id();
-        if(account_id == null) return ok(index.render());
+        if(account_id == null) return ok(index.render("NONE"));
+        if(account_id.startsWith("S")) return ok(index.render("STUDENT"));
+        if(account_id.startsWith("T")) return ok(index.render("TEACHER"));
+        if(account_id.equals(admin_id)) return ok(index.render("ADMIN"));
+        return unauthorized();
+    }
+
+    /**
+     * @return 名前
+     */
+    public Result username() {
+        String account_id = get_id();
+        if(account_id == null) return unauthorized();
         if(account_id.startsWith("S")) return ok(Json.toJson(get_student(account_id).get_name()));
         if(account_id.startsWith("T")) return ok(Json.toJson(get_teacher(account_id).get_name()));
         if(account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
-        return ok(index.render());
+        return badRequest();
     }
-
 
 
     /**

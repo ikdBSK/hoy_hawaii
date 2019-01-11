@@ -215,8 +215,7 @@ class table{
 }
 
 // ページにあるテーブルのリスト
-let tables = [new table("test", "test", ["文字列検索1", "選択肢検索１", "選択肢検索２", "チェックボックス検索１", "文字列検索２", "検索対象外"], [0, 2, 2, 3, 0, 4], [[], ["選択肢１", "渡部君", "おっぱい"], ["選択肢１", "選択肢２", "選択肢３", "ちんちん"], ["ワタシハホモデス", "ほも", "すとれーとてぃー"], [], []])];
-tables[0].refresh();
+let tables;
 function find_table(s) {
     for(const table of tables){
         if(table.prefix === s){
