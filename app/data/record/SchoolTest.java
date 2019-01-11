@@ -18,6 +18,8 @@ public class SchoolTest {
         for(Student student : result.keySet()){
             student.getRecord().addExam(exam);
         }
+        exam.getTests().add(this);
+        subject.getTests().add(this);
     }
 
     public SchoolTest(SchoolExam exam, SchoolTime time, SubjectClass subject){
@@ -25,6 +27,8 @@ public class SchoolTest {
         this.time = time;
         this.subject = subject;
         result = new HashMap<>();
+        exam.getTests().add(this);
+        subject.getTests().add(this);
     }
 
     //getter and setter
