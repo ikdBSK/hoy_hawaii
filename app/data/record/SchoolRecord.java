@@ -77,9 +77,9 @@ public class SchoolRecord {
     }
 
     /**
-     * 指定された回の試験結果一覧を返す
+     * 指定された回の合計点を返す
      * @param time 返す回
-     * @return 指定された回の試験結果一覧
+     * @return 合計点
      */
     public int getTotalScore(SchoolExamTime time){
         ArrayList<TestResult> results = getExam(time);
