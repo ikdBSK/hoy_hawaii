@@ -180,7 +180,7 @@ public class DataController extends Controller {
             }
             connect_session(id);
             //生徒情報を引数として付加した生徒用のトップページを返す
-            return ok(Json.toJson(student.get_name()));
+            return ok(index.render("STUDENT"));
         }
 
         if(id.startsWith("T")){
@@ -189,7 +189,7 @@ public class DataController extends Controller {
                 return unauthorized();
             }
             connect_session(id);
-            return ok(Json.toJson(teacher.get_name()));
+            return ok(index.render("TEACHER"));
         }
 
         //管理者アカウントと一致しないとき
@@ -202,7 +202,7 @@ public class DataController extends Controller {
         students.add(s1);
         Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
         teachers.add(t1);
-        return ok(Json.toJson("管理者"));
+        return ok(index.render("ADMIN"));
     }
 
 
