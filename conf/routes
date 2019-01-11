@@ -9,9 +9,15 @@ GET     /logout                                 controllers.DataController.logou
 GET     /account_list                           controllers.DataController.account_list
 GET     /student_list                           controllers.DataController.student_list
 GET     /teacher_list                           controllers.DataController.teacher_list
-POST    /signup                                 controllers.DataController.signup
 GET     /fetch/:id                              controllers.DataController.fetch(id: String)
+#admin
+POST    /signup                                 controllers.DataController.signup
 POST    /edit/:id                               controllers.DataController.edit(id: String)
+#student
+GET     /school_exam_list                       controllers.DataController.school_exam_list
+GET     /school_exam_list/:year/:semester/:term   controllers.DataController.school_exam_detail(year: Integer, semester: Integer, term: Integer)
+GET     /subject_list                           controllers.DataController.subject_list
+GET     /subject_history/:name                  controllers.DataController.subject_history(name: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /robot.txt                              controllers.Default.notFound
