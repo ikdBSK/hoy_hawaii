@@ -4,15 +4,24 @@ import data.*;
 
 public class TestResult {
     private int score;
+    /*
     private boolean attendance;
     private boolean late;
+    */
     private Student student;
     private SubjectClass subject;
 
+    /*
     public TestResult(int score, boolean attendance, boolean late, Student student, SubjectClass subject) {
         this.score = score;
         this.attendance = attendance;
         this.late = late;
+        this.student = student;
+        this.subject = subject;
+    }*/
+
+    public TestResult(int score, Student student, SubjectClass subject) {
+        this.score = score;
         this.student = student;
         this.subject = subject;
     }
@@ -26,6 +35,7 @@ public class TestResult {
         this.score = score;
     }
 
+    /*
     public boolean isAttendance() {
         return attendance;
     }
@@ -41,6 +51,7 @@ public class TestResult {
     public void setLate(boolean late) {
         this.late = late;
     }
+    */
 
     public Student getStudent() {
         return student;

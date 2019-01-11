@@ -7,10 +7,10 @@ public class Subject {
     private int credits;
     private ArrayList<SubjectClass> classes;
 
-    Subject(String name, int credits, ArrayList classes){
+    Subject(String name, int credits){
         this.name = name;
         this.credits = credits;
-        this.classes = classes;
+        classes = new ArrayList<>();
     }
 
     //getter and setter
