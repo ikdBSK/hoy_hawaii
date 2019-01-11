@@ -17,6 +17,7 @@ public class SubjectClass {
         this.students = students;
         this.semester = semester;
         this.grades = grades;
+        subject.getClasses().add(this);
     }
 
     //getter and setter

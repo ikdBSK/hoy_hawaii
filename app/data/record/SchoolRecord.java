@@ -75,4 +75,14 @@ public class SchoolRecord {
         }
         return results;
     }
+
+    /**
+     * 受けたテストを登録する
+     * @param exam 受けたテスト
+     */
+    public void addExam(SchoolExam exam){
+        if(!exams.containsValue(exam)){
+            exams.put(exam.getTime(), exam);
+        }
+    }
 }
