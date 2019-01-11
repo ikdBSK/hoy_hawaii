@@ -9,13 +9,15 @@ public class SubjectClass {
     private Teacher teacher;
     private ArrayList<Student> students;
     private SchoolSemester semester;
+    private int grade;//学年
     private HashMap<Student, SubjectGrade> grades;
 
-    public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, HashMap<Student, SubjectGrade> grades) {
+    public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, int grade, HashMap<Student, SubjectGrade> grades) {
         this.subject = subject;
         this.teacher = teacher;
         this.students = students;
         this.semester = semester;
+        this.grade = grade;
         this.grades = grades;
         subject.getClasses().add(this);
     }
@@ -51,6 +53,14 @@ public class SubjectClass {
 
     public void setSemester(SchoolSemester semester) {
         this.semester = semester;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
     public HashMap<Student, SubjectGrade> getGrades() {

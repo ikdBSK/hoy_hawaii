@@ -65,4 +65,10 @@ public class SchoolTest {
         this.result.put(student, result);
         student.getRecord().addExam(exam);
     }
+
+    public void addResult(TestResult result){
+        Student student = result.getStudent();
+        this.result.put(student, result);
+        student.getRecord().addExam(exam);
+    }
 }
