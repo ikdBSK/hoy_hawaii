@@ -1,6 +1,7 @@
 /********** CSS for SACS **********/
 html, body {
-    background-color: #BFF557;
+    font-family: 'Montserrat', sans-serif;
+    background: #b8ff4d;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -48,11 +49,109 @@ html, body {
 }
 
 .menu_bar {
+    font-family: sans-serif;
+    font-size: 20px;
     display: flex;
     position: relative;
-    background-color: #556B2F;
+    background-color: #93cc3d;
     border: 5px solid #2F4F4F;
     padding: 10px;
     height: 84vh;
     width: 15vw;
+}
+
+/** menubar **/
+ul {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    list-style-type: none;
+}
+li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #000000;
+}
+li {
+    align-items: center;
+    text-align: center;
+}
+li:last-child {
+    border-bottom: none;
+}
+li a.active {
+    color: #ffffff;
+    background-color: #da3c41;
+}
+li a:hover:not(.active) {
+    color: #ffffff;
+    background-color: #1b2538;
+}
+.submenu {
+    display: none;
+}
+.submenu :checked{
+    display: block;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    text-align: center;
+    margin: 20px auto;
+    color: #fff;
+}
+
+.accordion-menu {
+    width: 100%;
+    /*max-width: 350px;*/
+    /*background: #fff;*/
+    /*border-radius: 4px;*/
+}
+.accordion-menu li.open .dropdownlink {
+}
+.accordion-menu li:last-child .dropdownlink {
+    border-bottom: 1px solid #ccc;
+}
+.dropdownlink {
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    border-bottom: 1px solid #cccccc;
+    color: #212121;
+    position: relative;
+    transition: all 0.4s ease-out;
+}
+
+.dropdownlink:hover:not(.active) {
+    color: #ffffff;
+    background-color: #1b2538;
+}
+
+.submenuItems {
+    display: none;
+    background: #83bc2d;
+    border-bottom: 1px solid #ccc;
+}
+
+.submenuItems a {
+    display: block;
+    padding: 12px 12px 12px 12px;
+    transition: all 0.4s ease-out;
 }
