@@ -7,7 +7,7 @@ public class Subject {
     private int credits;
     private ArrayList<SubjectClass> classes;
 
-    Subject(String name, int credits){
+    public Subject(String name, int credits){
         this.name = name;
         this.credits = credits;
         classes = new ArrayList<>();
