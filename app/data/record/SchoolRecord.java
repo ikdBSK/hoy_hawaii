@@ -91,6 +91,21 @@ public class SchoolRecord {
     }
 
     /**
+     * 指定された回の得点率(%)を返す
+     * @param time 返す回
+     * @return 得点率
+     */
+    public double getRate(SchoolExamTime time){
+        ArrayList<TestResult> results = getExam(time);
+        double score = 0;
+        for(TestResult result : results){
+            score += (double)result.getScore();
+        }
+        score = score / (double)results.size();
+        return score;
+    }
+
+    /**
      * 受けたテストを登録する
      * @param exam 受けたテスト
      */
