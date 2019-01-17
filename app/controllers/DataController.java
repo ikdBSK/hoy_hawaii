@@ -343,6 +343,27 @@ public class DataController extends Controller {
     }
 
 
+    /**
+     * 一つの科目のインスタンスを作る
+     * @return Subjectリスト
+     */
+    public Result add_subject(){
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final String name = form.get("name")[0];
+            final int credits = Integer.parseInt(form.get("credit")[0]);
+            Subject subject = new Subject(name, credits);
+            subjects.add(subject);
+            return ok(Json.toJson(subjects));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
     /* ****************** 以下、生徒からのアクセスに対処するメソッド ************************* */
 
     /**
@@ -357,11 +378,23 @@ public class DataController extends Controller {
             Student student = get_student(account_id);
             if(student == null) return badRequest();
             List<SchoolExamTime> list = new ArrayList<>(student.getRecord().getExams().keySet());
+            for(SchoolExamTime temp : list){
+                school_exam_list_table send = new school_exam_list_table();
+                send.term = (0 == temp.getTerm()) ? "中間" : "期末";
+            }
             return ok(Json.toJson(list));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
         }
+    }
+
+    class school_exam_list_table{
+        public int year;
+        public int semester;
+        public String term;
+        public int total;
+        public int rank;
     }
 
 
