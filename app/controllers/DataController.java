@@ -39,6 +39,49 @@ public class DataController extends Controller {
         return null;
     }
 
+    //nameが一致するSubjectを検索
+    public Subject get_subject(String name) {
+        for(Subject s : subjects){
+            if(s.getName().equals(name)){
+                return s;
+            }
+        }
+        return null;
+    }
+
+    //year, semester, term が一致する試験を検索
+    public SchoolExam get_school_exam(int year, int semester, int term) {
+        for(SchoolExam e : exams){
+            SchoolExamTime time = e.getTime();
+            if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    //teacherの持つSubjectClassリストから科目名・学年・年・学期が一致するものを特定
+    public SubjectClass get_subject_class(Teacher teacher, String name, int grade, int year, int semester) {
+        for(SubjectClass c : teacher.getClasses()){
+            if(c.getSubject().getName().equals(name) && c.getGrade() == grade
+                    && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    //subjectClassの持つSchoolTestリストの中から時期の一致するものを特定
+    public SchoolTest get_school_test(SubjectClass subjectClass, int year, int semester, int term) {
+        for(SchoolTest t : subjectClass.getTests()){
+            SchoolExamTime time = t.getExam().getTime();
+            if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
+                return t;
+            }
+        }
+        return null;
+    }
+
     //生徒情報を更新
     public void update_student(Student student){
         students.forEach(s -> {
@@ -436,12 +479,9 @@ public class DataController extends Controller {
             Student student = get_student(account_id);
             if(student == null) return badRequest();
             //nameが一致するSubjectの成績一覧を探す
-            for(Subject s : subjects){
-                if(s.getName().equals(name)){
-                    return ok(Json.toJson(student.getRecord().getExam(s)));
-                }
-            }
-            return notFound();
+            Subject subject = get_subject(name);
+            if(subject == null) return notFound();
+            return ok(Json.toJson(student.getRecord().getExam(subject)));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -474,14 +514,9 @@ public class DataController extends Controller {
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
-            //teacherの持つSubjectClassリストから科目名・年・学期が一致するものを特定
-            for(SubjectClass c : teacher.getClasses()){
-                if(c.getSubject().getName().equals(name) && c.getGrade() == grade
-                        && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
-                    return ok(Json.toJson(c.getTests()));
-                }
-            }
-            return notFound();
+            SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
+            if(subjectClass == null) return notFound();
+            return ok(Json.toJson(subjectClass.getTests()));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -504,26 +539,9 @@ public class DataController extends Controller {
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
-
-            SubjectClass subjectClass = null;
-            //teacherの持つSubjectClassリストから科目名・年・学期が一致するものを特定
-            for(SubjectClass c : teacher.getClasses()){
-                if(c.getSubject().getName().equals(name) && c.getGrade() == grade
-                        && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
-                    subjectClass = c;
-                    break;
-                }
-            }
+            SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
             if(subjectClass == null) return notFound();
-            SchoolTest test = null;
-            //subjectClassの持つSchoolTestリストの中から時期の一致するものを特定
-            for(SchoolTest t : subjectClass.getTests()){
-                SchoolExamTime time = t.getExam().getTime();
-                if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
-                    test = t;
-                    break;
-                }
-            }
+            SchoolTest test = get_school_test(subjectClass, year, semester, term);
             if(test == null) return notFound();
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());
             return ok(Json.toJson(testResults));
@@ -549,26 +567,10 @@ public class DataController extends Controller {
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
-
-            SubjectClass subjectClass = null;
-            //teacherの持つSubjectClassリストから科目名・年・学期が一致するものを特定
-            for(SubjectClass c : teacher.getClasses()){
-                if(c.getSubject().getName().equals(name) && c.getGrade() == grade
-                        && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
-                    subjectClass = c;
-                    break;
-                }
-            }
+            SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
             if(subjectClass == null) return notFound();
-            SchoolExam exam = null;
             //管理者が作ったSchoolExamリストの中から時期の一致するものを特定
-            for(SchoolExam e : exams){
-                SchoolExamTime time = e.getTime();
-                if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
-                    exam = e;
-                    break;
-                }
-            }
+            SchoolExam exam = get_school_exam(year, semester, term);
             if(exam == null) return notFound();
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             final int month = Integer.parseInt(form.get("month")[0]);
@@ -600,26 +602,9 @@ public class DataController extends Controller {
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
-
-            SubjectClass subjectClass = null;
-            //teacherの持つSubjectClassリストから科目名・年・学期が一致するものを特定
-            for(SubjectClass c : teacher.getClasses()){
-                if(c.getSubject().getName().equals(name) && c.getGrade() == grade
-                        && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
-                    subjectClass = c;
-                    break;
-                }
-            }
+            SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
             if(subjectClass == null) return notFound();
-            SchoolTest test = null;
-            //subjectClassの持つSchoolTestリストの中から時期の一致するものを特定
-            for(SchoolTest t : subjectClass.getTests()){
-                SchoolExamTime time = t.getExam().getTime();
-                if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
-                    test = t;
-                    break;
-                }
-            }
+            SchoolTest test = get_school_test(subjectClass, year, semester, term);
             if(test == null) return notFound();
             //とりあえず点数と生徒IDの受け取りのみ実装
             Map<String, String[]> form = request().body().asFormUrlEncoded();
