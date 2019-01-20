@@ -45,13 +45,22 @@
                     <tr>
                         <td width=15vw>
                             <div class="menu_bar" id="student_menu_bar" style="display: none;">
-                                生徒メニュー
-                                <ul style="">
-                                    <li><a href="" onclick="student_home(); return false;">成績</a></li>
-                                    <li><a href="" onclick="student_school_test_list(); return false;">定期試験ごとの成績</a></li>
-                                    <li><a href="" onclick="student_subject_graph_screen(); return false;">科目ごとの成績遷移</a></li>
-                                    <li><a href="">プロフィール</a></li>
-                                    <li><a href="">設定</a></li>
+                                <ul class="accordion-menu">
+                                    <li>
+                                        <div class="dropdownlink" href="" onclick="student_home(); return false;">成績</div>
+                                        <ul class="submenuItems">
+                                            <li><a href="#" onclick="student_school_test_list(); return false;">定期試験ごとの成績</a></li>
+                                            <li><a href="#" onclick="student_subject_graph_screen(); return false;">科目ごとの成績遷移</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><div class="dropdownlink" href="" onclick="school_test_list(); return false;">プロフィール</div>
+                                        <ul class="submenuItems">
+                                        </ul>
+                                    </li>
+                                    <li><div class="dropdownlink" href="" onclick="subject_graph_screen(); return false;">設定</div>
+                                        <ul class="submenuItems">
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="menu_bar" id="teacher_menu_bar" style="display: none;">
@@ -61,11 +70,11 @@
                                 管理者メニュー
                             </div>
                         </td>
-                        <td>
-                            <main id="main-content">
+                        <td valign="top">
+                            <div class="main-content">
                                 @* 引数として渡されるHTMLを埋め込む *@
                                 @content
-                            </main>
+                            </div>
                         </td>
                     </tr>
                 </table>
