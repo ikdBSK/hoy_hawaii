@@ -1,10 +1,13 @@
 package data;
 
 import data.record.ClassRoom;
+import data.record.SubjectClass;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Teacher extends Account {
+    private ArrayList<SubjectClass> classes;
     private HashMap<Integer, ClassRoom> classRoom = new HashMap<>();
 
     public Teacher(String id, String password, String name, SexTag sex, String address) {
