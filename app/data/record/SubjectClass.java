@@ -25,6 +25,30 @@ public class SubjectClass {
         subject.getClasses().add(this);
         id = nextId;
         nextId++;
+        addStudentSubject(students);
+    }
+
+    public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, int grade) {
+        this.subject = subject;
+        this.teacher = teacher;
+        this.students = students;
+        this.semester = semester;
+        this.grade = grade;
+        subject.getClasses().add(this);
+        id = nextId;
+        nextId++;
+        addStudentSubject(students);
+    }
+
+    public SubjectClass(Subject subject, Teacher teacher, SchoolSemester semester, int grade) {
+        this.subject = subject;
+        this.teacher = teacher;
+        this.semester = semester;
+        this.grade = grade;
+        subject.getClasses().add(this);
+        id = nextId;
+        nextId++;
+        addStudentSubject(students);
     }
 
     //getter and setter
@@ -104,5 +128,16 @@ public class SubjectClass {
 
     public boolean equals(Subject subject){
         return this.subject.equals(subject);
+    }
+
+    public void addStudentSubject(ArrayList<Student> students){
+        for (Student s : students){
+            s.getRecord().getClasses().add(this);
+        }
+    }
+
+    public void addStudent(Student s){
+        students.add(s);
+        s.getRecord().getClasses().add(this);
     }
 }
