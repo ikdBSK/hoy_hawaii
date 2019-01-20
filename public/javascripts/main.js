@@ -11,8 +11,13 @@ $(document).ready(() => {
 // 画面を完全リセット
 function reset_screen(){
     $("#login_screen").hide();
-
     $("#student_screen").hide();
+    $("#teacher_screen").hide();
+    $("#admin_screen").hide();
+
+    $("#student_menu_bar").hide();
+    $("#teacher_menu_bar").hide();
+    $("#admin_menu_bar").hide();
 }
 
 // ログイン画面
@@ -25,6 +30,8 @@ function login_screen(){
 function student_screen(){
     reset_screen();
     student_reset_screen();
+    $("#student_menu_bar").show();
+    $("#student_screen").show();
     student_home();
 }
 
@@ -41,10 +48,15 @@ function student_home(){
     $("#student_home_screen").show();
 }
 
+// 生徒の受けた定期試験のリスト
 function student_school_test_list(){
     student_reset_screen();
     school_test_list_table.refresh();
     $("#student_school_test_list_screen").show();
+}
+
+function init_buttons(){
+
 }
 
 function student_school_test_detail(){
@@ -61,6 +73,8 @@ function student_subject_graph_screen(){
 function teacher_screen(){
     reset_screen();
     teacher_reset_screen();
+    $("#teacher_menu_bar").show();
+    $("#teacher_screen").show();
     teacher_home();
 }
 
@@ -72,6 +86,8 @@ function teacher_home(){}
 function admin_screen(){
     reset_screen();
     admin_reset_screen();
+    $("#admin_menu_bar").show();
+    $("#admin_screen").show();
     admin_home();
 }
 
@@ -81,7 +97,7 @@ function admin_home(){}
 //---------------------------------------------------------------------------------------------------
 
 // ログイン画面
-const login_form = new form("/login", "NULL", "login", ["id", "password"], $("<p>").attr("style", "color:red").append("ユーザーID、又はパスワードが間違っています。"));
+const login_form = new form("/login", null, "login", ["id", "password"], $("<p>").attr("style", "color:red").append("ユーザーID、又はパスワードが間違っています。"));
 
 // 定期試験の一覧
 const school_test_list_table = new table(
@@ -108,3 +124,9 @@ function open_school_test_detail(year, semester, term){
 }
 
 // 科目ごとの成績遷移
+
+//---------------------------------------------------------------------------------------------------//
+//***************************************************************************************************//
+// 管理者
+//***************************************************************************************************//
+const admin_new_account_form = new form("signup", null, "signup", ["id", "password", "name", "sex", "address", "入力に誤りがあります。"]);

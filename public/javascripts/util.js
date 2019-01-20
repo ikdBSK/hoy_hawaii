@@ -21,10 +21,10 @@ let username = null;
 // ログイン
 function login(){
     get_username().then(response => {
-        if(!response.ok) $("#username_display").append($("<p>").attr("style", "color:red").append("通信に失敗しました。"));
+        //if(!response.ok) $("#username_display").append($("<p>").attr("style", "color:red").append("通信に失敗しました。"));
         return response.json();
     }, error => {
-        $("#username_display").append($("<p>").attr("style", "color:red").append("通信に失敗しました。"));
+        //$("#username_display").append($("<p>").attr("style", "color:red").append("通信に失敗しました。"));
         console.log(error);
     }).then(name => {
         username = name;

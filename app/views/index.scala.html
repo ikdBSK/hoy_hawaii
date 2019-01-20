@@ -16,7 +16,7 @@
                     </td>
                     <td>
                         <label>
-                            <input id="login_id" name="id" type="text" required>
+                            <input id="login_id" name="id" type="text" required title="">
                         </label>
                     </td>
                 </tr>
@@ -26,21 +26,19 @@
                     </td>
                     <td>
                         <label>
-                            <input id="login_password" name="password" type="password" required>
+                            <input id="login_password" name="password" type="password" required title="">
                         </label>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-
-                    </td>
-                </tr>
-                <tr>
                     <td colspan="2" align="center">
-                        <button onclick="login_form.post().then(() => {
-                            login();
+                        <button onclick="login_form.post().then(response => {
+                            return response.json();
                         }, error =>{
                             console.log(error);
+                        }).then(status => {
+                            $('#login_status').text(status);
+                            login();
                         }); return false;">ログイン</button>
                     </td>
                 </tr>
@@ -78,5 +76,69 @@
 
     <div id="teacher_screen" style="display: none;"></div>
 
-    <div id="admin_screen" style="display: none;"></div>
+    <div id="admin_screen" style="display: none;">
+        <h1>SACS管理画面</h1>
+        <div id="admin_account_creation">
+            <h2>アカウント生成</h2>
+            <form id="signup_form">
+                <table>
+                    <tr>
+                        <th colspan="2">
+                            新規アカウント
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>ID</b>
+                        </td>
+                        <td>
+                            <input type="text" id="signup_id" name="id" required title="お前のお母さんでーべそ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>パスワード</b>
+                        </td>
+                        <td>
+                            <input type="password" id="signup_password" name="password" required title="パスワード">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>名前</b>
+                        </td>
+                        <td>
+                            <input type="text" required title="名前" id="signup_name" name="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>性別</b>
+                        </td>
+                        <td>
+                            <label>男性</label>
+                            <input type="radio" required title="男性" id="signup_sex" name="sex" value="male">
+                            <label>女性</label>
+                            <input type="radio" required title="女性" id="signup_sex" name="sex" value="female">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>住所</b>
+                        </td>
+                        <td>
+                            <textarea rows="5" cols="30" id="signup_address" name="address" required title="住所"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button onclick="admin_new_account_form.post(); return false;">作成</button>
+                            <button type="submit" id="signup_submit" style="display: none;"></button>
+                        </td>
+                    </tr>
+                </table>
+                @helper.CSRF.formField
+            </form>
+        </div>
+    </div>
 }

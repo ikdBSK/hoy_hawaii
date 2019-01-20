@@ -212,6 +212,13 @@ class table{
                 $("#" + this.prefix + "_" + counter).hide();
         }
     }
+
+    // セルの内容を取得
+    // get_cell_text(row, column){
+    //
+    // }
+
+    // セルのセレクターを返す
 }
 
 // ページにあるテーブルのリスト
