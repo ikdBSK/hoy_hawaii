@@ -66,12 +66,14 @@ public class SchoolTest {
 
     //method
     public void addResult(Student student, TestResult result){
+        result.setSubject(subject);
         this.result.put(student, result);
         student.getRecord().addExam(exam);
     }
 
     public void addResult(TestResult result){
         Student student = result.getStudent();
+        result.setSubject(subject);
         this.result.put(student, result);
         student.getRecord().addExam(exam);
     }
