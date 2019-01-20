@@ -1,7 +1,8 @@
 @*
  * メインのHTMLテンプレート
- * ページタイトル，HTMLの構造を受け取り，ページ全体を描画する
+ * HTMLの構造を受け取り，ページ全体を描画する
  *@
+
 @(content: Html)
 
 <!DOCTYPE html>
@@ -9,9 +10,14 @@
 <head>
     <meta charset="UTF-8">
     @* 変数へは`@変数名`の形式でアクセス可能 *@
-    <title>SACS</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/SACS.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <script src="@routes.Assets.versioned("javascripts/fetch/fetch.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/jquery/jquery.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/util.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/table.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/form.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
 </head>
 <body>
     <table class="invisible, full" cellpadding="0" cellspacing="0">
@@ -20,12 +26,14 @@
                 <div class="header">
                     <table class="invisible, full" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td>
+                            <td rowspan="2">
                                 <a class="header_container" href="/">SACS</a>
                             </td>
-                            <td align="right">
-                                ようこそ、<b class="header_name">渡部太郎</b>さん！
+                            <td align="right" id="username_display">
                             </td>
+                        </tr>
+                        <tr>
+                            <td align="center"><button onclick="logout(); return false;" id="logout_button" style="display: none;">ログアウト</button></td>
                         </tr>
                     </table>
                 </div>
@@ -36,13 +44,13 @@
                 <table class="invisible, full" cellpadding="0" CELLSPACING="0">
                     <tr>
                         <td width=15vw>
-                            <div class="menu_bar">
+                            <div class="menu_bar" id="student_menu_bar" style="display: none;">
                                 <ul class="accordion-menu">
                                     <li>
-                                        <div class="dropdownlink" href="" onclick="home()">成績</div>
+                                        <div class="dropdownlink" href="" onclick="student_home(); return false;">成績</div>
                                         <ul class="submenuItems">
-                                            <li><a href="#" onclick="school_test_list(); return false;">定期試験ごとの成績</a></li>
-                                            <li><a href="#" onclick="subject_graph_screen(); return false;">科目ごとの成績遷移</a></li>
+                                            <li><a href="#" onclick="student_school_test_list(); return false;">定期試験ごとの成績</a></li>
+                                            <li><a href="#" onclick="student_subject_graph_screen(); return false;">科目ごとの成績遷移</a></li>
                                         </ul>
                                     </li>
                                     <li><div class="dropdownlink" href="" onclick="school_test_list(); return false;">プロフィール</div>
@@ -54,6 +62,12 @@
                                         </ul>
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="menu_bar" id="teacher_menu_bar" style="display: none;">
+                                先生メニュー
+                            </div>
+                            <div class="menu_bar" id="admin_menu_bar" style="display: none;">
+                                管理者メニュー
                             </div>
                         </td>
                         <td valign="top">
@@ -67,12 +81,5 @@
             </td>
         </tr>
     </table>
-    <script src="@routes.Assets.versioned("javascripts/fetch/fetch.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/jquery/jquery.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/util.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/table.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/form.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/menu.js")" type="text/javascript"></script>
 </body>
 </html>

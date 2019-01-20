@@ -9,14 +9,22 @@ public class SubjectClass {
     private Teacher teacher;
     private ArrayList<Student> students;
     private SchoolSemester semester;
+    private int grade;//学年
     private HashMap<Student, SubjectGrade> grades;
+    private ArrayList<SchoolTest>tests = new ArrayList<>();
+    static int nextId = 0;
+    int id;
 
-    public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, HashMap<Student, SubjectGrade> grades) {
+    public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, int grade, HashMap<Student, SubjectGrade> grades) {
         this.subject = subject;
         this.teacher = teacher;
         this.students = students;
         this.semester = semester;
+        this.grade = grade;
         this.grades = grades;
+        subject.getClasses().add(this);
+        id = nextId;
+        nextId++;
     }
 
     //getter and setter
@@ -52,12 +60,44 @@ public class SubjectClass {
         this.semester = semester;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     public HashMap<Student, SubjectGrade> getGrades() {
         return grades;
     }
 
     public void setGrades(HashMap<Student, SubjectGrade> grades) {
         this.grades = grades;
+    }
+
+    public ArrayList<SchoolTest> getTests() {
+        return tests;
+    }
+
+    public void setTests(ArrayList<SchoolTest> tests) {
+        this.tests = tests;
+    }
+
+    public static int getNextId() {
+        return nextId;
+    }
+
+    public static void setNextId(int nextId) {
+        SubjectClass.nextId = nextId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     //method

@@ -6,11 +6,27 @@
 GET     /                                       controllers.DataController.login
 POST    /login                                  controllers.DataController.authenticate
 GET     /logout                                 controllers.DataController.logout
-GET     /admin/student_list                     controllers.DataController.student_list
-GET     /admin/teacher_list                     controllers.DataController.teacher_list
-POST    /admin/signup                           controllers.DataController.signup
-GET     /admin/fetch/:id                        controllers.DataController.fetch(id: String)
-POST    /admin/edit/:id                         controllers.DataController.edit(id: String)
+GET     /account_list                           controllers.DataController.account_list
+GET     /student_list                           controllers.DataController.student_list
+GET     /teacher_list                           controllers.DataController.teacher_list
+GET     /fetch/:id                              controllers.DataController.fetch(id: String)
+GET     /username                               controllers.DataController.username
+#admin
+POST    /signup                                 controllers.DataController.signup
+POST    /edit/:id                               controllers.DataController.edit(id: String)
+POST    /make_school_exam                       controllers.DataController.make_school_exam
+POST    /add_subject                            controllers.DataController.add_subject
+#student
+GET     /school_exam_list                       controllers.DataController.school_exam_list
+GET     /school_exam_detail/:year/:semester/:term   controllers.DataController.school_exam_detail(year: Integer, semester: Integer, term: Integer)
+GET     /subject_list                           controllers.DataController.subject_list
+GET     /subject_history/:name                  controllers.DataController.subject_history(name: String)
+#teacher
+GET   /subject_class_list                       controllers.DataController.subject_class_list
+GET   /school_test_list/:year/:semester/:name/:grade   controllers.DataController.school_test_list(year: Integer, semester: Integer, name: String, grade: Integer)
+GET   /students_results/:year/:semester/:term/:name/:grade   controllers.DataController.students_results(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
+POST  /add_test/:year/:semester/:term/:name/:grade     controllers.DataController.add_test(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
+POST  /add_result/:year/:semester/:term/:name/:grade   controllers.DataController.add_result(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /robot.txt                              controllers.Default.notFound

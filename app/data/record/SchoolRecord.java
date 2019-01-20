@@ -66,7 +66,7 @@ public class SchoolRecord {
      * @return 指定された科目の試験結果一覧
      */
     public ArrayList<TestResult> getExam(Subject subject){
-        ArrayList<TestResult> results = new ArrayList<TestResult>();
+        ArrayList<TestResult> results = new ArrayList<>();
         for (SchoolExamTime time : exams.keySet()){
             TestResult result = exams.get(time).getExam(student, subject);
             if (result != null){
@@ -74,5 +74,44 @@ public class SchoolRecord {
             }
         }
         return results;
+    }
+
+    /**
+     * 指定された回の合計点を返す
+     * @param time 返す回
+     * @return 合計点
+     */
+    public int getTotalScore(SchoolExamTime time){
+        ArrayList<TestResult> results = getExam(time);
+        int score = 0;
+        for(TestResult result : results){
+            score += result.getScore();
+        }
+        return score;
+    }
+
+    /**
+     * 指定された回の得点率(%)を返す
+     * @param time 返す回
+     * @return 得点率
+     */
+    public double getRate(SchoolExamTime time){
+        ArrayList<TestResult> results = getExam(time);
+        double score = 0;
+        for(TestResult result : results){
+            score += (double)result.getScore();
+        }
+        score = score / (double)results.size();
+        return score;
+    }
+
+    /**
+     * 受けたテストを登録する
+     * @param exam 受けたテスト
+     */
+    public void addExam(SchoolExam exam){
+        if(!exams.containsValue(exam)){
+            exams.put(exam.getTime(), exam);
+        }
     }
 }

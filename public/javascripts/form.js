@@ -14,7 +14,7 @@ class form{
     }
 
     init(){
-        if(this.init_uri === "NULL") return;
+        if(this.init_uri === null) return;
         fetch_json(this.init_uri).then(json => {
             for(const input of this.inputs){
                 const type = $("#", + this.prefix + "_" + input).attr("type");
@@ -46,7 +46,7 @@ class form{
                 console.log(response.statusText);
                 throw new Error("Failed to post form: \"" + this.prefix + "\"");
             }
-            return "Success!";
+            return response;
         });
     }
 
@@ -63,4 +63,18 @@ function get_form(tag) {
         data.append(pair[0], pair[1]);
     }
     return data;
+}
+
+// 定期試験のリスト内の詳細ボタン生成
+function init_school_test_list_buttons() {
+    $("#school_exam_list_table tr").each(() => {
+        const year = $(this).find("<td>").eq(0).text();
+        const semester = $(this).find("<td>").eq(1).text();
+        const term = ($(this).find("<td>").eq(2).text() === "中間") ? 0 : 1;
+        $(this).find("<td>").eq(school_test_list_table.label_count - 1).append(
+           $("<button>")
+               .attr("onclick", "open_school_test_detail(" + year + ", " + semester + ", " + term + "); return false;")
+               .text("詳細")
+       );
+    });
 }
