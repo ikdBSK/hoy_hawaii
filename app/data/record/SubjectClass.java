@@ -26,6 +26,7 @@ public class SubjectClass {
         id = nextId;
         nextId++;
         addStudentSubject(students);
+        teacher.getClasses().add(this);
     }
 
     public SubjectClass(Subject subject, Teacher teacher, ArrayList<Student> students, SchoolSemester semester, int grade) {
@@ -38,6 +39,7 @@ public class SubjectClass {
         id = nextId;
         nextId++;
         addStudentSubject(students);
+        teacher.getClasses().add(this);
     }
 
     public SubjectClass(Subject subject, Teacher teacher, SchoolSemester semester, int grade) {
@@ -49,6 +51,7 @@ public class SubjectClass {
         id = nextId;
         nextId++;
         addStudentSubject(students);
+        teacher.getClasses().add(this);
     }
 
     //getter and setter
