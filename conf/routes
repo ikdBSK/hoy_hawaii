@@ -16,6 +16,8 @@ POST    /signup                                 controllers.DataController.signu
 POST    /edit/:id                               controllers.DataController.edit(id: String)
 POST    /make_school_exam                       controllers.DataController.make_school_exam
 POST    /add_subject                            controllers.DataController.add_subject
+GET     /subject_detail/:name                   controllers.DataController.subject_detail(name: String)
+POST    /make_subject_class                     controllers.DataController.make_subject_class
 #student
 GET     /school_exam_list                       controllers.DataController.school_exam_list
 GET     /school_exam_detail/:year/:semester/:term   controllers.DataController.school_exam_detail(year: Integer, semester: Integer, term: Integer)

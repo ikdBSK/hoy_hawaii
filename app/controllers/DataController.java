@@ -287,6 +287,30 @@ public class DataController extends Controller {
     }
 
 
+    /**
+     * ある生徒の特定の試験の総合点を返す
+     * @param student 生徒
+     * @param time 試験の時期
+     * @return 総合点
+     */
+    public int get_total(Student student, SchoolExamTime time){
+        int total = student.getRecord().getTotalScore(time);
+        return total;
+    }
+
+
+    /**
+     * ある生徒の特定の試験での総合順位を返す
+     * @param student 生徒
+     * @param time 試験の時期
+     * @return 順位
+     */
+    public int get_rank(Student student, SchoolExamTime time){
+        final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
+        final int rank = classRoom.getRank(student, time);
+        return rank;
+    }
+
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
 
     /**
@@ -405,6 +429,60 @@ public class DataController extends Controller {
             return badRequest();
         }
     }
+
+
+    /**
+     * 選んだ科目の科目クラス（担当教師・生徒・開講時期などの組）のリストを返す
+     * @param name 選んだ科目の名前
+     * @return SubjectClassリスト
+     */
+    public Result subject_detail(String name){
+        Subject subject = get_subject(name);
+        if(subject == null) return notFound();
+        return ok(Json.toJson(subject.getClasses()));
+    }
+
+
+    /**
+     * 科目クラスSubjectClassを作る
+     * @return 同じ名前の科目クラス一覧
+     */
+    public Result make_subject_class(){
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final String subject_name = form.get("subject_name")[0];
+            final String teacher_id = form.get("teacher_id")[0];
+            final String[] students_id = form.get("students_id")[0].split(",");
+            final int year = Integer.parseInt(form.get("year")[0]);
+            final int semester = Integer.parseInt(form.get("semester")[0]);
+            final int grade = Integer.parseInt(form.get("grade")[0]);
+            //subjectを特定する
+            Subject subject = get_subject(subject_name);
+            if(subject == null) return notFound();
+            //teacherを特定する
+            Teacher teacher = get_teacher(teacher_id);
+            if(teacher == null) return notFound();
+            //studentsを特定する
+            ArrayList<Student> student_list = new ArrayList<>();
+            for(int i = 0; i < students_id.length; i++){
+                Student student = get_student(students_id[i]);
+                if(student != null){
+                    student_list.add(student);
+                }
+            }
+            //SchoolSemesterインスタンスを作る
+            SchoolSemester schoolSemester = new SchoolSemester(year, semester);
+            //SubjectClass登録
+            SubjectClass subjectClass = new SubjectClass(subject, teacher, student_list, schoolSemester, grade);
+            return subject_detail(subject_name);
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
 
 
     /* ****************** 以下、生徒からのアクセスに対処するメソッド ************************* */
