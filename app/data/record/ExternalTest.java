@@ -9,9 +9,9 @@ public class ExternalTest {
 	private ExternalTime time;
 	private Subject subject;
 	private ExternalExamType type;
-	private HashMap<Student,TestResult> result;
+	private HashMap<Student,ExternalTestResult> result;
 
-	public ExternalTest(ExternalExam exam, ExternalTime time, Subject subject, ExternalExamType type, HashMap<Student, TestResult> result) {
+	public ExternalTest(ExternalExam exam, ExternalTime time, Subject subject, ExternalExamType type, HashMap<Student, ExternalTestResult> result) {
 		this.exam = exam;
 		this.time = time;
 		this.subject = subject;
@@ -27,6 +27,7 @@ public class ExternalTest {
 		result = new HashMap<>();
 	}
 
+	//getter and setter
 	public ExternalExam getExam() {
 		return exam;
 	}
@@ -51,11 +52,11 @@ public class ExternalTest {
 		this.subject = subject;
 	}
 
-	public HashMap<Student, TestResult> getResult() {
+	public HashMap<Student, ExternalTestResult> getResult() {
 		return result;
 	}
 
-	public void setResult(HashMap<Student, TestResult> result) {
+	public void setResult(HashMap<Student, ExternalTestResult> result) {
 		this.result = result;
 	}
 
@@ -65,5 +66,12 @@ public class ExternalTest {
 
 	public void setType(ExternalExamType type) {
 		this.type = type;
+	}
+
+	//method(途中)
+	public void addResult(Student student,ExternalTestResult result){
+		result.setSubject(subject);
+		this.result.put(student,result);
+
 	}
 }
