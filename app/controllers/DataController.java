@@ -465,7 +465,7 @@ public class DataController extends Controller {
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             final String subject_name = form.get("subject_name")[0];
             final String teacher_id = form.get("teacher_id")[0];
-            final String[] students_id = form.get("students_id")[0].split(",");
+            final String[] students_ids = form.get("students_ids")[0].split(",");
             final int year = Integer.parseInt(form.get("year")[0]);
             final int semester = Integer.parseInt(form.get("semester")[0]);
             final int grade = Integer.parseInt(form.get("grade")[0]);
@@ -477,8 +477,8 @@ public class DataController extends Controller {
             if(teacher == null) return notFound();
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
-            for(int i = 0; i < students_id.length; i++){
-                Student student = get_student(students_id[i]);
+            for(int i = 0; i < students_ids.length; i++){
+                Student student = get_student(students_ids[i]);
                 if(student != null){
                     student_list.add(student);
                 }
