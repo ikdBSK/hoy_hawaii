@@ -524,7 +524,7 @@ public class DataController extends Controller {
             final int grade_num = Integer.parseInt(form.get("grade_num")[0]);
             final int class_num = Integer.parseInt(form.get("class_num")[0]);
             final String teacher_id = form.get("teacher_id")[0];
-            final String[] students_id = form.get("students_id")[0].split(",");
+            final String[] students_ids = form.get("students_ids")[0].split(",");
             Grade grade = get_grade(year, grade_num);
             //Gradeインスタンスがなければ作る
             if(grade == null){
@@ -540,8 +540,8 @@ public class DataController extends Controller {
             if(teacher == null) return notFound();
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
-            for(int i = 0; i < students_id.length; i++){
-                Student student = get_student(students_id[i]);
+            for(int i = 0; i < students_ids.length; i++){
+                Student student = get_student(students_ids[i]);
                 if(student != null){
                     student_list.add(student);
                 }
