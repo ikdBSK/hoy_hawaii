@@ -18,6 +18,8 @@ POST    /make_school_exam                       controllers.DataController.make_
 POST    /add_subject                            controllers.DataController.add_subject
 GET     /subject_detail/:name                   controllers.DataController.subject_detail(name: String)
 POST    /make_subject_class                     controllers.DataController.make_subject_class
+GET     /classroom_list/:year                   controllers.DataController.classroom_list(year: Integer)
+POST    /make_classroom/:year                   controllers.DataController.make_classroom(year: Integer)
 #student
 GET     /school_exam_list                       controllers.DataController.school_exam_list
 GET     /school_exam_detail/:year/:semester/:term   controllers.DataController.school_exam_detail(year: Integer, semester: Integer, term: Integer)

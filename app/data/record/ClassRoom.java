@@ -13,12 +13,14 @@ public class ClassRoom {
     public ClassRoom(Grade grade, int year) {
         this.grade = grade;
         this.year = year;
+        grade.getClassRooms().add(this);
     }
 
     public ClassRoom(ArrayList<Student> students, Grade grade, int year) {
         this.students = students;
         this.grade = grade;
         this.year = year;
+        grade.getClassRooms().add(this);
     }
 
     /**
@@ -37,6 +39,7 @@ public class ClassRoom {
         for(Student s : students){
             s.getClassRoom().put(year, this);
         }
+        grade.getClassRooms().add(this);
     }
 
     //getter and setter
