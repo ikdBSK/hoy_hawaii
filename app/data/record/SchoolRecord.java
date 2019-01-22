@@ -56,7 +56,11 @@ public class SchoolRecord {
      */
     public ArrayList<TestResult> getExam(SchoolExamTime time){
         ArrayList<TestResult> results;
-        results = exams.get(time).getExam(student);
+        try{
+            results = exams.get(time).getExam(student);
+        }catch (Exception e){
+            return new ArrayList<TestResult>();
+        }
         return results;
     }
 
@@ -103,6 +107,19 @@ public class SchoolRecord {
         }
         score = score / (double)results.size();
         return score;
+    }
+
+    /**
+     * 指定された回、科目の偏差値を返す
+     */
+    public double getDValue(SchoolExamTime time, Subject subject){
+        double DValue = 0;
+        try{
+            DValue = exams.get(time).getDValue(student, subject);
+        }catch (Exception e){
+            return 0;
+        }
+        return DValue;
     }
 
     /**

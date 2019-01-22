@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class Student extends Account {
     private SchoolRecord record;
+    private ExternalRecord exRecord;
     private HashMap<Integer, ClassRoom> classRoom = new HashMap<>();
 
     public Student(String id, String password, String name, SexTag sex, String address) {
@@ -18,6 +19,9 @@ public class Student extends Account {
         return record;
     }
 
+    public ExternalRecord getExRecord() {
+        return exRecord;
+      
     public HashMap<Integer, ClassRoom> getClassRoom() {
         return classRoom;
     }
