@@ -1,10 +1,11 @@
 package data.record;
 
-import data.Student;
+import data.*;
 
 import java.util.ArrayList;
 
 public class ClassRoom {
+    Teacher teacher;
     ArrayList<Student> students;
     Grade grade;
     int year;
@@ -12,12 +13,33 @@ public class ClassRoom {
     public ClassRoom(Grade grade, int year) {
         this.grade = grade;
         this.year = year;
+        grade.getClassRooms().add(this);
     }
 
     public ClassRoom(ArrayList<Student> students, Grade grade, int year) {
         this.students = students;
         this.grade = grade;
         this.year = year;
+        grade.getClassRooms().add(this);
+    }
+
+    /**
+     * メインで使うコンストラクタ
+     * @param teacher
+     * @param students
+     * @param grade
+     * @param year
+     */
+    public ClassRoom(Teacher teacher, ArrayList<Student> students, Grade grade, int year) {
+        this.teacher = teacher;
+        this.students = students;
+        this.grade = grade;
+        this.year = year;
+        teacher.getClassRoom().put(year, this);
+        for(Student s : students){
+            s.getClassRoom().put(year, this);
+        }
+        grade.getClassRooms().add(this);
     }
 
     //getter and setter
@@ -46,8 +68,24 @@ public class ClassRoom {
         this.year = year;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
     //method
     public int getRank(Student student, SchoolExamTime time){
         return grade.getRank(student, time);
+    }
+
+    public boolean addStudent(Student student){
+        if(student.getClassRoom().containsKey(year)){
+            students.add(student);
+            return true;
+        }
+        return false;
     }
 }

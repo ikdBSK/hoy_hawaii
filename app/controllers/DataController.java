@@ -18,6 +18,7 @@ public class DataController extends Controller {
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Subject> subjects = new ArrayList<>();
     private ArrayList<SchoolExam> exams = new ArrayList<>();
+    private ArrayList<Grade> grades = new ArrayList<>();
 
     //idが一致する生徒を検索
     public Student get_student(String id) {
@@ -77,6 +78,16 @@ public class DataController extends Controller {
             SchoolExamTime time = t.getExam().getTime();
             if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
                 return t;
+            }
+        }
+        return null;
+    }
+
+    //yearとgradeが一致するGradeを検索
+    public Grade get_grade(int year, int grade){
+        for(Grade g : grades){
+            if(g.getYear() == year && g.getGrade() == grade){
+                return g;
             }
         }
         return null;
@@ -287,6 +298,30 @@ public class DataController extends Controller {
     }
 
 
+    /**
+     * ある生徒の特定の試験の総合点を返す
+     * @param student 生徒
+     * @param time 試験の時期
+     * @return 総合点
+     */
+    public int get_total(Student student, SchoolExamTime time){
+        int total = student.getRecord().getTotalScore(time);
+        return total;
+    }
+
+
+    /**
+     * ある生徒の特定の試験での総合順位を返す
+     * @param student 生徒
+     * @param time 試験の時期
+     * @return 順位
+     */
+    public int get_rank(Student student, SchoolExamTime time){
+        final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
+        final int rank = classRoom.getRank(student, time);
+        return rank;
+    }
+
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
 
     /**
@@ -400,6 +435,120 @@ public class DataController extends Controller {
             Subject subject = new Subject(name, credits);
             subjects.add(subject);
             return ok(Json.toJson(subjects));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 選んだ科目の科目クラス（担当教師・生徒・開講時期などの組）のリストを返す
+     * @param name 選んだ科目の名前
+     * @return SubjectClassリスト
+     */
+    public Result subject_detail(String name){
+        Subject subject = get_subject(name);
+        if(subject == null) return notFound();
+        return ok(Json.toJson(subject.getClasses()));
+    }
+
+
+    /**
+     * 科目クラスSubjectClassを作る
+     * @return 同じ名前の科目クラス一覧
+     */
+    public Result make_subject_class(){
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final String subject_name = form.get("subject_name")[0];
+            final String teacher_id = form.get("teacher_id")[0];
+            final String[] students_ids = form.get("students_ids")[0].split(",");
+            final int year = Integer.parseInt(form.get("year")[0]);
+            final int semester = Integer.parseInt(form.get("semester")[0]);
+            final int grade = Integer.parseInt(form.get("grade")[0]);
+            //subjectを特定する
+            Subject subject = get_subject(subject_name);
+            if(subject == null) return notFound();
+            //teacherを特定する
+            Teacher teacher = get_teacher(teacher_id);
+            if(teacher == null) return notFound();
+            //studentsを特定する
+            ArrayList<Student> student_list = new ArrayList<>();
+            for(int i = 0; i < students_ids.length; i++){
+                Student student = get_student(students_ids[i]);
+                if(student != null){
+                    student_list.add(student);
+                }
+            }
+            //SchoolSemesterインスタンスを作る
+            SchoolSemester schoolSemester = new SchoolSemester(year, semester);
+            //SubjectClass登録
+            new SubjectClass(subject, teacher, student_list, schoolSemester, grade);
+            return subject_detail(subject_name);
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 指定された年のクラスルームのリストを返す
+     * @param year
+     * @return ClassRoomリスト
+     */
+    public Result classroom_list(int year){
+        ArrayList<ClassRoom> classRooms = new ArrayList<>();
+        for(Grade grade : grades){
+            if(grade.getYear() == year){
+                classRooms.addAll(grade.getClassRooms());
+            }
+        }
+        return ok(Json.toJson(classRooms));
+    }
+
+
+    /**
+     * 新しいクラスルームを作る
+     * @param year
+     * @return 作ったのと同じ年のClassRoom一覧
+     */
+    public Result make_classroom(int year){
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final int grade_num = Integer.parseInt(form.get("grade_num")[0]);
+            final int class_num = Integer.parseInt(form.get("class_num")[0]);
+            final String teacher_id = form.get("teacher_id")[0];
+            final String[] students_ids = form.get("students_ids")[0].split(",");
+            Grade grade = get_grade(year, grade_num);
+            //Gradeインスタンスがなければ作る
+            if(grade == null){
+                Grade grade1 = new Grade(1, year);
+                Grade grade2 = new Grade(2, year);
+                Grade grade3 = new Grade(3, year);
+                grades.add(grade1);
+                grades.add(grade2);
+                grades.add(grade3);
+            }
+            //teacherを特定する
+            Teacher teacher = get_teacher(teacher_id);
+            if(teacher == null) return notFound();
+            //studentsを特定する
+            ArrayList<Student> student_list = new ArrayList<>();
+            for(int i = 0; i < students_ids.length; i++){
+                Student student = get_student(students_ids[i]);
+                if(student != null){
+                    student_list.add(student);
+                }
+            }
+            //ClassRoomインスタンス作成
+            new ClassRoom(teacher, student_list, grade, year);
+            return classroom_list(year);
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
