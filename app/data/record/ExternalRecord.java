@@ -7,14 +7,14 @@ import java.util.HashMap;
 
 public class ExternalRecord {
 	private Student student;
-	private HashMap<ExternalExamTime,ExternalExam> exams;
+	private HashMap<ExternalTime,ExternalExam> exams;
 
 	public ExternalRecord(Student student) {
 		this.student = student;
-		exams = new HashMap<>();
+		this.exams = new HashMap<>();
 	}
 
-	public ExternalRecord(Student student, HashMap<ExternalExamTime, ExternalExam> exams) {
+	public ExternalRecord(Student student, HashMap<ExternalTime, ExternalExam> exams) {
 		this.student = student;
 		this.exams = exams;
 	}
@@ -27,13 +27,18 @@ public class ExternalRecord {
 		this.student = student;
 	}
 
-	public HashMap<ExternalExamTime, ExternalExam> getExams() {
+	public HashMap<ExternalTime, ExternalExam> getExams() {
 		return exams;
 	}
 
-	public void setExams(HashMap<ExternalExamTime, ExternalExam> exams) {
+	public void setExams(HashMap<ExternalTime, ExternalExam> exams) {
 		this.exams = exams;
 	}
 
+	//method
+
+	public ArrayList<ExternalTestResult> getExam(ExternalTime time){
+		ArrayList<>
+	}
 
 }
