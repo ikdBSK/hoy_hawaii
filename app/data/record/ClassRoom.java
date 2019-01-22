@@ -21,6 +21,9 @@ public class ClassRoom {
         this.grade = grade;
         this.year = year;
         grade.getClassRooms().add(this);
+        for(Student s : students){
+            s.getClassRoom().put(year, this);
+        }
     }
 
     /**
@@ -77,10 +80,31 @@ public class ClassRoom {
     }
 
     //method
+    /**
+     * 得点率基準での順位を返す
+     * @param student 順位を返す生徒
+     * @param time 返す回
+     * @return 順位
+     */
     public int getRank(Student student, SchoolExamTime time){
         return grade.getRank(student, time);
     }
 
+    /**
+     * 得点率基準での偏差値を返す
+     * @param student 偏差値を返す生徒
+     * @param time 返す回
+     * @return 偏差値
+     */
+    public double getDValue(Student student, SchoolExamTime time){
+        return grade.getDValue(student, time);
+    }
+
+    /**
+     * 生徒追加
+     * @param student 追加する生徒
+     * @return 追加できたかどうか
+     */
     public boolean addStudent(Student student){
         if(student.getClassRoom().containsKey(year)){
             students.add(student);
