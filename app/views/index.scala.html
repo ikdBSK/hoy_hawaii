@@ -3,21 +3,23 @@
 @main {
     <div id="login_status" style="display: none;">@status</div>
     @* ログイン画面 *@
-    <div align="center" id="login_screen">
+    <div id="login_screen">
         <h1>SACSへようこそ！</h1>
         <form id="login_form">
             <table id="login_table">
                 <tr>
-                    <td colspan="2" align="center">ログイン</td>
+                    <td colspan="2">ログイン</td>
                 </tr>
                 <tr>
                     <td>
                         ユーザーID
                     </td>
                     <td>
-                        <label>
-                            <input id="login_id" name="id" type="text" required title="">
-                        </label>
+                        <div class="form_item">
+                            <label>
+                                <input id="login_id" name="id" type="text" required title="">
+                            </label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -25,14 +27,17 @@
                         パスワード
                     </td>
                     <td>
-                        <label>
-                            <input id="login_password" name="password" type="password" required title="">
-                        </label>
+                        <div class="form_item">
+                            <label>
+                                <input id="login_password" name="password" type="password" required title="">
+                            </label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
-                        <button onclick="login_form.post().then(response => {
+                    <td colspan="2">
+                        <div class="button">
+                            <button onclick="login_form.post().then(response => {
                             return response.json();
                         }, error =>{
                             console.log(error);
@@ -40,6 +45,7 @@
                             $('#login_status').text(status);
                             login();
                         }); return false;">ログイン</button>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -47,6 +53,8 @@
             <div id="login_display"></div>
             @helper.CSRF.formField
         </form>
+        <br>
+        <a href="http://www.titech.ac.jp" class="link">パスワードを忘れた方はこちら</a>
     </div>
 
     <div id="student_screen">
@@ -81,7 +89,7 @@
         <div id="admin_account_creation">
             <h2>アカウント生成</h2>
             <form id="signup_form">
-                <table>
+                <table id="admin_table">
                     <tr>
                         <th colspan="2">
                             新規アカウント
@@ -92,7 +100,9 @@
                             <b>ID</b>
                         </td>
                         <td>
-                            <input type="text" id="signup_id" name="id" required title="お前のお母さんでーべそ">
+                            <div class="form_item">
+                               <input type="text" id="signup_id" name="id" required title="お前のお母さんでーべそ">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -100,7 +110,9 @@
                             <b>パスワード</b>
                         </td>
                         <td>
-                            <input type="password" id="signup_password" name="password" required title="パスワード">
+                            <div class="form_item">
+                                <input type="password" id="signup_password" name="password" required title="パスワード">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -108,7 +120,9 @@
                             <b>名前</b>
                         </td>
                         <td>
-                            <input type="text" required title="名前" id="signup_name" name="name">
+                            <div class="form_item">
+                                <input type="text" required title="名前" id="signup_name" name="name">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -116,10 +130,10 @@
                             <b>性別</b>
                         </td>
                         <td>
-                            <label>男性</label>
-                            <input type="radio" required title="男性" id="signup_sex" name="sex" value="male">
-                            <label>女性</label>
-                            <input type="radio" required title="女性" id="signup_sex" name="sex" value="female">
+                            <label for="signup_man">男性</label>
+                            <input type="radio" required title="男性" id="signup_man" name="sex" value="male">
+                            <label for="signup_woman">女性</label>
+                            <input type="radio" required title="女性" id="signup_woman" name="sex" value="female">
                         </td>
                     </tr>
                     <tr>
@@ -127,7 +141,9 @@
                             <b>住所</b>
                         </td>
                         <td>
-                            <textarea rows="5" cols="30" id="signup_address" name="address" required title="住所"></textarea>
+                            <div class="form_item">
+                                <textarea rows="5" cols="30" id="signup_address" name="address" required title="住所"></textarea>
+                            </div>
                         </td>
                     </tr>
                     <tr>
