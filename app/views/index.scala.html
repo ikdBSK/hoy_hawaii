@@ -322,6 +322,18 @@
                     <div id="admin_account_list_display"></div>
                 </td>
             </tr>
+            <tr>
+                <td><h2>科目リスト</h2></td>
+                <td>
+                    <button onclick="$('#admin_subject_list').toggle(); return false;">表示</button>
+                    <button onclick="admin_subject_list_table.refresh(); return false;">更新</button>
+                </td>
+            </tr>
+            <tr id="admin_subject_list" style="display: none;">
+                <td colspan="2">
+                    <div id="admin_subject_list_display"></div>
+                </td>
+            </tr>
         </table>
     </div>
 }

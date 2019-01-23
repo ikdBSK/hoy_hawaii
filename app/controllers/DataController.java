@@ -177,7 +177,26 @@ public class DataController extends Controller {
         List<Account> accounts = new ArrayList<>();
         accounts.addAll(teachers);
         accounts.addAll(students);
-        return ok(Json.toJson(accounts));
+
+        class TMPAccount{
+            public final String id;
+            public final String name;
+            public final String sex;
+            public final String address;
+
+            public TMPAccount(String id, String name, String sex, String address){
+                this.id = id;
+                this.name = name;
+                this.sex = sex;
+                this. address = address;
+            }
+        }
+
+        ArrayList<TMPAccount> tmp = new ArrayList<>();
+        for(Account account : accounts){
+            tmp.add(new TMPAccount(account.get_id(), account.get_name(), account.get_sex().display(), account.get_address()));
+        }
+        return ok(Json.toJson(tmp));
     }
 
 

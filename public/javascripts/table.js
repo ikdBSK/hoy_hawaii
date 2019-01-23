@@ -84,8 +84,8 @@ class table{
                 $("<th>").append(
                     $("<a>")
                         .text(label)
-                        .attr("onclick", "toggle_sort(\"" + this.prefix + "_" + count + "\",\"" + this.prefix + "\"); return false;")
-                        .attr("id", this.prefix + "_" + count)
+                        .attr("onclick", "toggle_sort(\"" + this.prefix + "_header_" + count + "\",\"" + this.prefix + "\"); return false;")
+                        .attr("id", this.prefix + "_header_" + count)
                         .attr("sort", "none")
                 )
             );
@@ -129,7 +129,7 @@ class table{
         for(const item of items){
             const row = $("<tr>");
             for(const label of this.names){
-                row.append($("<td>").text(item["_" + label]));
+                row.append($("<td>").text(item[label]));
             }
             table.append(row);
         }
@@ -146,59 +146,82 @@ class table{
         const search_text = $("#" + this.prefix + "_search_text").val().toLowerCase();
 
         let item_count = 0;
+        const types = this.types;
+        const options = this.options;
+        const prefix = this.prefix;
         $("#" + this.prefix +"_table tr").each(function () {
+            let hits = new Array();
             if (!$(this).hasClass("search_ignore")) {
                 let count = 0;
-                let show = false;
-                console.log(this.prefix);
-                for(const type of this.types){
+                for(const type of types){
+                    let hit = false;
                     const temp = $(this).find("td").eq(count).text().toLowerCase();
                     if(type === 0){
                         // 文字列検索
-                        show = temp.includes(search_text);
+                        hit = temp.includes(search_text) || temp === search_text;
                     }else if(type === 2){
                         // 選択肢検索
-                        const val = $("#" + this.prefix + "_search_select_" + count).val();
+                        const val = $("#" + prefix + "_search_select_" + count).val();
                         if(val === "all"){
-                            show = true;
+                            hit = true;
                         } else {
-                            show = (this.options[count][val] === temp);
+                            hit = (options[count][val] === temp);
                         }
                     }else if(type === 3){
                         // チェックボックス検索
-                        const val = $("#" + this.prefix + "_search_checkbox_" + count).is(":checked");
-                        show = (val === (temp === this.options[count][1]));
+                        const val = $("#" + prefix + "_search_checkbox_" + count).is(":checked");
+                        hit = (val === (temp === options[count][1]));
                     }
                     count++;
-                    if(!show) break;
+                    hits.push(hit);
                 }
+                
+                let show = true;
+                count = 0;
+                let text_hit = false;
+                for(let hit of hits){
+                    if(types[count] === 0){
+                        if(hit === true && !text_hit){
+                            text_hit = true;
+                        }
+                    } else if(types[count] !== 4){
+                        show = show && hit;
+                    }
+                    count++;
+                }
+                show = show && text_hit;
 
                 if(show){
-                    $(this).show().attr("id", this.prefix + "_" + item_count);
+                    $(this).show().attr("id", prefix + "_" + item_count);
+                    item_count++;
                 } else {
                     $(this).hide().removeAttr("id");
                 }
-                item_count++;
             }
         });
         this.visible_count = item_count;
+        this.paginate(this.current_page);
     }
 
     // ページネーション
     paginate(i){
         this.current_page = i;
         const page_count = Math.floor((this.visible_count - 1) / this.items_per_page);
-        const pagination_buttons = $("#" + this.prefix + "_pagination_button");
+        const pagination_buttons = $("#" + this.prefix + "_pagination");
         const max_buttons = 5;
 
         pagination_buttons.empty();
-        pagination_buttons.append($("<button>").attr("onclick", "update_pagination(0, " + this.prefix + "); return false;").text("<<"));
+        if(this.visible_count === 0){
+            pagination_buttons.append($("<p>").attr("style", "color: red;").append("検索条件に該当するデータはありません。"));
+            return;
+        }
+        pagination_buttons.append($("<button>").attr("onclick", "update_pagination(0, \"" + this.prefix + "\"); return false;").text("<<"));
         if (this.current_page > 0)
-            pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + (this.current_page - 1) + ", \" + this.prefix + \"); return false;").text("<"));
+            pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + (this.current_page - 1) + ", \"" + this.prefix + "\"); return false;").text("<"));
         const button_start = (this.current_page - 2 < 0) ? 0 : this.current_page - 2;
         if (button_start !== 0) pagination_buttons.append("...");
         for (let i = button_start; i < button_start + max_buttons; i++) {
-            const new_btn = $("<button>").attr("onclick", "update_pagination(" + i + ", \" + this.prefix + \"); return false;").text(i + 1);
+            const new_btn = $("<button>").attr("onclick", "update_pagination(" + i + ", \"" + this.prefix + "\"); return false;").text(i + 1);
             if (i === this.current_page) new_btn.addClass("active");
             pagination_buttons.append(new_btn);
             if (i === page_count) break;
@@ -207,15 +230,16 @@ class table{
             }
         }
         if (this.current_page < page_count)
-            pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + (this.current_page + 1) + ", \" + this.prefix + \"); return false;").text(">"));
-        pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + page_count + ", \" + this.prefix + \"); return false;").text(">>"));
+            pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + (this.current_page + 1) + ", \"" + this.prefix + "\"); return false;").text(">"));
+        pagination_buttons.append($("<button>").attr("onclick", "update_pagination(" + page_count + ", \"" + this.prefix + "\"); return false;").text(">>"));
 
         let counter = 0;
         for (counter; counter < this.visible_count; counter++) {
-            if (Math.floor(counter / this.items_per_page) === this.current_page)
+            if (Math.floor(counter / this.items_per_page) === this.current_page) {
                 $("#" + this.prefix + "_" + counter).show();
-            else
+            }else {
                 $("#" + this.prefix + "_" + counter).hide();
+            }
         }
     }
 
@@ -260,12 +284,10 @@ function toggle_sort(s, table) {
 
 // テーブル内検索
 function search_table(table){
-    const tmp = find_table(table);
-    console.log(tmp.prefix);
-    tmp.search();
+    find_table(table).search();
 }
 
 // ページネーション
-function update_pagination(i, table){
-    find_table(table).paginate(i);
+function update_pagination(i, table_tag){
+    find_table(table_tag).paginate(i);
 }

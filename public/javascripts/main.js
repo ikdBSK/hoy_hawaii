@@ -142,8 +142,18 @@ const admin_account_list_table = new table(
     ["id", "name", "sex", "address"],
     [0, 0, 2, 0],
     [[], [], ["男性", "女性"], []],
-    10
+    5
+);
+
+const admin_subject_list_table = new table(
+    "subject_list",
+    "admin_subject_list",
+    ["科目名", "単位数"],
+    ["name", "credits"],
+    [0, 1],
+    [[], []],
+    5
 );
 
 
-tables = [admin_account_list_table];
+tables = [admin_account_list_table, admin_subject_list_table];
