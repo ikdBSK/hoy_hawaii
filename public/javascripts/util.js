@@ -45,7 +45,6 @@ function home(){
     }else{
         login_screen();
     }
-    console.log(status);
 }
 
 // ログアウト

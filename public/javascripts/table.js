@@ -1,7 +1,7 @@
 const $ = jQuery;
 
 class table{
-    constructor(update_uri, tag_prefix, labels, types, options, items_per_page){
+    constructor(update_uri, tag_prefix, labels, names, types, options, items_per_page){
         // テーブル更新の問い合わせ先
         this.uri = update_uri;
 
@@ -10,6 +10,7 @@ class table{
 
         // テーブルのラベルの配列
         this.labels = labels;
+        this.names = names;
 
         // テーブルの要素の種類を表す配列
         this.types = types;
@@ -36,7 +37,7 @@ class table{
         let text_search = false;
         let count = 0;
         for(const type of this.types){
-            if(type === 0 && text_search){
+            if(type === 0 && !text_search){
                 // 文字列検索
                 text_search = true;
                 temp.append(
@@ -45,7 +46,7 @@ class table{
                             .attr("type", "text")
                             .attr("id", this.prefix + "_search_text")
                             .attr("onkeyup", "search_table(\"" + this.prefix + "\"); return false;")
-                            .attr("placeholder", "検索")))
+                            .attr("placeholder", "検索")));
             }else if(type === 2){
                 // 選択肢検索
                 const temp1 = $("<select>")
@@ -63,7 +64,6 @@ class table{
                     $("<div>").append(
                         $("<label>").text(labels[count] + "：")
                     ).append(temp1)
-                    .append($("<div>").attr("id", this.prefix + "_pagination").addClass("pagination"))
                 );
             }else if(type === 3){
                 // チェックボックス検索
@@ -73,6 +73,7 @@ class table{
             }
             count++;
         }
+        temp.append($("<div>").attr("id", this.prefix + "_pagination").addClass("pagination"));
         this.search_bar = $("<tr>").addClass("search_ignore").append(temp);
 
         // テーブルのヘッダーを生成
@@ -83,13 +84,14 @@ class table{
                 $("<th>").append(
                     $("<a>")
                         .text(label)
-                        .attr("onclick", "toggle_sort($(this).attr(\"id\", "+ this.prefix + ")); return false;")
+                        .attr("onclick", "toggle_sort(\"" + this.prefix + "_" + count + "\",\"" + this.prefix + "\"); return false;")
                         .attr("id", this.prefix + "_" + count)
                         .attr("sort", "none")
                 )
             );
             count++;
         }
+        this.refresh();
     }
 
     // サーバからデータを取得し、テーブルの表示を更新
@@ -126,10 +128,13 @@ class table{
 
         for(const item of items){
             const row = $("<tr>");
-            for(const label of this.labels){
-                row.append($("<td>").text(item[label]));
+            for(const label of this.names){
+                row.append($("<td>").text(item["_" + label]));
             }
+            table.append(row);
         }
+
+        return table;
     }
 
     display(content){
@@ -145,11 +150,12 @@ class table{
             if (!$(this).hasClass("search_ignore")) {
                 let count = 0;
                 let show = false;
+                console.log(this.prefix);
                 for(const type of this.types){
                     const temp = $(this).find("td").eq(count).text().toLowerCase();
                     if(type === 0){
                         // 文字列検索
-                        show = temp.includes(search_text)
+                        show = temp.includes(search_text);
                     }else if(type === 2){
                         // 選択肢検索
                         const val = $("#" + this.prefix + "_search_select_" + count).val();
@@ -249,12 +255,14 @@ function toggle_sort(s, table) {
             $(label).text(text.substring(0, text.length - 1)).attr("sort", "none");
             break;
     }
-    find_table(table).refresh();
+    find_table(table).search();
 }
 
 // テーブル内検索
 function search_table(table){
-    find_table(table).refresh();
+    const tmp = find_table(table);
+    console.log(tmp.prefix);
+    tmp.search();
 }
 
 // ページネーション
