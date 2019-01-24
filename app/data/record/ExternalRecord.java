@@ -37,8 +37,69 @@ public class ExternalRecord {
 
 	//method
 
+	/**
+	 * 指定された回の試験結果一覧を返す
+	 * @param time 返す回
+	 * @return 指定された回の試験結果一覧
+	 */
 	public ArrayList<ExternalTestResult> getExam(ExternalTime time){
-		ArrayList<>
+		ArrayList<ExternalTestResult> results;
+		results = exams.get(time).getExam(student);
+		return results;
 	}
 
+	/**
+	 * 指定された科目の試験結果一覧を返す
+	 * @param subject 返す科目
+	 * @return 指定された科目の試験結果一覧
+	 */
+	public ArrayList<ExternalTestResult> getExam(Subject subject){
+		ArrayList<ExternalTestResult> results = new ArrayList<>();
+		for (ExternalTime time : exams.keySet()){
+			ExternalTestResult result = exams.get(time).getExam(student,subject);
+			if(result != null){
+				results.add(result);
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * 指定された回の合計点を返す
+	 * @param time 返す回
+	 * @return 合計点
+	 */
+	public int getTotalScore(ExternalExamTime time){
+		ArrayList<ExternalTestResult> results = getExam(time);
+		int score = 0;
+		for(ExternalTestResult result : results){
+			score += result.getScore();
+		}
+		return score;
+	}
+
+	/**
+	 * 指定された回の得点率(%)を返す
+	 * @param time 返す回
+	 * @return 得点率
+	 */
+	public double getRate(ExternalExamTime time){
+		ArrayList<ExternalTestResult> results = getExam(time);
+		double score = 0;
+		for(ExternalTestResult result : results){
+			score += (double)result.getScore();
+		}
+		score = score / (double)results.size();
+		return score;
+	}
+
+	/**
+	 * 受けたテストを登録する
+	 * @param exam 受けたテスト
+	 */
+	public void addExam(ExternalExam exam){
+		if(!exams.containsValue(exam)){
+			exams.put(exam.getTime(), exam);
+		}
+	}
 }
