@@ -4,11 +4,13 @@ public class ExternalTime {
 	private int year;
 	private int month;
 	private int day;
+	private ExternalExamType type;
 
-	public ExternalTime(int year, int month, int day) {
+	public ExternalTime(int year, int month, int day, ExternalExamType type) {
 		this.year = year;
 		this.month = month;
 		this.day = day;
+		this.type = type;
 	}
 
 	public int getYear() {
@@ -31,7 +33,9 @@ public class ExternalTime {
 		return day;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
-	}
+	public void setDay(int day) { this.day = day; }
+
+	public ExternalExamType getType() { return type; }
+
+	public void setType(ExternalExamType type) { this.type = type; }
 }

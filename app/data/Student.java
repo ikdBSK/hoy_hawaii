@@ -23,7 +23,7 @@ public class Student extends Account {
     public ExternalRecord getExRecord() {
         return exRecord;
     }
-      
+  
     public HashMap<Integer, ClassRoom> getClassRoom() {
         return classRoom;
     }

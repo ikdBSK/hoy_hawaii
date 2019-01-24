@@ -10,7 +10,7 @@ class form{
         // <input>のidとなる。
 
         this.display_field = "#" + this.prefix + "_display";
-        this.error_message = error_message;
+        this.error_message = $("<p>").attr("style", "color: red").append(error_message);
     }
 
     init(){
@@ -37,6 +37,8 @@ class form{
             return false;
         }
 
+        this.display(LOADING);
+
         return fetch(this.post_uri, {
             method: 'post',
             body: get_form("#" + this.prefix + "_form")
@@ -44,9 +46,13 @@ class form{
             if(!response.ok){
                 this.display(this.error_message);
                 console.log(response.statusText);
-                throw new Error("Failed to post form: \"" + this.prefix + "\"");
+            }else{
+                this.display("");
             }
             return response;
+        }, error => {
+            this.display(ERROR);
+            console.log(error);
         });
     }
 

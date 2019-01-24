@@ -17,6 +17,10 @@ public class ExternalTest {
 		this.subject = subject;
 		this.type = type;
 		this.result = result;
+		for(Student student ; result.keySet()){
+			student.getExRecord().addExam(exam);
+		}
+		exam.getTests().add(this);
 	}
 
 	public ExternalTest(ExternalExam exam, ExternalTime time, Subject subject, ExternalExamType type) {
@@ -25,6 +29,7 @@ public class ExternalTest {
 		this.subject = subject;
 		this.type = type;
 		result = new HashMap<>();
+		exam.getTests().add(this);
 	}
 
 	//getter and setter
@@ -68,10 +73,16 @@ public class ExternalTest {
 		this.type = type;
 	}
 
-	//method(途中)
+	//method
 	public void addResult(Student student,ExternalTestResult result){
 		result.setSubject(subject);
 		this.result.put(student,result);
+		student.getExRecord().addExam(exam);
+	}
 
+	public void addResult(ExternalTestResult result){
+		Student student = result.getStudent();
+		this.result.put(student,result);
+		student.getExRecord().addExam(exam);
 	}
 }
