@@ -20,17 +20,23 @@ GET     /subject_detail/:name                   controllers.DataController.subje
 POST    /make_subject_class                     controllers.DataController.make_subject_class
 GET     /classroom_list/:year                   controllers.DataController.classroom_list(year: Integer)
 POST    /make_classroom/:year                   controllers.DataController.make_classroom(year: Integer)
+POST    /make_external_exam                     controllers.DataController.make_external_exam
 #student
 GET     /school_exam_list                       controllers.DataController.school_exam_list
 GET     /school_exam_detail/:year/:semester/:term   controllers.DataController.school_exam_detail(year: Integer, semester: Integer, term: Integer)
 GET     /subject_list                           controllers.DataController.subject_list
 GET     /subject_history/:name                  controllers.DataController.subject_history(name: String)
+GET     /my_ex_exams                            controllers.DataController.my_ex_exams
+GET     /ex_exam/detail/:year/:month/:day/:type     controllers.DataController.ex_exam_detail(year: Integer, month: Integer, day: Integer, type: String)
+GET     /ex_subject_history                     controllers.DataController.ex_subject_history(type: String, subject_name: String)
 #teacher
 GET   /subject_class_list                       controllers.DataController.subject_class_list
 GET   /school_test_list/:year/:semester/:name/:grade   controllers.DataController.school_test_list(year: Integer, semester: Integer, name: String, grade: Integer)
 GET   /students_results/:year/:semester/:term/:name/:grade   controllers.DataController.students_results(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 POST  /add_test/:year/:semester/:term/:name/:grade     controllers.DataController.add_test(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 POST  /add_result/:year/:semester/:term/:name/:grade   controllers.DataController.add_result(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
+GET   /external_exam_list                       controllers.DataController.external_exam_list
+POST  /add_ex_result/:year/:month/:day/:type    controllers.DataController.add_ex_result(year: Integer, month: Integer, day: Integer, type: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /robot.txt                              controllers.Default.notFound
