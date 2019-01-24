@@ -2,7 +2,7 @@ package data;
 
 import data.record.ClassRoom;
 import data.record.SchoolRecord;
-import data.record.*;
+import data.record.ExternalRecord;
 
 import java.util.HashMap;
 
@@ -23,7 +23,7 @@ public class Student extends Account {
     public ExternalRecord getExRecord() {
         return exRecord;
     }
-
+  
     public HashMap<Integer, ClassRoom> getClassRoom() {
         return classRoom;
     }

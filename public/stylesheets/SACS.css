@@ -1,10 +1,35 @@
 /********** CSS for SACS **********/
 html, body {
     font-family: 'Montserrat', sans-serif;
-    background: #b8ff4d;
+    background: #f0f0f0;
     padding: 0;
     margin: 0;
     width: 100%;
+    color: #444444;
+}
+
+div {
+    text-align: center;
+}
+
+h1 {
+    padding: 30px;
+}
+
+button {
+    padding: 5px 17px;
+    font-size: 25px;
+    border-radius: 4px;
+    background-color: #52b8cc;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.6;
+}
+
+.link:hover {
+    border-bottom: solid #444444 1px;
 }
 
 .invisible table {
@@ -22,30 +47,99 @@ html, body {
     width: 100%;
 }
 
+.layer {
+    background-color: white;
+}
+
 /** header **/
 .header {
-    background-color: #556B2F;
-    border: 15px outset #2F4F4F;
-    padding: 10px;
+    background-color: #1e3333;
+    /*border: 15px outset #2F4F4F;*/
+    height: 100px;
 }
 
 .header_container {
-    color: #000000;
+    color: white;
     text-decoration: none;
     text-shadow: 3px 2px gray;
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 36pt;
-}
-
-.header_name {
-    font-size: 20pt;
+    font-size: 60px;
 }
 
 /** index **/
+#login_screen {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding-bottom: 25px;
+    width: 800px;
+    background-color: white;
+}
+
 #login_table {
-    background-color: #556B2F;
-    border: 2px solid black;
+    width: 500px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c0d4ee;
+    /*border: 2px solid black;*/
     padding: 10px;
+    font-size: 30px;
+    border-radius: 4px;
+}
+
+#login_form input {
+    height: 30px;
+    width: 200px;
+    font-size: 25px;
+    border-radius: 4px;
+}
+
+.form_item {
+    padding-bottom: 6px;
+}
+
+/*admin*/
+#admin_screen {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding-bottom: 25px;
+    width: 1000px;
+    background-color: white;
+}
+
+#admin_table {
+    table-layout: fixed;
+    width: 600px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c0d4ee;
+    padding: 10px 100px 10px 50px;
+    font-size: 20px;
+    border-radius: 4px;
+}
+#admin_table td {
+    width: 10px;
+}
+#admin_table td #signup_man {
+    width: 50px;
+}
+#admin_table td #signup_woman {
+    width: 50px;
+}
+
+#signup_form input {
+    height: 20px;
+    width: 200px;
+    font-size: 15px;
+    border-radius: 4px;
+}
+#signup_form textarea {
+    width: 200px;
+    font-size: 15px;
+    border-radius: 4px;
 }
 
 .menu_bar {
@@ -94,27 +188,12 @@ li a:hover:not(.active) {
 .submenu :checked{
     display: block;
 }
-
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
 ul {
     list-style: none;
 }
-
 a {
     text-decoration: none;
 }
-
-h2 {
-    text-align: center;
-    margin: 20px auto;
-    color: #fff;
-}
-
 .accordion-menu {
     width: 100%;
     /*max-width: 350px;*/
@@ -126,21 +205,19 @@ h2 {
 .accordion-menu li:last-child .dropdownlink {
     border-bottom: 1px solid #ccc;
 }
+
 .dropdownlink {
     padding: 15px;
     margin-right: auto;
     margin-left: auto;
     cursor: pointer;
     display: block;
-    font-size: 18px;
     border-bottom: 1px solid #cccccc;
     color: #212121;
     position: relative;
     transition: all 0.4s ease-out;
 }
-
 .dropdownlink:hover:not(.active) {
-    color: #ffffff;
     background-color: #1b2538;
 }
 
@@ -151,7 +228,10 @@ h2 {
 }
 
 .submenuItems a {
+    color: #212121;
     display: block;
     padding: 12px 12px 12px 12px;
     transition: all 0.4s ease-out;
 }
+
+
