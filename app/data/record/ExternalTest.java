@@ -73,7 +73,7 @@ public class ExternalTest {
 		this.type = type;
 	}
 
-	//method(途中)
+	//method
 	public void addResult(Student student,ExternalTestResult result){
 		result.setSubject(subject);
 		this.result.put(student,result);

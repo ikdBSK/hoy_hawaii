@@ -69,7 +69,7 @@ public class ExternalRecord {
 	 * @param time 返す回
 	 * @return 合計点
 	 */
-	public int getTotalScore(ExternalExamTime time){
+	public int getTotalScore(ExternalTime time){
 		ArrayList<ExternalTestResult> results = getExam(time);
 		int score = 0;
 		for(ExternalTestResult result : results){
@@ -83,7 +83,7 @@ public class ExternalRecord {
 	 * @param time 返す回
 	 * @return 得点率
 	 */
-	public double getRate(ExternalExamTime time){
+	public double getRate(ExternalTime time){
 		ArrayList<ExternalTestResult> results = getExam(time);
 		double score = 0;
 		for(ExternalTestResult result : results){
