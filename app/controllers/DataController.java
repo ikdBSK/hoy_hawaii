@@ -333,12 +333,45 @@ public class DataController extends Controller {
      * ある生徒の特定の試験での総合順位を返す
      * @param student 生徒
      * @param time 試験の時期
-     * @return 順位
+     * @return 総合順位
      */
     public int get_rank(Student student, SchoolExamTime time){
         final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
         final int rank = classRoom.getRank(student, time);
         return rank;
+    }
+
+
+    /**
+     * 指定された回の得点率(%)を返す
+     * @param time 返す回
+     * @return 得点率
+     */
+    public double get_rate(Student student, SchoolExamTime time){
+        final double rate = student.getRecord().getRate(time);
+        return rate;
+    }
+
+
+    /**
+     * 得点率基準での偏差値を返す
+     * @param student 偏差値を返す生徒
+     * @param time 返す回
+     * @return 偏差値
+     */
+    public double get_d_value(Student student, SchoolExamTime time){
+        final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
+        final double d_value = classRoom.getDValue(student, time);
+        return d_value;
+    }
+
+
+    /**
+     * 指定された回、科目の偏差値を返す
+     */
+    public double get_d_value(Student student, SchoolExamTime time, Subject subject){
+        final double d_value = student.getRecord().getDValue(time, subject);
+        return d_value;
     }
 
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
@@ -431,6 +464,7 @@ public class DataController extends Controller {
             final int term = Integer.parseInt(form.get("term")[0]);
             SchoolExamTime time = new SchoolExamTime(year, semester, term);
             SchoolExam exam = new SchoolExam(time);
+            exam.release();
             exams.add(exam);
             return ok(Json.toJson(exams));
         }catch(Exception e){
