@@ -14,6 +14,7 @@ public class Student extends Account {
     public Student(String id, String password, String name, SexTag sex, String address) {
         super(id, password, name, sex, address);
         this.record = new SchoolRecord(this);
+        this.exRecord = new ExternalRecord(this);
     }
 
     public SchoolRecord getRecord() {
