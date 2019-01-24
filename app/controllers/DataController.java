@@ -19,6 +19,7 @@ public class DataController extends Controller {
     private ArrayList<Subject> subjects = new ArrayList<>();
     private ArrayList<SchoolExam> exams = new ArrayList<>();
     private ArrayList<Grade> grades = new ArrayList<>();
+    private ArrayList<ExternalExam> ex_exams = new ArrayList<>();
 
     //idが一致する生徒を検索
     public Student get_student(String id) {
@@ -88,6 +89,18 @@ public class DataController extends Controller {
         for(Grade g : grades){
             if(g.getYear() == year && g.getGrade() == grade){
                 return g;
+            }
+        }
+        return null;
+    }
+
+    //year, month, day, type が一致する模試を検索
+    public ExternalExam get_ex_exam(int year, int month, int day, String type) {
+        for(ExternalExam e : ex_exams){
+            ExternalTime time = e.getTime();
+            if(time.getYear() == year && time.getMonth() == month && time.getDay() == day
+                    && time.getType().getName().equals(type)){
+                return e;
             }
         }
         return null;
@@ -608,6 +621,32 @@ public class DataController extends Controller {
         }
     }
 
+
+    /**
+     * 模試一回のオブジェクトを作る
+     * @return ExternalExamオブジェクト一覧
+     */
+    public Result make_external_exam() {
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final int year = Integer.parseInt(form.get("year")[0]);
+            final int month = Integer.parseInt(form.get("month")[0]);
+            final int day = Integer.parseInt(form.get("day")[0]);
+            final String type = form.get("type")[0];
+            ExternalExamType ex_type = new ExternalExamType(type);
+            ExternalTime time = new ExternalTime(year, month, day, ex_type);
+            ExternalExam exam = new ExternalExam(time, ex_type);
+            exam.release();
+            ex_exams.add(exam);
+            
+            return ok(Json.toJson(ex_exams));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
 
     /* ****************** 以下、生徒からのアクセスに対処するメソッド ************************* */
 
