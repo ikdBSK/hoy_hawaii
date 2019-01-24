@@ -129,4 +129,31 @@ function open_school_test_detail(year, semester, term){
 //***************************************************************************************************//
 // 管理者
 //***************************************************************************************************//
-const admin_new_account_form = new form("signup", null, "signup", ["id", "password", "name", "sex", "address", "入力に誤りがあります。"]);
+const admin_new_account_form = new form("signup", null, "signup", ["id", "password", "name", "sex", "address"], "入力に誤りがあります。");
+const admin_new_school_exam_form = new form("make_school_exam", null, "school_exam", ["year", "semester", "term"], "入力に誤りがあります。");
+const admin_new_subject_form = new form("add_subject", null, "subject", ["name", "credits"], "入力に間違いがあります。");
+const admin_new_subject_class_form = new form("make_subject_class", null, "subject_class", ["subject_name", "teacher_id", "students_id", "year", "semester", "number"], "入力に間違いがあります。");
+const admin_new_class_form = new form("make_classrooom", null, "class", ["grade_num", "class_num", "teacher_id", "students_ids"], "入力に間違いがあります。");
+
+const admin_account_list_table = new table(
+    "account_list",
+    "admin_account_list",
+    ["ID", "名前", "性別", "住所"],
+    ["id", "name", "sex", "address"],
+    [0, 0, 2, 0],
+    [[], [], ["男性", "女性"], []],
+    5
+);
+
+const admin_subject_list_table = new table(
+    "subject_list",
+    "admin_subject_list",
+    ["科目名", "単位数"],
+    ["name", "credits"],
+    [0, 1],
+    [[], []],
+    5
+);
+
+
+tables = [admin_account_list_table, admin_subject_list_table];

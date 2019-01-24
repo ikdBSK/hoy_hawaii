@@ -177,7 +177,26 @@ public class DataController extends Controller {
         List<Account> accounts = new ArrayList<>();
         accounts.addAll(teachers);
         accounts.addAll(students);
-        return ok(Json.toJson(accounts));
+
+        class TMPAccount{
+            public final String id;
+            public final String name;
+            public final String sex;
+            public final String address;
+
+            public TMPAccount(String id, String name, String sex, String address){
+                this.id = id;
+                this.name = name;
+                this.sex = sex;
+                this. address = address;
+            }
+        }
+
+        ArrayList<TMPAccount> tmp = new ArrayList<>();
+        for(Account account : accounts){
+            tmp.add(new TMPAccount(account.get_id(), account.get_name(), account.get_sex().display(), account.get_address()));
+        }
+        return ok(Json.toJson(tmp));
     }
 
 
@@ -443,7 +462,7 @@ public class DataController extends Controller {
             if(account_id == null || !account_id.equals(admin_id)) return badRequest();
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             final String name = form.get("name")[0];
-            final int credits = Integer.parseInt(form.get("credit")[0]);
+            final int credits = Integer.parseInt(form.get("credits")[0]);
             Subject subject = new Subject(name, credits);
             subjects.add(subject);
             return ok(Json.toJson(subjects));
@@ -489,9 +508,9 @@ public class DataController extends Controller {
             if(teacher == null) return notFound();
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
-            for(int i = 0; i < students_ids.length; i++){
-                Student student = get_student(students_ids[i]);
-                if(student != null){
+            for (String students_id : students_ids) {
+                Student student = get_student(students_id);
+                if (student != null) {
                     student_list.add(student);
                 }
             }
