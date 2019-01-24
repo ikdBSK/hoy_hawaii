@@ -49,16 +49,19 @@ public class ExternalRecord {
 	}
 
 	/**
-	 * 指定された科目の試験結果一覧を返す
+	 * 指定された模試タイプの指定された科目の試験結果一覧を返す
 	 * @param subject 返す科目
+	 * @param type 模試のタイプ
 	 * @return 指定された科目の試験結果一覧
 	 */
-	public ArrayList<ExternalTestResult> getExam(Subject subject){
+	public ArrayList<ExternalTestResult> getExam(ExternalExamType type, Subject subject){
 		ArrayList<ExternalTestResult> results = new ArrayList<>();
 		for (ExternalTime time : exams.keySet()){
-			ExternalTestResult result = exams.get(time).getExam(student,subject);
-			if(result != null){
-				results.add(result);
+			if(time.getType().equals(type)){
+				ExternalTestResult result = exams.get(time).getExam(student,subject);
+				if(result != null){
+					results.add(result);
+				}
 			}
 		}
 		return results;
