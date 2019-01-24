@@ -27,7 +27,7 @@ GET     /school_exam_detail/:year/:semester/:term   controllers.DataController.s
 GET     /subject_list                           controllers.DataController.subject_list
 GET     /subject_history/:name                  controllers.DataController.subject_history(name: String)
 GET     /my_ex_exams                            controllers.DataController.my_ex_exams
-GET     /ex_exam/detail/:year/:month/:day/:type     controllers.DataController.ex_exam_detail(year: Integer, month: Integer, day: Integer, type: String)
+GET     /ex_exam_detail/:year/:month/:day/:type     controllers.DataController.ex_exam_detail(year: Integer, month: Integer, day: Integer, type: String)
 GET     /ex_subject_history                     controllers.DataController.ex_subject_history(type: String, subject_name: String)
 #teacher
 GET   /subject_class_list                       controllers.DataController.subject_class_list
