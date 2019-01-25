@@ -101,6 +101,9 @@ public class SchoolRecord {
      */
     public double getRate(SchoolExamTime time){
         ArrayList<TestResult> results = getExam(time);
+        if(results == null){
+            return 0;
+        }
         double score = 0;
         for(TestResult result : results){
             score += (double)result.getScore();
