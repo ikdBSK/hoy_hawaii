@@ -408,6 +408,29 @@ public class DataController extends Controller {
         return d_value;
     }
 
+
+    /**
+     * ある生徒の特定の模試の総合点を返す
+     * @param student 生徒
+     * @param time 模試の時期
+     * @return 総合点
+     */
+    public int get_ex_total(Student student, ExternalTime time){
+        int total = student.getExRecord().getTotalScore(time);
+        return total;
+    }
+
+
+    /**
+     * 指定された模試の得点率(%)を返す
+     * @param time 返す回
+     * @return 得点率
+     */
+    public double get_ex_rate(Student student, ExternalTime time){
+        final double rate = student.getExRecord().getRate(time);
+        return rate;
+    }
+
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
 
     /**
