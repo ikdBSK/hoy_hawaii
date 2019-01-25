@@ -82,6 +82,7 @@ public class ExternalTest {
 
 	public void addResult(ExternalTestResult result){
 		Student student = result.getStudent();
+		result.setSubject(subject);
 		this.result.put(student,result);
 		student.getExRecord().addExam(exam);
 	}

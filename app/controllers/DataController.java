@@ -19,6 +19,8 @@ public class DataController extends Controller {
     private ArrayList<Subject> subjects = new ArrayList<>();
     private ArrayList<SchoolExam> exams = new ArrayList<>();
     private ArrayList<Grade> grades = new ArrayList<>();
+    private ArrayList<ExternalExamType> ex_types = new ArrayList<>();
+    private ArrayList<ExternalExam> ex_exams = new ArrayList<>();
 
     //idが一致する生徒を検索
     public Student get_student(String id) {
@@ -88,6 +90,38 @@ public class DataController extends Controller {
         for(Grade g : grades){
             if(g.getYear() == year && g.getGrade() == grade){
                 return g;
+            }
+        }
+        return null;
+    }
+
+    //nameの一致する模試タイプを検索
+    public ExternalExamType get_ex_type(String name) {
+        for(ExternalExamType type : ex_types){
+            if(type.getName().equals(name)) return type;
+        }
+        return null;
+    }
+
+    //year, month, day, type が一致する模試を検索
+    public ExternalExam get_ex_exam(int year, int month, int day, String type) {
+        ExternalExamType ex_type = get_ex_type(type);
+        for(ExternalExam e : ex_exams){
+            ExternalTime time = e.getTime();
+            if(time.getYear()==year && time.getMonth()==month && time.getDay()==day && time.getType().equals(ex_type)){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    //時期、模試名、科目名の一致するExternalTestを特定
+    public ExternalTest get_external_test(int year, int month, int day, String type, String subject_name) {
+        ExternalExam exam = get_ex_exam(year, month, day, type);
+        for(ExternalTest t : exam.getTests()){
+            String name = t.getSubject().getName();
+            if(name.equals(subject_name)){
+                return t;
             }
         }
         return null;
@@ -609,6 +643,40 @@ public class DataController extends Controller {
     }
 
 
+    /**
+     * ExternalExamインスタンスを作る
+     * 全科目のExternalTestインスタンスを作る
+     * @return ExternalExamオブジェクト一覧
+     */
+    public Result make_external_exam() {
+        try{
+            final String account_id = get_id();
+            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            final int year = Integer.parseInt(form.get("year")[0]);
+            final int month = Integer.parseInt(form.get("month")[0]);
+            final int day = Integer.parseInt(form.get("day")[0]);
+            final String type = form.get("type")[0];
+            ExternalExamType ex_type = get_ex_type(type);
+            if(ex_type == null){
+                ex_type = new ExternalExamType(type);
+                ex_types.add(ex_type);
+            }
+            ExternalTime time = new ExternalTime(year, month, day, ex_type);
+            ExternalExam exam = new ExternalExam(time, ex_type);
+            exam.release();
+            ex_exams.add(exam);
+            //全科目のExternalTestインスタンスを作る
+            for(Subject s : subjects){
+                new ExternalTest(exam, time, s, ex_type);
+            }
+            return ok(Json.toJson(ex_exams));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
     /* ****************** 以下、生徒からのアクセスに対処するメソッド ************************* */
 
     /**
@@ -690,6 +758,73 @@ public class DataController extends Controller {
         }
     }
 
+
+    /**
+     * 自身の受けた模試一覧を返す
+     * @return ExternalExamリストを返す
+     */
+    public Result my_ex_exams() {
+        try {
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            List<ExternalTime> list = new ArrayList<>(student.getExRecord().getExams().keySet());
+            return ok(Json.toJson(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 自身の特定の模試の結果を返す
+     * @return JSON形式でExternalTestResultのリストを返す
+     */
+    public Result ex_exam_detail(int year, int month, int day, String type) {
+        try {
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            ExternalExamType ex_type = get_ex_type(type);
+            Set<ExternalTime> time = student.getExRecord().getExams().keySet();
+            //year,month,day,typeが一致するExternalTimeを特定
+            for(ExternalTime t : time){
+                if(t.getYear()==year && t.getMonth()==month && t.getDay()==day && t.getType().equals(ex_type)){
+                    return ok(Json.toJson(student.getExRecord().getExam(t)));
+                }
+            }
+            return notFound();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 自身のある模試タイプのある科目の結果一覧を返す
+     * @return JSON形式でExternalTestResultのリストを返す
+     */
+    public Result ex_subject_history(String type, String subject_name){
+        try {
+            //生徒からのアクセスのみ処理
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Student student = get_student(account_id);
+            if(student == null) return badRequest();
+            //nameが一致するSubjectの成績一覧を探す
+            Subject subject = get_subject(subject_name);
+            if(subject == null) return notFound();
+            ExternalExamType ex_type = get_ex_type(type);
+            return ok(Json.toJson(student.getExRecord().getExam(ex_type, subject)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
 
     /* ****************** 以下、教師からのアクセスに対処するメソッド ************************* */
 
@@ -842,6 +977,54 @@ public class DataController extends Controller {
 
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());
             return ok(Json.toJson(testResults));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return badRequest();
+        }
+    }
+
+
+    /**
+     * 模試一覧を得る
+     * @return ExternalExamのリスト
+     */
+    public Result external_exam_list(){
+        final String account_id = get_id();
+        if(account_id == null) return badRequest();
+        Teacher teacher = get_teacher(account_id);
+        if(teacher == null) return badRequest();
+        return ok(Json.toJson(ex_exams));
+    }
+
+
+    /**
+     * 一人の生徒の模試結果を登録する
+     * @param year
+     * @param month
+     * @param day
+     * @param type 模試名
+     * @return 0
+     */
+    public Result add_ex_result(int year, int month, int day, String type){
+        try {
+            final String account_id = get_id();
+            if(account_id == null) return badRequest();
+            Teacher teacher = get_teacher(account_id);
+            if(teacher == null) return badRequest();
+            //とりあえず科目名と点数と生徒IDの受け取りで実装
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            String name = form.get("name")[0];
+            int score = Integer.parseInt(form.get("score")[0]);
+            String student_id = form.get("id")[0];
+            Subject subject = get_subject(name);
+            if(subject == null) return notFound();
+            Student student = get_student(student_id);
+            if(student == null) return notFound();
+            ExternalTest test = get_external_test(year, month, day, type, name);
+            if(test == null) return notFound();
+            ExternalTestResult result = new ExternalTestResult(score, student, subject);
+            test.addResult(result);
+            return ok(Json.toJson(0));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
