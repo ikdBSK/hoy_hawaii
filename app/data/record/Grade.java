@@ -76,7 +76,9 @@ public class Grade {
         ArrayList<Double> score = new ArrayList<>();
         for(ClassRoom classRoom : classRooms){
             for(Student classStudent : classRoom.getStudents()){
-                score.add(classStudent.getRecord().getRate(time));
+                if(classStudent.getRecord().getExams().containsKey(time)){
+                    score.add(classStudent.getRecord().getRate(time));
+                }
             }
         }
         double sum = 0;
