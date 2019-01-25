@@ -17,7 +17,7 @@ public class ExternalTest {
 		this.subject = subject;
 		this.type = type;
 		this.result = result;
-		for(Student student ; result.keySet()){
+		for(Student student : result.keySet()){
 			student.getExRecord().addExam(exam);
 		}
 		exam.getTests().add(this);

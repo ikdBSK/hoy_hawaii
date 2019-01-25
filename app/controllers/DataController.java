@@ -702,7 +702,30 @@ public class DataController extends Controller {
         if(account_id == null) return badRequest();
         Teacher teacher = get_teacher(account_id);
         if(teacher == null) return badRequest();
-        return ok(Json.toJson(teacher.getClasses()));
+
+        class TMPSubjectClass {
+            public final String subject;
+            public final String teacher;
+            public final int grade;
+            public final int year;
+            public final int semester;
+
+            public TMPSubjectClass(SubjectClass t){
+                subject = t.getSubject().getName();
+                teacher = t.getTeacher().get_name();
+                grade = t.getGrade();
+                year = t.getSemester().getYear();
+                semester = t.getSemester().getSemester();
+            }
+        }
+
+        ArrayList<SubjectClass> classes = teacher.getClasses();
+        ArrayList<TMPSubjectClass> json = new ArrayList<>();
+        for(SubjectClass t: classes){
+            json.add(new TMPSubjectClass(t));
+        }
+
+        return ok(Json.toJson(json));
     }
 
 

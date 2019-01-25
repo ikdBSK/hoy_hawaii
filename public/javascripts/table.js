@@ -19,7 +19,7 @@ class table{
         // 1: 文字列（文字列検索対象外）
         // 2: 文字列でない、選択肢検索
         // 3: 文字列でない、チェックボックス検索
-        // 4: 検索対象外
+        // 4: 検索対象外（ボタン）
 
         // 検索が選択肢の場合、その選択肢の配列
         // チェックボックス検索の場合は、初めから順に、ラベル、真のときの値、偽の時の値
@@ -128,8 +128,11 @@ class table{
 
         for(const item of items){
             const row = $("<tr>");
+            let count = 0;
             for(const label of this.names){
+                if(this.types !== 4)
                 row.append($("<td>").text(item[label]));
+                count++;
             }
             table.append(row);
         }
@@ -150,7 +153,7 @@ class table{
         const options = this.options;
         const prefix = this.prefix;
         $("#" + this.prefix +"_table tr").each(function () {
-            let hits = new Array();
+            let hits = [];
             if (!$(this).hasClass("search_ignore")) {
                 let count = 0;
                 for(const type of types){
@@ -159,7 +162,9 @@ class table{
                     if(type === 0){
                         // 文字列検索
                         hit = temp.includes(search_text) || temp === search_text;
-                    }else if(type === 2){
+                    }else if(type === 1){
+                        hit = true;
+                    } else if(type === 2){
                         // 選択肢検索
                         const val = $("#" + prefix + "_search_select_" + count).val();
                         if(val === "all"){
@@ -175,7 +180,7 @@ class table{
                     count++;
                     hits.push(hit);
                 }
-                
+
                 let show = true;
                 count = 0;
                 let text_hit = false;

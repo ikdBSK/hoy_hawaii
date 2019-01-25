@@ -3,6 +3,7 @@ package data.record;
 import data.*;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ExternalRecord {
 	private Student student;
