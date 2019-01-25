@@ -454,12 +454,12 @@ public class DataController extends Controller {
                 if(get_student(id) != null) return unauthorized();
                 final Student student = new Student(id, password, name, sex, address);
                 students.add(student);
-                return student_list();
+                return ok();
             } else if(id.startsWith("T")){
                 if(get_teacher(id) != null) return unauthorized();
                 final Teacher teacher = new Teacher(id, password, name, sex, address);
                 teachers.add(teacher);
-                return teacher_list();
+                return ok();
             } else {
                 return badRequest();
             }
@@ -486,7 +486,7 @@ public class DataController extends Controller {
                 student.set_password(form.get("password")[0]);
                 student.set_address(form.get("address")[0]);
                 update_student(student);
-                return student_list();
+                return ok();
             }
             if(id.startsWith("T")){
                 Teacher teacher = get_teacher(id);
@@ -494,12 +494,12 @@ public class DataController extends Controller {
                 teacher.set_password(form.get("password")[0]);
                 teacher.set_address(form.get("address")[0]);
                 update_teacher(teacher);
-                return teacher_list();
+                return ok();
             }
             if(id.equals(admin_id)){
                 admin.set_password(form.get("password")[0]);
             }
-            return ok(Json.toJson(0));
+            return ok();
         }catch (Exception e){
             e.printStackTrace();
             return badRequest();
@@ -523,7 +523,7 @@ public class DataController extends Controller {
             SchoolExam exam = new SchoolExam(time);
             exam.release();
             exams.add(exam);
-            return ok(Json.toJson(exams));
+            return ok();
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
@@ -544,7 +544,7 @@ public class DataController extends Controller {
             final int credits = Integer.parseInt(form.get("credits")[0]);
             Subject subject = new Subject(name, credits);
             subjects.add(subject);
-            return ok(Json.toJson(subjects));
+            return ok();
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
@@ -597,7 +597,7 @@ public class DataController extends Controller {
             SchoolSemester schoolSemester = new SchoolSemester(year, semester);
             //SubjectClass登録
             new SubjectClass(subject, teacher, student_list, schoolSemester, grade);
-            return subject_detail(subject_name);
+            return ok();
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
@@ -658,7 +658,7 @@ public class DataController extends Controller {
             }
             //ClassRoomインスタンス作成
             new ClassRoom(teacher, student_list, grade, year);
-            return classroom_list(year);
+            return ok();
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
@@ -693,7 +693,7 @@ public class DataController extends Controller {
             for(Subject s : subjects){
                 new ExternalTest(exam, time, s, ex_type);
             }
-            return ok(Json.toJson(ex_exams));
+            return ok();
         }catch(Exception e){
             e.printStackTrace();
             return badRequest();
@@ -962,7 +962,7 @@ public class DataController extends Controller {
             SchoolTime schoolTime = new SchoolTime(year, month, day, division);
             //目的のインスタンス作成 (作成後はSchoolExamやSubjectClassから参照できる)
             new SchoolTest(exam, schoolTime, subjectClass);
-            return ok(Json.toJson(subjectClass.getTests()));
+            return ok();
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -999,7 +999,7 @@ public class DataController extends Controller {
             test.addResult(result);
 
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());
-            return ok(Json.toJson(testResults));
+            return ok();
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -1047,7 +1047,7 @@ public class DataController extends Controller {
             if(test == null) return notFound();
             ExternalTestResult result = new ExternalTestResult(score, student, subject);
             test.addResult(result);
-            return ok(Json.toJson(0));
+            return ok();
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
