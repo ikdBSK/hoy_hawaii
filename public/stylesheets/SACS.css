@@ -143,7 +143,7 @@ button:hover {
 .admin_item_table input[type="radio"] + label {
     padding-left: 20px;
     position: relative;
-    margin-right: 35px;
+    margin-right: 27px;
 }
 .admin_item_table input[type="radio"] + label::after{
     content: "";
@@ -170,7 +170,6 @@ button:hover {
     background: #009a9a;
     border-radius: 50%;
 }
-
 
 /** menubar **/
 ul {
