@@ -11,7 +11,8 @@ div {
     text-align: center;
 }
 h1 {
-    margin-top: 25px;
+    padding-top: 25px;
+    margin-top: 0;
     margin-bottom: 10px;
 }
 button {
@@ -56,28 +57,19 @@ button:hover {
 /** body **/
 .body {
     display: flex;
-    margin: 30px 350px;
+    margin: 30px 200px;
 }
 
-/** sidebar **/
-.menu_bar_container {
-
-}
-.menu_bar {
-    background-color: white;
-    width: 210px;
-    padding: 15px;
-    display: flex;
-    font-family: sans-serif;
-    font-size: 20px;
-}
 /* menu_barについては多いので一番下に記載 */
 
 /** content **/
-.content {
+.content_container {
     background-color: white;
     width: 100%;
     margin-left: 30px;
+}
+.content {
+
 }
 
 /** login screen **/
@@ -104,48 +96,80 @@ button:hover {
     border-radius: 4px;
 }
 
-/** admin **/
-#admin_screen {
+/** student **/
+#student_screen{
+    height: 100%;
+    border-right: solid 130px #f0f0f0;
+}
+
+/** teacher **/
+#teacher_screen {
     text-align: center;
     padding-bottom: 30px;
+}
+#teacher_add_test_form,
+#teacher_add_result_form {
+    display: flex;
+}
+#teacher_screen .form_table {
+    padding-right: 60px;
+}
+#teacher_screen .form_table input{
+    width: 150px;
+}
+#teacher_screen .form_table input[type="radio"] + label {
+    padding-left: 20px;
+    position: relative;
+    margin-right: 6px;
+}
+
+/** admin **/
+#admin_screen {
+    height: 100%;
+    border-right: solid 130px #f0f0f0;
+    text-align: center;
     background-color: white;
 }
-#admin_screen input {
+#admin_screen .content,
+#student_screen .content {
+    padding-bottom: 20px;
+}
+
+/** display **/
+#admin_account_list_display table{
+    margin: auto;
+    font-size: 22px;
+}
+
+/** form **/
+.form_table {
+    width: 100%;
+    table-layout: fixed;
+    padding-right: 80px;
+    font-size: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.form_table td {
+    width: 10px;
+    padding: 15px 0;
+}
+.form_table input {
     background-color: #f0f0f0;
     height: 20px;
     width: 200px;
     font-size: 20px;
     border-radius: 4px;
 }
-#admin_screen textarea {
-    background-color: #f0f0f0;
-    width: 200px;
-    font-size: 20px;
-    border-radius: 4px;
-    border: solid 1px #aaaaaa;
-    box-shadow: 1px 1px 1px 0 #888888 inset
-}
-.admin_item_table {
-    width: 100%;
-    table-layout: fixed;
-    padding-right: 60px;
-    font-size: 20px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-.admin_item_table td {
-    width: 10px;
-    padding: 15px 0;
-}
-.admin_item_table input[type="radio"] {
+.form_table input[type="radio"] {
     display: none;
 }
-.admin_item_table input[type="radio"] + label {
+.form_table input[type="radio"] + label {
     padding-left: 20px;
     position: relative;
     margin-right: 27px;
 }
-.admin_item_table input[type="radio"] + label::after{
+.form_table input[type="radio"] + label::after{
     content: "";
     display: block;
     position: absolute;
@@ -156,10 +180,10 @@ button:hover {
     border: 1px solid #999;
     border-radius: 50%;
 }
-.admin_item_table input[type="radio"]:checked + label {
+.form_table input[type="radio"]:checked + label {
     color: #009a9a;
 }
-.admin_item_table input[type="radio"]:checked + label::before{
+.form_table input[type="radio"]:checked + label::before{
     content: "";
     display: block;
     position: absolute;
@@ -170,8 +194,31 @@ button:hover {
     background: #009a9a;
     border-radius: 50%;
 }
+.form_table textarea {
+    background-color: #f0f0f0;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 4px;
+    border: solid 1px #aaaaaa;
+    box-shadow: 1px 1px 1px 0 #888888 inset
+}
+
 
 /** menubar **/
+.menu_bar_container {
+
+}
+.menu_bar {
+    background-color: white;
+    width: 210px;
+    padding: 15px;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+#admin_menu_bar,#student_menu_bar{
+    border-left: solid 150px #f0f0f0;
+}
 ul {
     margin: auto;
     padding-left: 0;
@@ -193,9 +240,6 @@ li a {
 .accordion-menu {
     padding: 0;
     width: 100%;
-    /*max-width: 350px;*/
-    /*background: #fff;*/
-    /*border-radius: 4px;*/
 }
 .dropdownlink {
     padding: 15px;
@@ -206,7 +250,7 @@ li a {
     border-bottom: 1px solid #cccccc;
     color: #212121;
     position: relative;
-    transition: all 0.4s ease-out;
+    transition: all 0.3s ease-out;
 }
 .dropdownlink:hover {
     color: #ffffff;
@@ -220,7 +264,7 @@ li a {
 .submenuItems a {
     display: block;
     padding: 12px 12px 12px 12px;
-    transition: all 0.4s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 
