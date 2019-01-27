@@ -15,11 +15,9 @@
                         ユーザーID
                     </td>
                     <td>
-                        <div class="form_item">
-                            <label>
-                                <input id="login_id" name="id" type="text" required title="">
-                            </label>
-                        </div>
+                        <label>
+                            <input id="login_id" name="id" type="text" required title="">
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -27,24 +25,22 @@
                         パスワード
                     </td>
                     <td>
-                        <div class="form_item">
-                            <label>
-                                <input id="login_password" name="password" type="password" required title="">
-                            </label>
-                        </div>
+                        <label>
+                            <input id="login_password" name="password" type="password" required title="">
+                        </label>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <div class="button">
                             <button onclick="login_form.post().then(response => {
-                            return response.json();
-                        }, error =>{
-                            console.log(error);
-                        }).then(status => {
-                            $('#login_status').text(status);
+                                return response.json();
+                            }, error =>{
+                                console.log(error);
+                            }).then(status => {
+                                $('#login_status').text(status);
                             login();
-                        }); return false;">ログイン</button>
+                            }); return false;">ログイン</button>
                         </div>
                     </td>
                 </tr>
@@ -54,10 +50,10 @@
             @helper.CSRF.formField
         </form>
         <br>
-        <a href="http://www.titech.ac.jp" class="link">パスワードを忘れた方はこちら</a>
+        <a href="http://www.titech.ac.jp" class="link">パスワードをお忘れの方はこちら</a>
     </div>
 
-    <div id="student_screen" align="center">
+    <div id="student_screen">
         @* ホーム画面 *@
         <div id="student_home_screen" style="display: none;">
             <h1>あなたの成績のまとめ</h1>
@@ -237,272 +233,189 @@
         </table>
     </div>
 
-    <div id="admin_screen" style="display: none;" align="center">
-        <table>
-            <tr>
-                <th colspan="2"><h1>SACS管理画面</h1></th>
-            </tr>
-            <tr>
-                <td><h2>アカウント生成</h2></td>
-                <td><button onclick="$('#admin_account_creation').toggle(); return false;">表示</button></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="admin_account_creation" style="display: none;">
-                        <form id="signup_form">
-                            <table id="admin_table">
-                                <tr>
-                                    <th colspan="2">
-                                        新規アカウント
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>ID</b>
-                                    </td>
-                                    <td>
-                                        <div class="form_item">
-                                            <input type="text" id="signup_id" name="id" required title="お前のお母さんでーべそ">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>パスワード</b>
-                                    </td>
-                                    <td>
-                                        <div class="form_item">
-                                            <input type="password" id="signup_password" name="password" required title="パスワード">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>名前</b>
-                                    </td>
-                                    <td>
-                                        <div class="form_item">
-                                            <input type="text" required title="名前" id="signup_name" name="name">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>性別</b>
-                                    </td>
-                                    <td>
-                                        <label for="signup_man">男性</label>
-                                        <input type="radio" required title="男性" id="signup_man" name="sex" value="male">
-                                        <label for="signup_woman">女性</label>
-                                        <input type="radio" required title="女性" id="signup_woman" name="sex" value="female">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <b>住所</b>
-                                    </td>
-                                    <td>
-                                        <div class="form_item">
-                                            <textarea rows="5" cols="30" id="signup_address" name="address" required title="住所"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button onclick="admin_new_account_form.post(); return false;">作成</button>
-                                        <button type="submit" id="signup_submit" style="display: none;"></button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div id="signup_display"></div>
-                            @helper.CSRF.formField
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>定期テスト作成</h2></td>
-                <td><button onclick="$('#admin_school_exam_creation').toggle(); return false;">表示</button></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="admin_school_exam_creation" style="display: none;">
-                        <form id="school_exam_form">
-                            <table>
-                                <tr><th colspan="2">新規定期テスト</th></tr>
-                                <tr>
-                                    <td>年</td>
-                                    <td><input type="number" name="year" required title="年" min="1945" max="2069"></td>
-                                </tr>
-                                <tr>
-                                    <td>学期</td>
-                                    <td><input type="number" name="semester" required title="学期" min="1" max="3"></td>
-                                </tr>
-                                <tr>
-                                    <td>ターム</td>
-                                    <td>
-                                        <label>中間</label>
-                                        <input type="radio" required title="半殺し" name="term" value="0">
-                                        <label>期末</label>
-                                        <input type="radio" required title="皆殺し" name="term" value="1">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button onclick="admin_new_school_exam_form.post(); return false;">作成</button>
-                                        <button type="submit" id="school_exam_submit" style="display: none;"></button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div id="school_exam_display"></div>
-                            @helper.CSRF.formField
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>科目作成</h2></td>
-                <td><button onclick="$('#admin_subject_creation').toggle(); return false;">表示</button></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="admin_subject_creation" style="display: none;">
-                        <form id="subject_form">
-                            <table>
-                                <tr><th colspan="2">新規科目</th></tr>
-                                <tr>
-                                    <td>科目名</td>
-                                    <td><input type="text" name="name" required title="某工業大学生：　高校は数学だけでいい。"></td>
-                                </tr>
-                                <tr>
-                                    <td>単位数</td>
-                                    <td><input type="number" name="credits" required title="単位数"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button onclick="admin_new_subject_form.post(); return false;">作成</button>
-                                        <button type="submit" id="subject_submit" style="display: none;"></button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div id="subject_display"></div>
-                            @helper.CSRF.formField
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>科目クラス作成</h2></td>
-                <td><button onclick="$('#admin_subject_class_creation').toggle(); return false;">表示</button></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="admin_subject_class_creation" style="display: none;">
-                        <form id="subject_class_form">
-                            <table>
-                                <tr><th colspan="2">新規科目クラス</th></tr>
-                                <tr>
-                                    <td>科目名</td>
-                                    <td><input type="text" name="subject_name" required title="科目名"></td>
-                                </tr>
-                                <tr>
-                                    <td>先生：ID</td>
-                                    <td><input type="text" name="teacher_id" required title="教科書音読機"></td>
-                                </tr>
-                                <tr>
-                                    <td>生徒: ID（コンマ区切り）</td>
-                                    <td><textarea rows="30" cols="6" name="students_ids" required title="小僧共"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td>年</td>
-                                    <td><input type="number" name="year" min="69" max="6969" required title="年"></td>
-                                </tr>
-                                <tr>
-                                    <td>学期</td>
-                                    <td><input type="number" name="semester" min="1" max="3" required title="学期"></td>
-                                </tr>
-                                <tr>
-                                    <td>学年</td>
-                                    <td><input type="number" name="grade" min="1" max="3" required title="学年"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button onclick="admin_new_subject_class_form.post(); return false;">作成</button>
-                                        <button type="submit" id="subject_class_submit" style="display: none;"></button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div id="subject_class_display"></div>
-                            @helper.CSRF.formField
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>クラス作成</h2></td>
-                <td><button onclick="$('#admin_class_creation').toggle(); return false;">表示</button></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="admin_class_creation" style="display: none;">
-                        <form id="class_form">
-                            <table>
-                                <tr>
-                                    <th colspan="2">新規クラス</th>
-                                </tr>
-                                <tr>
-                                    <td>学年</td>
-                                    <td><input type="number" name="grade_num" min="1" max="3" required title="学年"></td>
-                                </tr>
-                                <tr>
-                                    <td>クラス番号</td>
-                                    <td><input type="number" name="class_num" min="1" max="9" required title="クラス番号"></td>
-                                </tr>
-                                <tr>
-                                    <td>先生: ID</td>
-                                    <td><input type="text" name="teacher_id" required title="先生: ID"></td>
-                                </tr>
-                                <tr>
-                                    <td>生徒: ID（コンマ区切り）</td>
-                                    <td><textarea rows="30" cols="6" name="students_ids" title="生徒: ID（コンマ区切り）"></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button type="submit" id="class_submit" style="display: none;"></button>
-                                        <button onclick="admin_new_class_form.post(); return false;">作成</button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div id="class_display"></div>
-                            @helper.CSRF.formField
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>アカウントリスト</h2></td>
-                <td>
-                    <button onclick="$('#admin_account_list').toggle(); return false;">表示</button>
-                    <button onclick="admin_account_list_table.refresh(); return false;">更新</button>
-                </td>
-            </tr>
-            <tr id="admin_account_list" style="display: none;">
-                <td colspan="2">
-                    <div id="admin_account_list_display"></div>
-                </td>
-            </tr>
-            <tr>
-                <td><h2>科目リスト</h2></td>
-                <td>
-                    <button onclick="$('#admin_subject_list').toggle(); return false;">表示</button>
-                    <button onclick="admin_subject_list_table.refresh(); return false;">更新</button>
-                </td>
-            </tr>
-            <tr id="admin_subject_list" style="display: none;">
-                <td colspan="2">
-                    <div id="admin_subject_list_display"></div>
-                </td>
-            </tr>
-        </table>
+    <div id="admin_screen" style="display: none;">
+        <div id="admin_account_creation" style="display: none;">
+            <h1>新規アカウント</h1>
+            <form id="signup_form">
+                <table class="admin_item_table">
+                    <tr>
+                        <td>ID</td>
+                        <td>
+                            <input type="text" id="signup_id" name="id" required title="ID">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>パスワード</td>
+                        <td>
+                            <input type="password" id="signup_password" name="password" required title="パスワード">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>名前</td>
+                        <td>
+                            <input type="text" required title="名前" id="signup_name" name="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>性別</td>
+                        <td>
+                            <div style="text-align: left">
+                                <input type="radio" id="signup_man" name="sex" value="male">
+                                <label for="signup_man" class="signup_checkbox">男性</label>
+                                <input type="radio" id="signup_woman" name="sex" value="female">
+                                <label for="signup_woman" class="signup_checkbox">女性</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>住所</td>
+                        <td>
+                            <textarea rows="5" cols="30" id="signup_address" name="address" required title="住所"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <button onclick="admin_new_account_form.post(); return false;">作成</button>
+                <button type="submit" id="signup_submit" style="display: none;"></button>
+                <div id="signup_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
+        <div id="admin_school_exam_creation" style="display: none;">
+            <h1>新規定期テスト</h1>
+            <form id="school_exam_form">
+                <table class="admin_item_table">
+                    <tr>
+                        <td>年</td>
+                        <td><input type="number" name="year" required title="年" min="1945" max="2069"></td>
+                    </tr>
+                    <tr>
+                        <td>学期</td>
+                        <td><input type="number" name="semester" required title="学期" min="1" max="3"></td>
+                    </tr>
+                    <tr>
+                        <td>ターム</td>
+                        <td>
+                            <div style="text-align: left">
+                                <input type="radio" id="create_midterm" name="term" value="0">
+                                <label for="create_midterm" class="signup_checkbox">
+                                    中間<span></span>
+                                </label>
+                                <input type="radio" id="create_endterm" name="term" value="1">
+                                <label for="create_endterm" class="signup_checkbox">
+                                    期末<span></span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <button onclick="admin_new_school_exam_form.post(); return false;">作成</button>
+                <button type="submit" id="school_exam_submit" style="display: none;"></button>
+                <div id="school_exam_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
+        <div id="admin_subject_creation" style="display: none;">
+            <form id="subject_form">
+                <h1>新規科目</h1>
+                <table class="admin_item_table">
+                    <tr>
+                        <td>科目名</td>
+                        <td><input type="text" name="name" required title="某工業大学生：　高校は数学だけでいい。"></td>
+                    </tr>
+                    <tr>
+                        <td>単位数</td>
+                        <td><input type="number" name="credits" required title="単位数"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button onclick="admin_new_subject_form.post(); return false;">作成</button>
+                            <button type="submit" id="subject_submit" style="display: none;"></button>
+                        </td>
+                    </tr>
+                </table>
+                <div id="subject_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
+        <div id="admin_subject_class_creation" style="display: none;">
+            <form id="subject_class_form">
+                <h1>新規科目クラス</h1>
+                <table class="admin_item_table">
+                    <tr>
+                        <td>科目名</td>
+                        <td><input type="text" name="subject_name" required title="科目名"></td>
+                    </tr>
+                    <tr>
+                        <td>先生：ID</td>
+                        <td><input type="text" name="teacher_id" required title="教科書音読機"></td>
+                    </tr>
+                    <tr>
+                        <td>生徒: ID<br>（コンマ区切り）</td>
+                        <td><textarea rows="30" cols="6" name="students_ids" required title="小僧共"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>年</td>
+                        <td><input type="number" name="year" min="69" max="6969" required title="年"></td>
+                    </tr>
+                    <tr>
+                        <td>学期</td>
+                        <td><input type="number" name="semester" min="1" max="3" required title="学期"></td>
+                    </tr>
+                    <tr>
+                        <td>学年</td>
+                        <td><input type="number" name="grade" min="1" max="3" required title="学年"></td>
+                    </tr>
+                    <button onclick="admin_new_subject_class_form.post(); return false;">作成</button>
+                    <button type="submit" id="subject_class_submit" style="display: none;"></button>
+                </table>
+                <div id="subject_class_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
+        <div id="admin_subject_class_creation" style="display: none;">
+            <form id="subject_class_form">
+                <table class="admin_item_table">
+                    <tr><th colspan="2">新規科目クラス</th></tr>
+                    <tr>
+                        <td>科目名</td>
+                        <td><input type="text" name="subject_name" required title="科目名"></td>
+                    </tr>
+                    <tr>
+                        <td>先生：ID</td>
+                        <td><input type="text" name="teacher_id" required title="教科書音読機"></td>
+                    </tr>
+                    <tr>
+                        <td>生徒: ID（コンマ区切り）</td>
+                        <td><textarea rows="30" cols="6" name="students_ids" required title="小僧共"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>年</td>
+                        <td><input type="number" name="year" min="69" max="6969" required title="年"></td>
+                    </tr>
+                    <tr>
+                        <td>学期</td>
+                        <td><input type="number" name="semester" min="1" max="3" required title="学期"></td>
+                    </tr>
+                    <tr>
+                        <td>学年</td>
+                        <td><input type="number" name="grade" min="1" max="3" required title="学年"></td>
+                    </tr>
+                </table>
+                <button onclick="admin_new_subject_class_form.post(); return false;">作成</button>
+                <button type="submit" id="subject_class_submit" style="display: none;"></button>
+                <div id="subject_class_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
+        <div id="admin_account_list" style="display: none;">
+            <h1>アカウントリスト</h1>
+            <button onclick="admin_account_list_table.refresh(); return false;">更新</button>
+            <div id="admin_account_list_display"></div>
+        </div>
+        <div id="admin_subject_list" style="display: none;">
+            <h1>科目リスト</h1>
+            <button onclick="admin_subject_list_table.refresh(); return false;">更新</button>
+            <div id="admin_subject_list_display"></div>
+        </div>
     </div>
 }

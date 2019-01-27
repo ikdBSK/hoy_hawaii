@@ -23,7 +23,7 @@ $(function() {
             //show only one menu at the same time
             $el.find('.submenuItems').not($next).slideUp().parent().removeClass('open');
         }
-    }
+    };
 
     var accordion = new Accordion($('.accordion-menu'), false);
-})
+});
