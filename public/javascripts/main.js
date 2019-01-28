@@ -5,6 +5,7 @@ $(document).ready(() => {
     home();
 });
 
+tables = [];
 //---------------------------------------------------------------------------------------------------
 // 画面遷移
 //---------------------------------------------------------------------------------------------------
@@ -109,8 +110,9 @@ const school_test_list_table = new table(
     ["year", "semester", "term", "rank", null],
     [2, 2, 2, 0, 4],
     [["2017", "2018", "2019"], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], []],
-    10);
-
+    10
+);
+tables.push(school_test_list_table);
 
 // 定期試験の詳細
 let school_test_detail_table = null;
@@ -145,6 +147,7 @@ const teacher_subject_class_list = new table(
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"], []],
     5
 );
+tables.push(teacher_subject_class_list);
 
 const teacher_add_test_form = new form(
     "add_test",
@@ -174,23 +177,64 @@ const admin_new_class_form = new form("make_classrooom", null, "class", ["grade_
 const admin_account_list_table = new table(
     "account_list",
     "admin_account_list",
-    ["ID", "名前", "性別", "住所"],
-    ["id", "name", "sex", "address"],
-    [0, 0, 2, 0],
-    [[], [], ["男性", "女性"], []],
+    ["ID", "名前", "性別", "住所", "操作"],
+    ["id", "name", "sex", "address", "control"],
+    [0, 0, 2, 0, 4],
+    [[], [], ["男性", "女性"], [], [admin_account_list_table_mod]],
     5
+);
+tables.push(admin_account_list_table);
+function admin_account_list_table_mod(tr){
+    const id = tr.find("td").eq(0).text();
+    const button = tr.find("td").eq(4);
+
+    button.append($("<button>")
+        .attr("onclick",
+            "$('#admin_edit_account').toggle();" +
+            "admin_edit_account_form.custom_init(\"fetch/" + id + "\");" +
+            "return false;")
+        .text("編集"));
+}
+
+const admin_edit_account_form = new form(
+    "edit",
+    "fetch",
+    "account_edit",
+    ["id", "password", "name", "sex", "address"],
+    "入力に間違いがあります。"
 );
 
 const admin_subject_list_table = new table(
     "subject_list",
     "admin_subject_list",
-    ["科目名", "単位数"],
-    ["name", "credits"],
-    [0, 1],
-    [[], []],
+    ["科目名", "単位数", "操作"],
+    ["name", "credits", "control"],
+    [0, 1, 4],
+    [[], [], [admin_subject_list_table_mod]],
+    5
+);
+tables.push(admin_subject_list_table);
+function admin_subject_list_table_mod(tr){
+    const name = tr.find("td").eq(0).text();
+    const button = tr.find("td").eq(2);
+
+    button.append($("<button>")
+        .attr("onclick",
+            "$('#admin_subject_detail').toggle();" +
+            "admin_subject_detail_table.custom_refresh(\"subject_detail/" + name + "\");" +
+            "return false;"
+        )
+        .text("詳細")
+    );
+}
+
+const admin_subject_detail_table = new table(
+    "subject_detail",
+    "admin_subject_detail",
+    ["担当教師", "学年", "年", "学期"],
+    ["subject", "teacher", "grade", "year", "semester"],
+    [0, 0, 2, 0, 2],
+    [[], [], ["1", "2", "3"], [], ["1", "2", "3"]],
     5
 );
 //***************************************************************************************************//
-
-
-tables = [admin_account_list_table, admin_subject_list_table];

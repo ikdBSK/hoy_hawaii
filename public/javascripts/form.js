@@ -14,20 +14,30 @@ class form{
     }
 
     init(){
+        this.display(LOADING);
         if(this.init_uri === null) return;
         fetch_json(this.init_uri).then(json => {
             for(const input of this.inputs){
-                const type = $("#", + this.prefix + "_" + input).attr("type");
-                if(type === "text"|| type === "number"){
-                    $("#" + this.prefix + "_" + input).val(json[input]);
-                }else if(type === "radio"){
-                    $("input[name=" + this.prefix + "_" + input + "][value=" + json[input] + "]").prop("checked", true);
+                const element = $("#" + this.prefix + "_form").find("[name=" + input + "]");
+                if(element.attr("type") === "radio"){
+                    $("#" + this.prefix + "_form").find("[name=" + input + "][value=" + json[input] + "]")
+                        .attr("checked", true);
+                } else {
+                    element.val(json[input]);
                 }
             }
+            this.display("");
         }, error => {
             this.display(ERROR);
             console.log(error);
         });
+    }
+
+    custom_init(uri){
+        const temp = this.init_uri;
+        this.init_uri = uri;
+        this.init();
+        this.init_uri = temp;
     }
 
     post(){
@@ -56,9 +66,20 @@ class form{
         });
     }
 
+    custom_post(uri){
+        const tmp = this.post_uri;
+        this.post_uri = uri;
+        this.post();
+        this.post_uri = tmp;
+    }
+
     display(content){
         $(this.display_field).empty().append(content);
     }
+
+    // reset(){
+    //     $("#" + this.prefix + "_form").reset();
+    // }
 }
 
 // フォーム情報を取得する

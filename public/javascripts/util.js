@@ -64,6 +64,7 @@ function logout(){
     });
 }
 
+// ユーザ名取得
 function get_username() {
     return fetch("/username");
 }
@@ -79,4 +80,20 @@ function display_name(){
         display = "ようこそ、<b class=\"header_name\">" + username + "</b>さん";
     }
     $("#username_display").empty().append(display);
+}
+
+// JSON形式の配列を要素で文字列辞書順ソート
+function json_array_sort(array, element, mode) {
+    switch (mode) {
+        case "none":
+        default:
+            break;
+        case "descending":
+            array.sort((a, b) => (a[element] === b[element]) ? 0 : ((a[element] > b[element]) ? 1 : -1));
+            break;
+        case "ascending":
+            array.sort((a, b) => (a[element] === b[element]) ? 0 : ((a[element] > b[element]) ? -1 : 1));
+            break;
+    }
+    return array;
 }

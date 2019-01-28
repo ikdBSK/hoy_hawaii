@@ -105,12 +105,21 @@ class table{
             });
     }
 
+    // カスタムのURIに問い合わせたい場合。
+    custom_refresh(uri){
+        const temp = this.uri;
+        this.uri = uri;
+        this.refresh();
+        this.uri = temp;
+    }
+
     // テーブルの表示を更新
     refresh(){
         this.update().then(items => {
             if (this.items.length === 0) {
                 this.display(NO_ITEM);
             } else {
+                this.items = items;
                 this.display(this.init(items));
                 this.search();
                 this.paginate(this.current_page);
@@ -122,22 +131,40 @@ class table{
     }
 
     // テーブルの初期化
-    init(items){
+    init(){
         const table = $("<table>").attr("id", this.prefix + "_table");
         table.append(this.search_bar).append(this.header);
+        this.display_items();
+        return table;
+    }
 
-        for(const item of items){
+    // テーブルの内容を表示
+    display_items(){
+        const table = $("#" + this.prefix + "_table");
+        this.table_items_reset();
+        for(const item of this.items){
             const row = $("<tr>");
             let count = 0;
             for(const label of this.names){
-                if(this.types !== 4)
-                row.append($("<td>").text(item[label]));
+                if(this.types[count] !== 4) {
+                    row.append($("<td>").text(item[label]));
+                } else if(this.types[count] === 4){
+                    row.append($("<td>"));
+                    this.options[count][0](row);
+                }
                 count++;
             }
             table.append(row);
         }
+    }
 
-        return table;
+    // テーブルのアイテムだけを、リセット
+    table_items_reset(){
+        $("#" + this.prefix + "_table tr").each(function() {
+           if(!$(this).hasClass("search_ignore")){
+               $(this).remove();
+           }
+        });
     }
 
     display(content){
@@ -146,6 +173,9 @@ class table{
 
     // テーブル内検索
     search(){
+        this.sort();
+        this.display_items();
+
         const search_text = $("#" + this.prefix + "_search_text").val().toLowerCase();
 
         let item_count = 0;
@@ -248,12 +278,28 @@ class table{
         }
     }
 
-    // セルの内容を取得
-    // get_cell_text(row, column){
-    //
-    // }
+    // テーブル全体をヘッダのタグに合わせてソートする。
+    sort(){
+        let count = 0;
+        for(const label of this.names){
+            this.items = json_array_sort(this.items, label, $("#" + this.prefix + "_header_" + count).attr("sort"));
+            count++;
+        }
+    }
 
-    // セルのセレクターを返す
+    // セルの内容を取得
+    get_cell_text(row, column){
+        return $("#" + this.prefix + "_table").find("tr").eq(row).find("td").eq(column);
+    }
+
+    // テーブルの各trをイテレートし、操作を適応する
+    // modify(mod){
+    //     $("#" + this.prefix +"_table tr").each(function () {
+    //         if (!$(this).hasClass("search_ignore")) {
+    //             mod(this);
+    //         }
+    //     });
+    // }
 }
 
 // ページにあるテーブルのリスト

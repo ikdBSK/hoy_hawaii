@@ -59,6 +59,8 @@ public class Account {
     public void set_address(String address) {
         this.address = address;
     }
+    public void set_name(String name) {this.name = name;}
+    public void set_sex(String sex) {this.sex = SexTag.valueOf(sex);}
 
     //password一致判定
     public boolean check_password(String password) {

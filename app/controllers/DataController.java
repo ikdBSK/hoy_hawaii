@@ -261,7 +261,22 @@ public class DataController extends Controller {
      * @return JSON形式のSubjectリスト
      */
     public Result subject_list() {
-        return ok(Json.toJson(subjects));
+        class TMPSubject {
+            public final String name;
+            public final int credits;
+
+            private TMPSubject(Subject s){
+                name = s.getName();
+                credits = s.getCredits();
+            }
+        }
+
+        ArrayList<TMPSubject> temp = new ArrayList<>();
+        for(Subject s : subjects){
+            temp.add(new TMPSubject(s));
+        }
+
+        return ok(Json.toJson(temp));
     }
 
 
@@ -332,16 +347,36 @@ public class DataController extends Controller {
             //管理者からのアクセスのとき
             final String account_id = get_id();
             if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+
+            class TMPAccount {
+                public final String id;
+                public final String name;
+                public final String sex;
+                public final String address;
+                public final String password;
+
+                private TMPAccount(Account account){
+                    this.id = account.get_id();
+                    this.name = account.get_name();
+                    this.sex = account.get_sex().toString();
+                    this.address = account.get_address();
+                    this.password = account.get_password();
+                }
+            }
+
             if(id.startsWith("S")){
                 Student student = get_student(id);
-                if(student != null) return ok(Json.toJson(student));
+                TMPAccount temp = new TMPAccount(student);
+                return ok(Json.toJson(temp));
             }
             if(id.startsWith("T")){
                 Teacher teacher = get_teacher(id);
-                if(teacher != null) return ok(Json.toJson(teacher));
+                TMPAccount temp = new TMPAccount(teacher);
+                return ok(Json.toJson(temp));
             }
             if(id.equals(admin_id)){
-                return ok(Json.toJson(admin));
+                TMPAccount temp = new TMPAccount(admin);
+                return ok(Json.toJson(temp));
             }
             return notFound();
         } catch (Exception e) {
@@ -485,6 +520,8 @@ public class DataController extends Controller {
                 if(student == null) return unauthorized();
                 student.set_password(form.get("password")[0]);
                 student.set_address(form.get("address")[0]);
+                student.set_name(form.get("name")[0]);
+                student.set_sex(form.get("sex")[0]);
                 update_student(student);
                 return ok();
             }
@@ -493,6 +530,8 @@ public class DataController extends Controller {
                 if(teacher == null) return unauthorized();
                 teacher.set_password(form.get("password")[0]);
                 teacher.set_address(form.get("address")[0]);
+                teacher.set_name(form.get("name")[0]);
+                teacher.set_sex(form.get("sex")[0]);
                 update_teacher(teacher);
                 return ok();
             }
@@ -560,7 +599,30 @@ public class DataController extends Controller {
     public Result subject_detail(String name){
         Subject subject = get_subject(name);
         if(subject == null) return notFound();
-        return ok(Json.toJson(subject.getClasses()));
+
+        class TMPSubjectClass {
+            public final String subject;
+            public final String teacher;
+            public final int grade;
+            public final int year;
+            public final int semester;
+
+            public TMPSubjectClass(SubjectClass t){
+                subject = t.getSubject().getName();
+                teacher = t.getTeacher().get_name();
+                grade = t.getGrade();
+                year = t.getSemester().getYear();
+                semester = t.getSemester().getSemester();
+            }
+        }
+
+        ArrayList<SubjectClass> classes = subject.getClasses();
+        ArrayList<TMPSubjectClass> temp = new ArrayList<>();
+        for(SubjectClass s : classes){
+            temp.add(new TMPSubjectClass(s));
+        }
+
+        return ok(Json.toJson(temp));
     }
 
 
