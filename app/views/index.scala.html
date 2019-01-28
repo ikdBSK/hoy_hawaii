@@ -428,6 +428,32 @@
             </div>
         </div>
 
-
+        <div id="admin_external_exam_creation" style="display: none;">
+            <h1>新規外部模試</h1>
+            <form id="external_exam_form">
+                <table class="admin_item_table">
+                    <tr>
+                        <td>年</td>
+                        <td><input type="number" name="year" min="1192" max="2100" required title="試験実施日"></td>
+                    </tr>
+                    <tr>
+                        <td>月</td>
+                        <td><input type="number" name="month" min="1" max="12" required title="試験実施日"></td>
+                    </tr>
+                    <tr>
+                        <td>日</td>
+                        <td><input type="numbe" name="day" min="0" max="31" required title="ここだけゼロオリジン"></td>
+                    </tr>
+                    <tr>
+                        <td>外部試験の種類</td>
+                        <td><input type="text" name="type" required title="進研ゼミは💩"></td>
+                    </tr>
+                </table>
+                <button onclick="admin_new_external_exam_form.post(); return false;">作成</button>
+                <button type="submit" id="external_exam_submit" style="display: none;"></button>
+                <div id="external_exam_display"></div>
+                @helper.CSRF.formField
+            </form>
+        </div>
     </div>
 }

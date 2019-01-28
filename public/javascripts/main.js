@@ -237,4 +237,12 @@ const admin_subject_detail_table = new table(
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"]],
     5
 );
+
+const admin_new_external_exam_form = new form(
+    "make_external_exam",
+    null,
+    "external_exam",
+    ["year", "month", "day", "type"],
+    "入力に黄色くて暖かいものが混じっています。"
+);
 //***************************************************************************************************//
