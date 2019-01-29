@@ -65,12 +65,22 @@ public class SchoolTest {
     }
 
     //method
+
+    /**
+     * 試験成績追加
+     * @param student
+     * @param result
+     */
     public void addResult(Student student, TestResult result){
         result.setSubject(subject);
         this.result.put(student, result);
         student.getRecord().addExam(exam);
     }
 
+    /**
+     * 試験成績追加
+     * @param result
+     */
     public void addResult(TestResult result){
         Student student = result.getStudent();
         result.setSubject(subject);
