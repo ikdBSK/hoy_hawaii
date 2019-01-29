@@ -128,8 +128,8 @@ public class SchoolRecord {
     /**
      * 指定された回、科目の順位
      */
-    public double getRank(SchoolExamTime time, Subject subject){
-        double Rank = 0;
+    public int getRank(SchoolExamTime time, Subject subject){
+        int Rank = 0;
         try{
             Rank = exams.get(time).getRank(student, subject);
         }catch (Exception e){
