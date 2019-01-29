@@ -1140,13 +1140,15 @@ public class DataController extends Controller {
             String name = form.get("name")[0];
             int score = Integer.parseInt(form.get("score")[0]);
             String student_id = form.get("id")[0];
+            double d_value = Double.parseDouble(form.get("d_value")[0]);
+            int rank = Integer.parseInt(form.get("rank")[0]);
             Subject subject = get_subject(name);
             if(subject == null) return notFound();
             Student student = get_student(student_id);
             if(student == null) return notFound();
             ExternalTest test = get_external_test(year, month, day, type, name);
             if(test == null) return notFound();
-            ExternalTestResult result = new ExternalTestResult(score, student, subject);
+            ExternalTestResult result = new ExternalTestResult(score, student, subject, d_value, rank);
             test.addResult(result);
             return ok();
         } catch (Exception e) {
