@@ -989,7 +989,27 @@ public class DataController extends Controller {
             SchoolTest test = get_school_test(subjectClass, year, semester, term);
             if(test == null) return notFound();
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());
-            return ok(Json.toJson(testResults));
+
+            class TMPResult {
+                public final String student;
+                public final int score;
+                public final double d_value;
+                public final int rank;
+
+                private TMPResult(TestResult t, double d_value, int rank){
+                    student = t.getStudent().get_name();
+                    score = t.getScore();
+                    this.d_value = d_value;
+                    this.rank = rank;
+                }
+            }
+
+            ArrayList<TMPResult> tmp = new ArrayList<>();
+            for(TestResult t : testResults){
+                tmp.add(new TMPResult(t, get_d_value(t.getStudent(), test.getExam().getTime(), t.getSubject().getSubject()), 0));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();

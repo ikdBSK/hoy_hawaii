@@ -164,6 +164,27 @@ const teacher_add_result_form = new form(
     ["year", "semester", "term", "name", "grade", "score", "id"],
     "入力に間違いがあります。"
 );
+
+function teacher_subject_student_list_refresh(){
+    const form = $("#teacher_subject_student_result_form");
+    const year = form.find("[name=year]").val();
+    const semester = form.find("[name=semester]").val();
+    const term = form.find("[name=term]").val();
+    const name = form.find("[name=name]").val();
+    const grade = form.find("[name=grade]").val();
+
+    teacher_subject_student_result_table.custom_refresh("students_results/" + year + "/" + semester + "/" + term + "/" + name + "/" + grade);
+}
+
+const teacher_subject_student_result_table = new table(
+    "students_results",
+    "teacher_subject_student_result",
+    ["生徒ID", "点数", "偏差値", "順位"],
+    ["student", "score", "d_value", "rank"],
+    [0, 0, 0, 0],
+    [[], [], [], []],
+    5
+);
 //***************************************************************************************************//
 //***************************************************************************************************//
 // 管理者
@@ -231,7 +252,7 @@ function admin_subject_list_table_mod(tr){
 const admin_subject_detail_table = new table(
     "subject_detail",
     "admin_subject_detail",
-    ["担当教師", "学年", "年", "学期"],
+    ["科目名", "担当教師", "学年", "年", "学期"],
     ["subject", "teacher", "grade", "year", "semester"],
     [0, 0, 2, 0, 2],
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"]],
@@ -244,5 +265,15 @@ const admin_new_external_exam_form = new form(
     "external_exam",
     ["year", "month", "day", "type"],
     "入力に黄色くて暖かいものが混じっています。"
+);
+
+const admin_class_list = new table(
+    "classroom_list",
+    "class_list",
+    ["年", "学年", "先生ID", "生徒ID（コンマ区切り）"],
+    ["year", "grade", "teacher", "students_id"],
+    [1, 2, 0, 0],
+    [[], ["1", "2", "3"], [], []],
+    5
 );
 //***************************************************************************************************//
