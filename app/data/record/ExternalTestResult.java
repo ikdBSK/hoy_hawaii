@@ -28,11 +28,11 @@ public class ExternalTestResult {
 
 	public void setSubject(Subject subject) { this.subject = subject; }
 
-	public double getdValue() {
+	public double getDValue() {
 		return dValue;
 	}
 
-	public void setdValue(double dValue) {
+	public void setDValue(double dValue) {
 		this.dValue = dValue;
 	}
 }
