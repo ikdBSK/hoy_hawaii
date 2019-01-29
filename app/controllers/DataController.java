@@ -412,6 +412,19 @@ public class DataController extends Controller {
 
 
     /**
+     * ある生徒の特定の試験での科目の順位を返す
+     * @param student 生徒
+     * @param time 試験の時期
+     * @param subject 科目
+     * @return 順位
+     */
+    public int get_rank(Student student, SchoolExamTime time, Subject subject){
+        final int rank = student.getRecord().getRank(time, subject);
+        return rank;
+    }
+
+
+    /**
      * 指定された回の得点率(%)を返す
      * @param time 返す回
      * @return 得点率

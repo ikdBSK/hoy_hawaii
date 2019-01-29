@@ -111,7 +111,7 @@ public class SchoolExam {
      * @param student テストを返却したい対象生徒
      * @return 該当する生徒の順位、存在しないまたは未公開の場合は0
      */
-    public double getRank(Student student, Subject subject) {
+    public int getRank(Student student, Subject subject) {
         if(release==false){
             return 0;
         }
