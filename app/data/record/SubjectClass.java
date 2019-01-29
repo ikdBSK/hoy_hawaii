@@ -133,12 +133,20 @@ public class SubjectClass {
         return this.subject.equals(subject);
     }
 
+    /**
+     * 追加生徒に対して履修登録
+     * @param students
+     */
     public void addStudentSubject(ArrayList<Student> students){
         for (Student s : students){
             s.getRecord().getClasses().add(this);
         }
     }
 
+    /**
+     * 生徒追加
+     * @param s
+     */
     public void addStudent(Student s){
         students.add(s);
         s.getRecord().getClasses().add(this);

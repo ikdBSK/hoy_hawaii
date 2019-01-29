@@ -126,6 +126,19 @@ public class SchoolRecord {
     }
 
     /**
+     * 指定された回、科目の順位
+     */
+    public int getRank(SchoolExamTime time, Subject subject){
+        int Rank = 0;
+        try{
+            Rank = exams.get(time).getRank(student, subject);
+        }catch (Exception e){
+            return 0;
+        }
+        return Rank;
+    }
+
+    /**
      * 受けたテストを登録する
      * @param exam 受けたテスト
      */

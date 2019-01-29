@@ -2,6 +2,7 @@ package data.record;
 
 import data.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SchoolExam {
     private SchoolExamTime time;
@@ -100,6 +101,37 @@ public class SchoolExam {
 
                     return ((result.getScore() - mean) * 10 / sd) + 50;
                 }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 指定された生徒の指定された科目の順位
+     * @param student テストを返却したい対象生徒
+     * @return 該当する生徒の順位、存在しないまたは未公開の場合は0
+     */
+    public int getRank(Student student, Subject subject) {
+        if(release==false){
+            return 0;
+        }
+        for(SchoolTest test : tests){
+            if(test.getSubject().equals(subject)){
+                TestResult result = test.getResult().get(student);
+                ArrayList<TestResult> results = new ArrayList<>(test.getResult().values());
+
+                ArrayList<Integer> scores = new ArrayList<>();
+                for(TestResult t : results){
+                    scores.add(t.getScore());
+                }
+                Collections.sort(scores, Collections.reverseOrder());
+                int i;
+                for(i = 0; i < scores.size(); i++){
+                    if(scores.get(i) <= result.getScore()){
+                        return i+1;
+                    }
+                }
+                return scores.size();
             }
         }
         return 0;

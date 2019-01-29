@@ -185,6 +185,15 @@ const teacher_subject_student_result_table = new table(
     [[], [], [], []],
     5
 );
+
+const teacher_external_exam_list_table = new table(
+    "external_exam_list",
+    "teacher_external_list",
+    ["生徒名", "科目名", "点数", "偏差値", "順位"],
+    ["student", "subject", "score", "d_value", "rank"],
+    [0, 0, 0, 0, 0],
+    5
+);
 //***************************************************************************************************//
 //***************************************************************************************************//
 // 管理者
