@@ -128,6 +128,7 @@ function open_school_test_detail(year, semester, term){
         10
     );
 }
+tables.push(open_school_test_detail());
 
 // 科目ごとの成績遷移
 // const student_subject_history = new table(
@@ -185,6 +186,7 @@ const teacher_subject_student_result_table = new table(
     [[], [], [], []],
     5
 );
+tables.push(teacher_subject_student_result_table);
 
 const teacher_external_exam_list_table = new table(
     "external_exam_list",
@@ -192,7 +194,17 @@ const teacher_external_exam_list_table = new table(
     ["生徒名", "科目名", "点数", "偏差値", "順位"],
     ["student", "subject", "score", "d_value", "rank"],
     [0, 0, 0, 0, 0],
+    [[], [], [], [], []],
     5
+);
+tables.push(teacher_external_exam_list_table);
+
+const teacher_external_exam_new_form = new form(
+    "add_ex_result",
+    null,
+    "external_exam",
+    ["year", "month", "day", "type", "name", "id", "score", "d_value", "rank"],
+    "わはははっははは"
 );
 //***************************************************************************************************//
 //***************************************************************************************************//
@@ -267,6 +279,7 @@ const admin_subject_detail_table = new table(
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"]],
     5
 );
+tables.push(admin_subject_detail_table);
 
 const admin_new_external_exam_form = new form(
     "make_external_exam",
@@ -285,4 +298,5 @@ const admin_class_list = new table(
     [[], ["1", "2", "3"], [], []],
     5
 );
+tables.push(admin_class_list);
 //***************************************************************************************************//

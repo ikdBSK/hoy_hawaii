@@ -227,6 +227,50 @@
 
             <div id="teacher_external_result_creation" style="display: none;">
                 <h1>外部試験結果入力</h1>
+                <form id="external_exam_form">
+                    <table>
+                        <tr>
+                            <td>年</td>
+                            <td><input title="年" type="number" name="year" min="1234" max="4321" required></td>
+                        </tr>
+                        <tr>
+                            <td>月</td>
+                            <td><input title="めんどくさい" type="number" name="month" min="1" max="12" required></td>
+                        </tr>
+                        <tr>
+                            <td>日</td>
+                            <td><input title="おわんあいよ" type="number" name="day" min="1" max="31" required></td>
+                        </tr>
+                        <tr>
+                            <td>模試の種類</td>
+                            <td><input title="駿台は神" type="text" name="type" required></td>
+                        </tr>
+                        <tr>
+                            <td>科目名</td>
+                            <td><input title="科目名" type="text" name="name" required></td>
+                        </tr>
+                        <tr>
+                            <td>生徒ID</td>
+                            <td><input title="生徒" type="text" name="id" required placeholder="渡部ちゃん"></td>
+                        </tr>
+                        <tr>
+                            <td>点数</td>
+                            <td><input title="のび太君は０が好きなんですよ" type="number" min="0" max="9000" name="score" required></td>
+                        </tr>
+                        <tr>
+                            <td>偏差値</td>
+                            <td><input title="偏差値地獄" type="text" name="d_value" required></td>
+                        </tr>
+                        <tr>
+                            <td>順位</td>
+                            <td><input title="IQ" type="number" name="rank" required></td>
+                        </tr>
+                    </table>
+                    <button onclick="teacher_external_exam_new_form.post(); return false;">作成</button>
+                    <button type="submit" id="external_exam_submit" style="display: none;"></button>
+                    <div id="external_exam_display"></div>
+                    @helper.CSRF.formField
+                </form>
             </div>
         </div>
     </div>

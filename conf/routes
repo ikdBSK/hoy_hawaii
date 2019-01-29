@@ -36,7 +36,7 @@ GET   /students_results/:year/:semester/:term/:name/:grade   controllers.DataCon
 POST  /add_test/:year/:semester/:term/:name/:grade     controllers.DataController.add_test(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 POST  /add_result/:year/:semester/:term/:name/:grade   controllers.DataController.add_result(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 GET   /external_exam_list                       controllers.DataController.external_exam_list
-POST  /add_ex_result/:year/:month/:day/:type    controllers.DataController.add_ex_result(year: Integer, month: Integer, day: Integer, type: String)
+POST  /add_ex_result/   controllers.DataController.add_ex_result()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /robot.txt                              controllers.Default.notFound

@@ -1136,7 +1136,7 @@ public class DataController extends Controller {
             int year = Integer.parseInt(form.get("year")[0]);
             int month = Integer.parseInt(form.get("month")[0]);
             int day = Integer.parseInt(form.get("day")[0]);
-            String type = form.get("name")[0];
+            String type = form.get("type")[0];
             String name = form.get("name")[0];
             int score = Integer.parseInt(form.get("score")[0]);
             String student_id = form.get("id")[0];
