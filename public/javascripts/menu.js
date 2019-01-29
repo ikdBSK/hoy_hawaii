@@ -27,3 +27,27 @@ $(function() {
 
     var accordion = new Accordion($('.accordion-menu'), false);
 });
+
+function open_admin_menu(id) {
+    var $ = jQuery;
+    $('#admin_screen .content >div').each(function(i, o){
+        $(o).hide();
+    });
+    $(id).show();
+}
+
+function open_student_menu(id) {
+    var $ = jQuery;
+    $('#student_screen .content >div').each(function(i, o){
+        $(o).hide();
+    });
+    $(id).show();
+}
+
+function open_teacher_menu(id) {
+    var $ = jQuery;
+    $('#teacher_screen .content >div').each(function(i, o){
+        $(o).hide();
+    });
+    $(id).show();
+}

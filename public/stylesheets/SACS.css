@@ -89,8 +89,8 @@ select {
     background-color: white;
 }
 #login_screen .content {
-    border-left: solid 75px #f0f0f0;
-    border-right: solid 75px #f0f0f0;
+    border-left: solid 120px #f0f0f0;
+    border-right: solid 120px #f0f0f0;
     padding-bottom: 30px;
 }
 #login_table {
@@ -135,6 +135,19 @@ select {
     position: relative;
     margin-right: 6px;
 }
+.teacher_add_test_form_left,
+.teacher_add_result_form_left {
+    width: 50%;
+    position: relative;
+    left: 3%;
+}
+.teacher_add_test_form_right,
+.teacher_add_result_form_right {
+    width: 50%;
+    position: relative;
+    left: -3%;
+}
+
 
 /** admin **/
 #admin_screen {
@@ -183,7 +196,7 @@ select {
     left: 0;
     width: 15px;
     height: 15px;
-    border: 1px solid #999;
+    border: 1px solid #777777;
     border-radius: 50%;
 }
 .form_table input[type="radio"]:checked + label {
