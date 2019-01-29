@@ -1123,14 +1123,20 @@ public class DataController extends Controller {
      * @param type 模試名
      * @return 0
      */
-    public Result add_ex_result(int year, int month, int day, String type){
+    public Result add_ex_result(){
         try {
+
+
             final String account_id = get_id();
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
             //とりあえず科目名と点数と生徒IDの受け取りで実装
             Map<String, String[]> form = request().body().asFormUrlEncoded();
+            int year = Integer.parseInt(form.get("year")[0]);
+            int month = Integer.parseInt(form.get("month")[0]);
+            int day = Integer.parseInt(form.get("day")[0]);
+            String type = form.get("name")[0];
             String name = form.get("name")[0];
             int score = Integer.parseInt(form.get("score")[0]);
             String student_id = form.get("id")[0];
