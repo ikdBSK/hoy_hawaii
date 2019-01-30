@@ -103,32 +103,41 @@ const login_form = new form("/login", null, "login", ["id", "password"], $("<p>"
 // 生徒
 //***************************************************************************************************//
 // 定期試験の一覧
-const school_test_list_table = new table(
+const student_school_test_list_table = new table(
     "school_exam_list",
     "school_test_list",
     ["年", "学期", "中間・期末", "校内順位", "操作"],
     ["year", "semester", "term", "rank", null],
     [2, 2, 2, 0, 4],
-    [["2017", "2018", "2019"], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], []],
+    [["2017", "2018", "2019"], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], [student_school_test_list_mod]],
     10
 );
-tables.push(school_test_list_table);
+tables.push(student_school_test_list_table);
+function student_school_test_list_mod(tr){
+    const year = tr.find("td").eq(0).text();
+    const semester = tr.find("td").eq(1).text();
+    const term = (tr.find("td").eq(2).text() === "中間") ? 0 : 1;
+    const button = tr.find("td").eq(4);
+
+    button.append($("<button>")
+        .attr("onclick",
+            "$('#student_school_test_detail').toggle();" +
+            "student_school_test_detail_table.custom_refresh('school_exam_detail/" + year + "/" + semester + "/" + term + "');" +
+            "return false;")
+        .text("詳細を見る"));
+}
 
 // 定期試験の詳細
-let school_test_detail_table = null;
-
-function open_school_test_detail(year, semester, term){
-    school_test_detail_table = new table(
-        "exam_test_list/" + year + "/" + semester + "/" + term,
-        "school_test_detail",
-        ["科目", "点数", "平均", "偏差値", "順位", "赤点"],
-        ["subject", "score", "average", "deviation", "rank", "failed"],
-        [2, 0, 0, 0, 0, 3],
-        [["国語", "数学", "英語"], [], [], [], [], ["赤点", "合格", "不合格"]],
-        10
-    );
-}
-tables.push(open_school_test_detail());
+const student_school_test_detail_table = new table(
+    "school_exam_detail",
+    "school_test_detail",
+    ["科目", "点数", "順位", "偏差値"],
+    ["subject", "score", "rank", "d_value"],
+    [0, 0, 0, 0],
+    [[], [], [], []],
+    10
+);
+tables.push(student_school_test_detail_table);
 
 // 科目ごとの成績遷移
 // const student_subject_history = new table(
@@ -202,7 +211,7 @@ tables.push(teacher_external_exam_list_table);
 const teacher_external_exam_new_form = new form(
     "add_ex_result",
     null,
-    "external_exam",
+    "external_exam_result",
     ["year", "month", "day", "type", "name", "id", "score", "d_value", "rank"],
     "わはははっははは"
 );
