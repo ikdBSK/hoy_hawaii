@@ -1033,25 +1033,25 @@ public class DataController extends Controller {
 
     /**
      * 教師が試験実施日を確定したらその情報を持つSchoolTestを作っておく
-     * @param year 実施した年
-     * @param semester 実施した学期
-     * @param term 中間/期末とか
-     * @param name 科目名
-     * @param grade 学年
      * @return 作成したSchoolTestが追加された、subjectClassのtestsリスト
      */
-    public Result add_test(int year, int semester, int term, String name, int grade){
+    public Result add_test(){
         try {
             final String account_id = get_id();
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            int year = Integer.parseInt(form.get("year")[0]);
+            int semester = Integer.parseInt(form.get("semester")[0]);
+            int term = Integer.parseInt(form.get("term")[0]);
+            String name = form.get("name")[0];
+            int grade = Integer.parseInt(form.get("grade")[0]);
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
             if(subjectClass == null) return notFound();
             //管理者が作ったSchoolExamリストの中から時期の一致するものを特定
             SchoolExam exam = get_school_exam(year, semester, term);
             if(exam == null) return notFound();
-            Map<String, String[]> form = request().body().asFormUrlEncoded();
             final int month = Integer.parseInt(form.get("month")[0]);
             final int day = Integer.parseInt(form.get("day")[0]);
             final int division = Integer.parseInt(form.get("division")[0]);
@@ -1068,25 +1068,25 @@ public class DataController extends Controller {
 
     /**
      * 一人の生徒の試験結果を登録する
-     * @param year 実施した年
-     * @param semester 実施した学期
-     * @param term 中間/期末とか
-     * @param name 科目名
-     * @param grade 学年
      * @return TestResultのリスト
      */
-    public Result add_result(int year, int semester, int term, String name, int grade){
+    public Result add_result(){
         try {
             final String account_id = get_id();
             if(account_id == null) return badRequest();
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
+            Map<String, String[]> form = request().body().asFormUrlEncoded();
+            int year = Integer.parseInt(form.get("year")[0]);
+            int semester = Integer.parseInt(form.get("semester")[0]);
+            int term = Integer.parseInt(form.get("term")[0]);
+            String name = form.get("name")[0];
+            int grade = Integer.parseInt(form.get("grade")[0]);
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
             if(subjectClass == null) return notFound();
             SchoolTest test = get_school_test(subjectClass, year, semester, term);
             if(test == null) return notFound();
             //とりあえず点数と生徒IDの受け取りのみ実装
-            Map<String, String[]> form = request().body().asFormUrlEncoded();
             int score = Integer.parseInt(form.get("score")[0]);
             String student_id = form.get("id")[0];
             Student student = get_student(student_id);

@@ -33,8 +33,8 @@ GET     /ex_subject_history                     controllers.DataController.ex_su
 GET   /subject_class_list                       controllers.DataController.subject_class_list
 GET   /school_test_list/:year/:semester/:name/:grade   controllers.DataController.school_test_list(year: Integer, semester: Integer, name: String, grade: Integer)
 GET   /students_results/:year/:semester/:term/:name/:grade   controllers.DataController.students_results(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
-POST  /add_test/:year/:semester/:term/:name/:grade     controllers.DataController.add_test(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
-POST  /add_result/:year/:semester/:term/:name/:grade   controllers.DataController.add_result(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
+POST  /add_test                                 controllers.DataController.add_test
+POST  /add_result   　　　　　　　                controllers.DataController.add_result
 GET   /external_exam_list                       controllers.DataController.external_exam_list
 POST  /add_ex_result/   controllers.DataController.add_ex_result()
 
