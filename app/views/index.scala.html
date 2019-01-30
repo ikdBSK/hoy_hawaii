@@ -245,12 +245,11 @@
                                 <td><input type="number" name="score" min="0" max="100" title="点数" required></td>
                             </tr>
                         </table>
-                    </div>
+                    </div><button onclick="teacher_add_result_form.post(); return false;">作成</button>
+                    <button type="submit" id="teacher_add_result_submit" style="display: none;"></button>
+                    <div id="teacher_add_result_display"></div>
+                    @helper.CSRF.formField
                 </form>
-                <button onclick="teacher_add_result_form.post(); return false;">作成</button>
-                <button type="submit" id="teacher_add_result_submit" style="display: none;"></button>
-                <div id="teacher_add_result_display"></div>
-                @helper.CSRF.formField
             </div>
 
             <div id="teacher_student_result_list" style="display: none;">
