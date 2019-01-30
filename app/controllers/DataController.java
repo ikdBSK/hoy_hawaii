@@ -858,7 +858,7 @@ public class DataController extends Controller {
                 public String term;
                 public int total;
                 public double rate;
-                public double d_value;
+                public String d_value;
                 public int rank;
 
                 private TMPSchoolExam(SchoolExamTime t, int total, double rate, double d_value, int rank){
@@ -867,7 +867,7 @@ public class DataController extends Controller {
                     term = (0 == t.getTerm()) ? "中間" : "期末";
                     this.total = total;
                     this.rate = rate;
-                    this.d_value = d_value;
+                    this.d_value = String.format("%.2f", d_value);
                     this.rank = rank;
                 }
             }
@@ -892,7 +892,7 @@ public class DataController extends Controller {
     class TMPTestResult {
         public final String subject;
         public final int score;
-        public final double d_value;
+        public final String d_value;
         public final int rank;
         public final int year;
         public final int semester;
@@ -901,7 +901,7 @@ public class DataController extends Controller {
         private TMPTestResult(TestResult r, double d_value, int rank){
             subject = r.getSubject().getSubject().getName();
             score = r.getScore();
-            this.d_value = d_value;
+            this.d_value = String.format("%.2f", d_value);
             this.rank = rank;
             year = r.getTime().getYear();
             semester = r.getTime().getSemester();
@@ -1132,13 +1132,13 @@ public class DataController extends Controller {
             class TMPResult {
                 public final String student;
                 public final int score;
-                public final double d_value;
+                public final String d_value;
                 public final int rank;
 
                 private TMPResult(TestResult t, double d_value, int rank){
                     student = t.getStudent().get_name();
                     score = t.getScore();
-                    this.d_value = d_value;
+                    this.d_value = String.format("%.2f", d_value);
                     this.rank = rank;
                 }
             }
