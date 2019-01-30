@@ -1225,7 +1225,27 @@ public class DataController extends Controller {
         if(account_id == null) return badRequest();
         Teacher teacher = get_teacher(account_id);
         if(teacher == null) return badRequest();
-        return ok(Json.toJson(ex_exams));
+
+        ArrayList<TMPExternalExam> tmp = new ArrayList<>();
+        for(ExternalExam e : ex_exams){
+            tmp.add(new TMPExternalExam(e));
+        }
+
+        return ok(Json.toJson(tmp));
+    }
+
+    class TMPExternalExam {
+        public final int year;
+        public final int month;
+        public final int day;
+        public final String type;
+
+        private TMPExternalExam(ExternalExam e){
+            year = e.getTime().getYear();
+            month = e.getTime().getMonth();
+            day = e.getTime().getDay();
+            type = e.getType().getName();
+        }
     }
 
 
