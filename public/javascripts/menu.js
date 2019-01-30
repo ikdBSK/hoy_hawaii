@@ -1,17 +1,17 @@
 $(function() {
-    var Accordion = function(el, multiple) {
+    const Accordion = function(el, multiple) {
         this.el = el || {};
         // more then one submenu open?
         this.multiple = multiple || false;
 
-        var dropdownlink = this.el.find('.dropdownlink');
+        const dropdownlink = this.el.find('.dropdownlink');
         dropdownlink.on('click',
             { el: this.el, multiple: this.multiple },
             this.dropdown);
     };
 
     Accordion.prototype.dropdown = function(e) {
-        var $el = e.data.el,
+        const $el = e.data.el,
             $this = $(this),
             //this is the ul.submenuItems
             $next = $this.next();
@@ -25,11 +25,10 @@ $(function() {
         }
     };
 
-    var accordion = new Accordion($('.accordion-menu'), false);
+    const accordion = new Accordion($('.accordion-menu'), false);
 });
 
 function open_admin_menu(id) {
-    var $ = jQuery;
     $('#admin_screen .content >div').each(function(i, o){
         $(o).hide();
     });
@@ -37,7 +36,6 @@ function open_admin_menu(id) {
 }
 
 function open_student_menu(id) {
-    var $ = jQuery;
     $('#student_screen .content >div').each(function(i, o){
         $(o).hide();
     });
@@ -45,7 +43,6 @@ function open_student_menu(id) {
 }
 
 function open_teacher_menu(id) {
-    var $ = jQuery;
     $('#teacher_screen .content >div').each(function(i, o){
         $(o).hide();
     });

@@ -35,13 +35,15 @@
                         <td colspan="2">
                             <div class="button">
                                 <button onclick="login_form.post().then(response => {
+                                    if(!response.ok) return;
                                     return response.json();
                                 }, error =>{
                                     console.log(error);
                                 }).then(status => {
                                     $('#login_status').text(status);
-                                login();
-                                }); return false;">ログイン</button>
+                                    login();
+                                });
+                                return false;">ログイン</button>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +53,7 @@
                 @helper.CSRF.formField
             </form>
             <br>
-            <a href="http://www.titech.ac.jp" class="link">パスワードをお忘れの方はこちら</a>
+            <a href="http://www.titech.ac.jp" onclick="alert('パスワードを忘れた生徒は、校則により退学と規定されている。明日から登校しないでよろしい。'); return true;" class="link">パスワードをお忘れの方はこちら</a>
         </div>
     </div>
 
@@ -65,7 +67,8 @@
 
             @* 定期試験の一覧 *@
             <div id="student_school_test_list_screen" style="display: none;">
-                <h1>定期試験の一覧</h1>
+                <h1>定期試験：一覧</h1>
+                <button onclick="student_school_test_list_table.refresh(); return false;">更新</button>
                 <div id="school_test_list_display"></div>
 
                 <div id="student_school_test_detail" style="display: none;">
@@ -81,7 +84,20 @@
 
             @* 科目ごとの成績繊維 *@
             <div id="student_subject_graph_screen" style="display: none;">
-                <h1>科目ごとの成績の移り変わり</h1>
+                <h1>定期試験：科目ごとの成績の移り変わり</h1>
+                <form id="student_subject_history_get">
+                    <table>
+                        <tr>
+                            <td>科目名</td>
+                            <td><input type="text" title="科目名" name="name"></td>
+                        </tr>
+                    </table>
+                    <button onclick="student_subject_history_table.custom_refresh('subject_history/'
+                    + $('#student_subject_history_get').find('[name=name]').val()
+                    );
+                    return false;">取得</button>
+                </form>
+                <div id="student_subject_history_display"></div>
             </div>
         </div>
     </div>
@@ -443,6 +459,10 @@
                         <tr>
                             <td>学年</td>
                             <td><input type="number" name="grade" min="1" max="2" required title="学年"></td>
+                        </tr>
+                        <tr>
+                            <td>組</td>
+                            <td><input type="text" name="class" required title="チーム名"></td>
                         </tr>
                         <tr>
                             <td>年</td>

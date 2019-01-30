@@ -10,6 +10,7 @@ public class TestResult {
     */
     private Student student;
     private SubjectClass subject;
+    private SchoolExamTime time;
 
     /*
     public TestResult(int score, boolean attendance, boolean late, Student student, SubjectClass subject) {
@@ -20,15 +21,20 @@ public class TestResult {
         this.subject = subject;
     }*/
 
-    public TestResult(int score, Student student, SubjectClass subject) {
+    public TestResult(int score, Student student, SubjectClass subject, SchoolExamTime time) {
         this.score = score;
         this.student = student;
         this.subject = subject;
+        this.time = time;
     }
 
     //getter and setter
     public int getScore() {
         return score;
+    }
+
+    public SchoolExamTime getTime() {
+        return time;
     }
 
     public void setScore(int score) {

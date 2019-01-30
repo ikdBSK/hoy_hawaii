@@ -22,8 +22,16 @@ public class DataController extends Controller {
     private ArrayList<ExternalExamType> ex_types = new ArrayList<>();
     private ArrayList<ExternalExam> ex_exams = new ArrayList<>();
 
+    {
+        test();
+    }
+
+    private void test(){
+
+    }
+
     //idが一致する生徒を検索
-    public Student get_student(String id) {
+    private Student get_student(String id) {
         for(Student s : students){
             if(s.get_id().equals(id)){
                 return s;
@@ -33,7 +41,7 @@ public class DataController extends Controller {
     }
 
     //idが一致する教師を検索
-    public Teacher get_teacher(String id) {
+    private Teacher get_teacher(String id) {
         for(Teacher t : teachers){
             if(t.get_id().equals(id)){
                 return t;
@@ -43,7 +51,7 @@ public class DataController extends Controller {
     }
 
     //nameが一致するSubjectを検索
-    public Subject get_subject(String name) {
+    private Subject get_subject(String name) {
         for(Subject s : subjects){
             if(s.getName().equals(name)){
                 return s;
@@ -53,7 +61,7 @@ public class DataController extends Controller {
     }
 
     //year, semester, term が一致する試験を検索
-    public SchoolExam get_school_exam(int year, int semester, int term) {
+    private SchoolExam get_school_exam(int year, int semester, int term) {
         for(SchoolExam e : exams){
             SchoolExamTime time = e.getTime();
             if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
@@ -64,7 +72,7 @@ public class DataController extends Controller {
     }
 
     //teacherの持つSubjectClassリストから科目名・学年・年・学期が一致するものを特定
-    public SubjectClass get_subject_class(Teacher teacher, String name, int grade, int year, int semester) {
+    private SubjectClass get_subject_class(Teacher teacher, String name, int grade, int year, int semester) {
         for(SubjectClass c : teacher.getClasses()){
             if(c.getSubject().getName().equals(name) && c.getGrade() == grade
                     && c.getSemester().getYear() == year && c.getSemester().getSemester() == semester){
@@ -75,7 +83,7 @@ public class DataController extends Controller {
     }
 
     //subjectClassの持つSchoolTestリストの中から時期の一致するものを特定
-    public SchoolTest get_school_test(SubjectClass subjectClass, int year, int semester, int term) {
+    private SchoolTest get_school_test(SubjectClass subjectClass, int year, int semester, int term) {
         for(SchoolTest t : subjectClass.getTests()){
             SchoolExamTime time = t.getExam().getTime();
             if(time.getYear() == year && time.getSemester() == semester && time.getTerm() == term){
@@ -86,7 +94,7 @@ public class DataController extends Controller {
     }
 
     //yearとgradeが一致するGradeを検索
-    public Grade get_grade(int year, int grade){
+    private Grade get_grade(int year, int grade){
         for(Grade g : grades){
             if(g.getYear() == year && g.getGrade() == grade){
                 return g;
@@ -96,7 +104,7 @@ public class DataController extends Controller {
     }
 
     //nameの一致する模試タイプを検索
-    public ExternalExamType get_ex_type(String name) {
+    private ExternalExamType get_ex_type(String name) {
         for(ExternalExamType type : ex_types){
             if(type.getName().equals(name)) return type;
         }
@@ -104,7 +112,7 @@ public class DataController extends Controller {
     }
 
     //year, month, day, type が一致する模試を検索
-    public ExternalExam get_ex_exam(int year, int month, int day, String type) {
+    private ExternalExam get_ex_exam(int year, int month, int day, String type) {
         ExternalExamType ex_type = get_ex_type(type);
         for(ExternalExam e : ex_exams){
             ExternalTime time = e.getTime();
@@ -116,19 +124,21 @@ public class DataController extends Controller {
     }
 
     //時期、模試名、科目名の一致するExternalTestを特定
-    public ExternalTest get_external_test(int year, int month, int day, String type, String subject_name) {
+    private ExternalTest get_external_test(int year, int month, int day, String type, String subject_name){
         ExternalExam exam = get_ex_exam(year, month, day, type);
-        for(ExternalTest t : exam.getTests()){
-            String name = t.getSubject().getName();
-            if(name.equals(subject_name)){
-                return t;
+        if (exam != null) {
+            for(ExternalTest t : exam.getTests()){
+                String name = t.getSubject().getName();
+                if(name.equals(subject_name)){
+                    return t;
+                }
             }
         }
         return null;
     }
 
     //生徒情報を更新
-    public void update_student(Student student){
+    private void update_student(Student student){
         students.forEach(s -> {
             if(s.get_id().equals(student.get_id())){
                 students.set(students.indexOf(s), student);
@@ -137,7 +147,7 @@ public class DataController extends Controller {
     }
 
     //教師情報を更新
-    public void update_teacher(Teacher teacher){
+    private void update_teacher(Teacher teacher){
         teachers.forEach(t -> {
             if(t.get_id().equals(teacher.get_id())){
                 teachers.set(teachers.indexOf(t), teacher);
@@ -146,7 +156,7 @@ public class DataController extends Controller {
     }
 
     //ログインするアカウントIDをsessionに保持し、そのsessionIdをクライアントのCookieに保持して紐付ける
-    public void connect_session(String id) {
+    private void connect_session(String id) {
         final String sessionId = UUID.randomUUID().toString();
         session(sessionId, id);
         response().setCookie(
@@ -156,7 +166,7 @@ public class DataController extends Controller {
     }
 
     //sessionとCookie削除
-    public void disconnect_session() {
+    private void disconnect_session() {
         final Http.Cookie sessionId = request().cookie("sessId");
         if(sessionId != null) {
             session().remove(sessionId.value());
@@ -165,7 +175,7 @@ public class DataController extends Controller {
     }
 
     //sessionに保持したアカウントIDを確認
-    public String get_id() {
+    private String get_id() {
         final Http.Cookie sessionId = request().cookie("sessId");
         if(sessionId == null || !session().containsKey(sessionId.value())){
             //ユーザー情報がなければタスクの表示が無いページ返す
@@ -193,12 +203,16 @@ public class DataController extends Controller {
      * @return 名前
      */
     public Result username() {
-        String account_id = get_id();
-        if(account_id == null) return unauthorized();
-        if(account_id.startsWith("S")) return ok(Json.toJson(get_student(account_id).get_name()));
-        if(account_id.startsWith("T")) return ok(Json.toJson(get_teacher(account_id).get_name()));
-        if(account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
-        return badRequest();
+        try {
+            String account_id = get_id();
+            if (account_id == null) return ok(Json.toJson("NULL :)"));
+            if (account_id.startsWith("S")) return ok(Json.toJson(Objects.requireNonNull(get_student(account_id)).get_name()));
+            if (account_id.startsWith("T")) return ok(Json.toJson(Objects.requireNonNull(get_teacher(account_id)).get_name()));
+            if (account_id.equals(admin_id)) return ok(Json.toJson("管理者"));
+        } catch(Exception e){
+            return badRequest();
+        }
+        return notFound();
     }
 
 
@@ -218,7 +232,7 @@ public class DataController extends Controller {
             public final String sex;
             public final String address;
 
-            public TMPAccount(String id, String name, String sex, String address){
+            private TMPAccount(String id, String name, String sex, String address){
                 this.id = id;
                 this.name = name;
                 this.sex = sex;
@@ -366,12 +380,12 @@ public class DataController extends Controller {
 
             if(id.startsWith("S")){
                 Student student = get_student(id);
-                TMPAccount temp = new TMPAccount(student);
+                TMPAccount temp = new TMPAccount(Objects.requireNonNull(student));
                 return ok(Json.toJson(temp));
             }
             if(id.startsWith("T")){
                 Teacher teacher = get_teacher(id);
-                TMPAccount temp = new TMPAccount(teacher);
+                TMPAccount temp = new TMPAccount(Objects.requireNonNull(teacher));
                 return ok(Json.toJson(temp));
             }
             if(id.equals(admin_id)){
@@ -392,9 +406,8 @@ public class DataController extends Controller {
      * @param time 試験の時期
      * @return 総合点
      */
-    public int get_total(Student student, SchoolExamTime time){
-        int total = student.getRecord().getTotalScore(time);
-        return total;
+    private int get_total(Student student, SchoolExamTime time){
+        return  student.getRecord().getTotalScore(time);
     }
 
 
@@ -404,10 +417,9 @@ public class DataController extends Controller {
      * @param time 試験の時期
      * @return 総合順位
      */
-    public int get_rank(Student student, SchoolExamTime time){
+    private int get_rank(Student student, SchoolExamTime time){
         final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
-        final int rank = classRoom.getRank(student, time);
-        return rank;
+        return classRoom.getRank(student, time);
     }
 
 
@@ -418,9 +430,8 @@ public class DataController extends Controller {
      * @param subject 科目
      * @return 順位
      */
-    public int get_rank(Student student, SchoolExamTime time, Subject subject){
-        final int rank = student.getRecord().getRank(time, subject);
-        return rank;
+    private int get_rank(Student student, SchoolExamTime time, Subject subject){
+        return student.getRecord().getRank(time, subject);
     }
 
 
@@ -429,9 +440,8 @@ public class DataController extends Controller {
      * @param time 返す回
      * @return 得点率
      */
-    public double get_rate(Student student, SchoolExamTime time){
-        final double rate = student.getRecord().getRate(time);
-        return rate;
+    private double get_rate(Student student, SchoolExamTime time){
+        return student.getRecord().getRate(time);
     }
 
 
@@ -441,19 +451,17 @@ public class DataController extends Controller {
      * @param time 返す回
      * @return 偏差値
      */
-    public double get_d_value(Student student, SchoolExamTime time){
+    private double get_d_value(Student student, SchoolExamTime time){
         final ClassRoom classRoom = student.getClassRoom().get(time.getYear());
-        final double d_value = classRoom.getDValue(student, time);
-        return d_value;
+        return classRoom.getDValue(student, time);
     }
 
 
     /**
      * 指定された回、科目の偏差値を返す
      */
-    public double get_d_value(Student student, SchoolExamTime time, Subject subject){
-        final double d_value = student.getRecord().getDValue(time, subject);
-        return d_value;
+    private double get_d_value(Student student, SchoolExamTime time, Subject subject){
+        return student.getRecord().getDValue(time, subject);
     }
 
 
@@ -464,8 +472,7 @@ public class DataController extends Controller {
      * @return 総合点
      */
     public int get_ex_total(Student student, ExternalTime time){
-        int total = student.getExRecord().getTotalScore(time);
-        return total;
+        return student.getExRecord().getTotalScore(time);
     }
 
 
@@ -475,8 +482,7 @@ public class DataController extends Controller {
      * @return 得点率
      */
     public double get_ex_rate(Student student, ExternalTime time){
-        final double rate = student.getExRecord().getRate(time);
-        return rate;
+        return student.getExRecord().getRate(time);
     }
 
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
@@ -620,7 +626,7 @@ public class DataController extends Controller {
             public final int year;
             public final int semester;
 
-            public TMPSubjectClass(SubjectClass t){
+            private TMPSubjectClass(SubjectClass t){
                 subject = t.getSubject().getName();
                 teacher = t.getTeacher().get_name();
                 grade = t.getGrade();
@@ -682,7 +688,7 @@ public class DataController extends Controller {
 
     /**
      * 指定された年のクラスルームのリストを返す
-     * @param year
+     * @param year 学年
      * @return ClassRoomリスト
      */
     public Result classroom_list(int year){
@@ -698,7 +704,6 @@ public class DataController extends Controller {
 
     /**
      * 新しいクラスルームを作る
-     * @param year
      * @return 作ったのと同じ年のClassRoom一覧
      */
     public Result make_classroom(){
@@ -707,9 +712,9 @@ public class DataController extends Controller {
             if(account_id == null || !account_id.equals(admin_id)) return badRequest();
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             int year = Integer.parseInt(form.get("year")[0]);
-            final int grade_num = Integer.parseInt(form.get("grade_num")[0]);
-            final int class_num = Integer.parseInt(form.get("class_num")[0]);
-            final String teacher_id = form.get("teacher_id")[0];
+            final int grade_num = Integer.parseInt(form.get("grade")[0]);
+            final int class_num = Integer.parseInt(form.get("class")[0]);
+            final String teacher_id = form.get("teacher")[0];
             final String[] students_ids = form.get("students_ids")[0].split(",");
             Grade grade = get_grade(year, grade_num);
             //Gradeインスタンスがなければ作る
@@ -790,25 +795,65 @@ public class DataController extends Controller {
             Student student = get_student(account_id);
             if(student == null) return badRequest();
             List<SchoolExamTime> list = new ArrayList<>(student.getRecord().getExams().keySet());
-            for(SchoolExamTime temp : list){
-                school_exam_list_table send = new school_exam_list_table();
-                send.term = (0 == temp.getTerm()) ? "中間" : "期末";
+
+
+
+            class TMPSchoolExam{
+                public int year;
+                public int semester;
+                public String term;
+                public int total;
+                public double rate;
+                public double d_value;
+                public int rank;
+
+                private TMPSchoolExam(SchoolExamTime t, int total, double rate, double d_value, int rank){
+                    year = t.getYear();
+                    semester = t.getSemester();
+                    term = (0 == t.getTerm()) ? "中間" : "期末";
+                    this.total = total;
+                    this.rate = rate;
+                    this.d_value = d_value;
+                    this.rank = rank;
+                }
             }
-            return ok(Json.toJson(list));
+
+            ArrayList<TMPSchoolExam> tmp = new ArrayList<>();
+            for(SchoolExamTime t : list){
+                tmp.add(new TMPSchoolExam(
+                        t,
+                        get_total(student, t),
+                        get_rate(student, t),
+                        get_d_value(student, t),
+                        get_rank(student, t)
+                ));
+            }
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
         }
     }
 
-    class school_exam_list_table{
-        public int year;
-        public int semester;
-        public String term;
-        public int total;
-        public int rank;
-    }
+    class TMPTestResult {
+        public final String subject;
+        public final int score;
+        public final double d_value;
+        public final int rank;
+        public final int year;
+        public final int semester;
+        public final String term;
 
+        private TMPTestResult(TestResult r, double d_value, int rank){
+            subject = r.getSubject().getSubject().getName();
+            score = r.getScore();
+            this.d_value = d_value;
+            this.rank = rank;
+            year = r.getTime().getYear();
+            semester = r.getTime().getSemester();
+            term = (r.getTime().getTerm() == 0) ? "中間" : "期末";
+        }
+    }
 
     /**
      * 自身のアカウントの特定の定期テスト結果を返す
@@ -823,12 +868,28 @@ public class DataController extends Controller {
             if(student == null) return badRequest();
             Set<SchoolExamTime> time = student.getRecord().getExams().keySet();
             //year,semester,termが一致するSchoolExamTimeの成績一覧を探す
+            ArrayList<TestResult> exam = null;
+            SchoolExamTime exam_time = null;
             for(SchoolExamTime t : time){
                 if(t.getYear()==year && t.getSemester()==semester && t.getTerm()==term){
-                    return ok(Json.toJson(student.getRecord().getExam(t)));
+                    exam = student.getRecord().getExam(t);
+                    exam_time = t;
                 }
             }
-            return notFound();
+
+
+
+            if(exam == null) return notFound();
+            ArrayList<TMPTestResult> tmp = new ArrayList<>();
+            for(TestResult r : exam){
+                tmp.add(new TMPTestResult(
+                   r,
+                   get_d_value(student, exam_time, r.getSubject().getSubject()),
+                   get_rank(student, exam_time, r.getSubject().getSubject())
+                ));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -850,7 +911,17 @@ public class DataController extends Controller {
             //nameが一致するSubjectの成績一覧を探す
             Subject subject = get_subject(name);
             if(subject == null) return notFound();
-            return ok(Json.toJson(student.getRecord().getExam(subject)));
+
+            ArrayList<TMPTestResult> tmp = new ArrayList<>();
+            for(TestResult r : student.getRecord().getExam(subject)){
+                tmp.add(new TMPTestResult(
+                        r,
+                        get_d_value(student, r.getTime(), r.getSubject().getSubject()),
+                        get_rank(student, r.getTime(), r.getSubject().getSubject())
+                ));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -1091,7 +1162,7 @@ public class DataController extends Controller {
             String student_id = form.get("id")[0];
             Student student = get_student(student_id);
             if(student == null) return notFound();
-            TestResult result = new TestResult(score, student, subjectClass);
+            TestResult result = new TestResult(score, student, subjectClass, test.getExam().getTime());
             test.addResult(result);
 
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());

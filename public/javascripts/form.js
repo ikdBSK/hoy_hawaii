@@ -18,9 +18,10 @@ class form{
         if(this.init_uri === null) return;
         fetch_json(this.init_uri).then(json => {
             for(const input of this.inputs){
-                const element = $("#" + this.prefix + "_form").find("[name=" + input + "]");
+                const form = $("#" + this.prefix + "_form");
+                const element = form.find("[name=" + input + "]");
                 if(element.attr("type") === "radio"){
-                    $("#" + this.prefix + "_form").find("[name=" + input + "][value=" + json[input] + "]")
+                    form.find("[name=" + input + "][value=" + json[input] + "]")
                         .attr("checked", true);
                 } else {
                     element.val(json[input]);
@@ -55,7 +56,7 @@ class form{
         }).then(response => {
             if(!response.ok){
                 this.display(this.error_message);
-                console.log(response.statusText);
+                // console.log(response.statusText);
             }else{
                 this.display("");
             }

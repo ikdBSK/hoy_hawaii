@@ -5,7 +5,7 @@ $(document).ready(() => {
     home();
 });
 
-tables = [];
+
 //---------------------------------------------------------------------------------------------------
 // 画面遷移
 //---------------------------------------------------------------------------------------------------
@@ -52,18 +52,18 @@ function student_home(){
 // 生徒の受けた定期試験のリスト
 function student_school_test_list(){
     student_reset_screen();
-    school_test_list_table.refresh();
+    student_school_test_list_table.refresh();
     $("#student_school_test_list_screen").show();
 }
 
-function init_buttons(){
+// function init_buttons(){
+//
+// }
 
-}
-
-function student_school_test_detail(){
-    student_reset_screen();
-    $("#student_school_test_detail_screen").show();
-}
+// function student_school_test_detail(){
+//     student_reset_screen();
+//     $("#student_school_test_detail_screen").show();
+// }
 
 function student_subject_graph_screen(){
     student_reset_screen();
@@ -106,13 +106,13 @@ const login_form = new form("/login", null, "login", ["id", "password"], $("<p>"
 const student_school_test_list_table = new table(
     "school_exam_list",
     "school_test_list",
-    ["年", "学期", "中間・期末", "校内順位", "操作"],
-    ["year", "semester", "term", "rank", null],
-    [2, 2, 2, 0, 4],
-    [["2017", "2018", "2019"], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], [student_school_test_list_mod]],
+    ["年", "学期", "中間・期末", "総合点", "得点率", "校内偏差値", "校内順位", "操作"],
+    ["year", "semester", "term", "total", "rate", "d_value", "rank", null],
+    [0, 2, 2, 0, 0, 0, 0, 4],
+    [[], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], [], [], [], [student_school_test_list_mod]],
     10
 );
-tables.push(student_school_test_list_table);
+
 function student_school_test_list_mod(tr){
     const year = tr.find("td").eq(0).text();
     const semester = tr.find("td").eq(1).text();
@@ -137,12 +137,17 @@ const student_school_test_detail_table = new table(
     [[], [], [], []],
     10
 );
-tables.push(student_school_test_detail_table);
 
 // 科目ごとの成績遷移
-// const student_subject_history = new table(
-//     "subject"
-// );
+const student_subject_history_table = new table(
+    "subject_history",
+    "student_subject_history",
+    ["年", "学期", "中間・期末", "点数", "順位", "偏差値"],
+    ["year", "semester", "term", "score", "rank", "d_value"],
+    [0, 2, 2, 0, 0, 0],
+    [[], ["1", "2", "3"], ["中間", "期末"], [], [] ,[]],
+    10
+);
 
 //---------------------------------------------------------------------------------------------------//
 //***************************************************************************************************//
@@ -157,7 +162,6 @@ const teacher_subject_class_list = new table(
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"], []],
     5
 );
-tables.push(teacher_subject_class_list);
 
 const teacher_add_test_form = new form(
     "add_test",
@@ -195,7 +199,6 @@ const teacher_subject_student_result_table = new table(
     [[], [], [], []],
     5
 );
-tables.push(teacher_subject_student_result_table);
 
 const teacher_external_exam_list_table = new table(
     "external_exam_list",
@@ -206,7 +209,6 @@ const teacher_external_exam_list_table = new table(
     [[], [], [], [], []],
     5
 );
-tables.push(teacher_external_exam_list_table);
 
 const teacher_external_exam_new_form = new form(
     "add_ex_result",
@@ -234,7 +236,6 @@ const admin_account_list_table = new table(
     [[], [], ["男性", "女性"], [], [admin_account_list_table_mod]],
     5
 );
-tables.push(admin_account_list_table);
 function admin_account_list_table_mod(tr){
     const id = tr.find("td").eq(0).text();
     const button = tr.find("td").eq(4);
@@ -264,7 +265,6 @@ const admin_subject_list_table = new table(
     [[], [], [admin_subject_list_table_mod]],
     5
 );
-tables.push(admin_subject_list_table);
 function admin_subject_list_table_mod(tr){
     const name = tr.find("td").eq(0).text();
     const button = tr.find("td").eq(2);
@@ -288,7 +288,6 @@ const admin_subject_detail_table = new table(
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"]],
     5
 );
-tables.push(admin_subject_detail_table);
 
 const admin_new_external_exam_form = new form(
     "make_external_exam",
@@ -307,5 +306,4 @@ const admin_class_list = new table(
     [[], ["1", "2", "3"], [], []],
     5
 );
-tables.push(admin_class_list);
 //***************************************************************************************************//

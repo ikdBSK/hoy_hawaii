@@ -1,4 +1,5 @@
 const $ = jQuery;
+const tables = [];
 
 class table{
     constructor(update_uri, tag_prefix, labels, names, types, options, items_per_page){
@@ -91,6 +92,7 @@ class table{
             );
             count++;
         }
+        tables.push(this);
         // this.refresh();
     }
 
@@ -303,7 +305,7 @@ class table{
 }
 
 // ページにあるテーブルのリスト
-let tables;
+// let tables;
 function find_table(s) {
     for(const table of tables){
         if(table.prefix === s){
