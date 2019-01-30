@@ -134,7 +134,7 @@ class table{
 
     // テーブルの初期化
     init(){
-        const table = $("<table>").attr("id", this.prefix + "_table");
+        const table = $("<table>").attr("id", this.prefix + "_table").addClass("data_table");
         table.append(this.search_bar).append(this.header);
         this.display_items();
         return table;

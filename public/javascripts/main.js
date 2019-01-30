@@ -117,7 +117,7 @@ function student_school_test_list_mod(tr){
     const year = tr.find("td").eq(0).text();
     const semester = tr.find("td").eq(1).text();
     const term = (tr.find("td").eq(2).text() === "中間") ? 0 : 1;
-    const button = tr.find("td").eq(4);
+    const button = tr.find("td").eq(7);
 
     button.append($("<button>")
         .attr("onclick",

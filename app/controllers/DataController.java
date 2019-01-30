@@ -28,25 +28,37 @@ public class DataController extends Controller {
 
     private void test(){
         //debug用にstudentとteacher登録
-        Student s1 = new Student("S0001", default_password, "生徒1", Account.SexTag.male, "A県B市1-1-1");
-        students.add(s1);
+        Student[] s = {
+                    new Student("S0001", default_password, "キャプテン　渡部", Account.SexTag.female, "渋谷段ボール１号"),
+                    new Student("S0002", default_password, "副キャプテン　いけｄ", Account.SexTag.male, "横浜トタン屋根１－６９－９１１"),
+                    new Student("S0003", default_password, "奴隷０　伊藤謙吾", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.34"),
+                    new Student("S0004", default_password, "奴隷１　星野シンジ", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.20"),
+                    new Student("S0005", default_password, "奴隷２　羽石雅彦", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.23")
+                };
+        students.addAll(Arrays.asList(s));
         Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
         teachers.add(t1);
-        Student s2 = new Student("S6969", default_password, "渡部ちゃん", Account.SexTag.female, "渋谷段ボール１号");
-        students.add(s2);
-        Subject math = new Subject("数学", 6);
-        Subject jap = new Subject("国語", 6);
-        Subject eng = new Subject("英語", 6);
-        subjects.add(math);
-        subjects.add(jap);
-        subjects.add(eng);
+
+        Subject[] sub = {
+            new Subject("数学", 6),
+            new Subject("国語", 6),
+            new Subject("英語", 6)
+        };
+        subjects.addAll(Arrays.asList(sub));
 
         ArrayList<Student> s_set0 = new ArrayList<>();
-        s_set0.add(s1);
-        s_set0.add(s2);
-        SchoolSemester sem = new SchoolSemester(2019, 1);
+        s_set0.addAll(Arrays.asList(s));
+
+        SchoolSemester sem1 = new SchoolSemester(2019, 1);
+        SchoolSemester sem2 = new SchoolSemester(2019, 2);
+        SchoolSemester sem3 = new SchoolSemester(2019, 3);
+
         Grade gr1 = new Grade(1, 2019);
-        new SubjectClass(math, t1, s_set0, sem, 1);
+        Grade gr2 = new Grade(2, 2019);
+        Grade gr3 = new Grade(3, 2019);
+        grades.add(gr1); grades.add(gr2); grades.add(gr3);
+
+        new SubjectClass(sub[0], t1, s_set0, sem1, 1);
         new ClassRoom(t1, s_set0, gr1, 1, 2019);
     }
 
@@ -1133,7 +1145,7 @@ public class DataController extends Controller {
 
             ArrayList<TMPResult> tmp = new ArrayList<>();
             for(TestResult t : testResults){
-                tmp.add(new TMPResult(t, get_d_value(t.getStudent(), test.getExam().getTime(), t.getSubject().getSubject()), 0));
+                tmp.add(new TMPResult(t, get_d_value(t.getStudent(), test.getExam().getTime(), t.getSubject().getSubject()), get_rank(t.getStudent(), t.getTime())));
             }
 
             return ok(Json.toJson(tmp));
