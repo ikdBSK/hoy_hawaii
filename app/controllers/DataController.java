@@ -725,7 +725,9 @@ public class DataController extends Controller {
                 grades.add(grade1);
                 grades.add(grade2);
                 grades.add(grade3);
+                grade = get_grade(year, grade_num);
             }
+            if(grade == null) return notFound();
             //teacherを特定する
             Teacher teacher = get_teacher(teacher_id);
             if(teacher == null) return notFound();
