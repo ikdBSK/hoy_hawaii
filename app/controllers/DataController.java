@@ -733,7 +733,7 @@ public class DataController extends Controller {
                 }
             }
             //ClassRoomインスタンス作成
-            new ClassRoom(teacher, student_list, grade, year);
+            new ClassRoom(teacher, student_list, grade, class_num, year);
             return ok();
         }catch(Exception e){
             e.printStackTrace();
