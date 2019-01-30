@@ -701,11 +701,12 @@ public class DataController extends Controller {
      * @param year
      * @return 作ったのと同じ年のClassRoom一覧
      */
-    public Result make_classroom(int year){
+    public Result make_classroom(){
         try{
             final String account_id = get_id();
             if(account_id == null || !account_id.equals(admin_id)) return badRequest();
             Map<String, String[]> form = request().body().asFormUrlEncoded();
+            int year = Integer.parseInt(form.get("year")[0]);
             final int grade_num = Integer.parseInt(form.get("grade_num")[0]);
             final int class_num = Integer.parseInt(form.get("class_num")[0]);
             final String teacher_id = form.get("teacher_id")[0];
@@ -943,7 +944,7 @@ public class DataController extends Controller {
             public final int year;
             public final int semester;
 
-            public TMPSubjectClass(SubjectClass t){
+            private TMPSubjectClass(SubjectClass t){
                 subject = t.getSubject().getName();
                 teacher = t.getTeacher().get_name();
                 grade = t.getGrade();
@@ -1117,10 +1118,6 @@ public class DataController extends Controller {
 
     /**
      * 一人の生徒の模試結果を登録する
-     * @param year
-     * @param month
-     * @param day
-     * @param type 模試名
      * @return 0
      */
     public Result add_ex_result(){
