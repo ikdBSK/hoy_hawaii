@@ -8,6 +8,7 @@ public class ClassRoom {
     Teacher teacher;
     ArrayList<Student> students;
     Grade grade;
+    int class_num;
     int year;
 
     public ClassRoom(Grade grade, int year) {
@@ -33,10 +34,11 @@ public class ClassRoom {
      * @param grade
      * @param year
      */
-    public ClassRoom(Teacher teacher, ArrayList<Student> students, Grade grade, int year) {
+    public ClassRoom(Teacher teacher, ArrayList<Student> students, Grade grade, int class_num, int year) {
         this.teacher = teacher;
         this.students = students;
         this.grade = grade;
+        this.class_num = class_num;
         this.year = year;
         teacher.getClassRoom().put(year, this);
         for(Student s : students){

@@ -34,7 +34,7 @@ GET   /subject_class_list                       controllers.DataController.subje
 GET   /school_test_list/:year/:semester/:name/:grade   controllers.DataController.school_test_list(year: Integer, semester: Integer, name: String, grade: Integer)
 GET   /students_results/:year/:semester/:term/:name/:grade   controllers.DataController.students_results(year: Integer, semester: Integer, term: Integer, name: String, grade: Integer)
 POST  /add_test                                 controllers.DataController.add_test
-POST  /add_result                  controllers.DataController.add_result
+POST  /add_result                               controllers.DataController.add_result
 GET   /external_exam_list                       controllers.DataController.external_exam_list
 POST  /add_ex_result/   controllers.DataController.add_ex_result()
 
