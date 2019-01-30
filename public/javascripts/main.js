@@ -149,6 +149,66 @@ const student_subject_history_table = new table(
     10
 );
 
+// 外部模試のリスト
+const student_external_exam_list_table = new table(
+    "my_ex_exams",
+    "student_external_exam",
+    ["年", "月", "日", "外部試験の種類", "総合点", "偏差値", "順位", "詳細"],
+    ["year", "month", "day", "type", "score", "d_value", "rank", null],
+    [0, 2, 2, 0, 0, 0, 0, 4],
+    [
+        [],
+        ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+        [],
+        [],
+        [],
+        [student_external_exam_list_mod]
+    ],
+    10
+);
+function student_external_exam_list_mod(tr){
+    const year = tr.find("td").eq(0).text();
+    const month = tr.find("td").eq(1).text();
+    const day = tr.find("td").eq(2).text();
+    const type = tr.find("td").eq(3).text();
+    const button = tr.find("td").eq(7);
+
+    button.append($('<button>')
+        .attr("onclick",
+            "$('#student_external_exam_detail_display').toggle();" +
+            "student_external_exam_list_table.custom_refresh('ex_exam_detail/" + year + "/" + month + "/" + day + "/" + type + "');" +
+            "return false;"
+        ))
+        .text("詳細を見る");
+}
+
+const student_external_exam_detail_table = new table(
+    "ex_exam_detail",
+    "student_external_exam_detail",
+    ["科目", "点数", "順位", "偏差値"],
+    ["subject", "score", "rank", "d_value"],
+    [0, 0, 0, 0],
+    [[], [], [], []],
+    10
+);
+
+const student_external_subject_history_table = new table(
+    "ex_subject_history",
+    "student_ex_subject_history",
+    ["年", "月", "日", "点数", "順位", "偏差値"],
+    ["year", "month", "day", "score", "rank", "d_value"],
+    [0, 2, 2, 0, 0, 0],
+    [
+        [],["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+        [],
+        [],
+        []
+    ],
+    10
+);
+
 //---------------------------------------------------------------------------------------------------//
 //***************************************************************************************************//
 // 先生
@@ -158,7 +218,7 @@ const teacher_subject_class_list = new table(
     "teacher_subject_class_list",
     ["科目名", "担当教師", "学年", "年", "学期", "詳細"],
     ["subject", "teacher", "grade", "year", "semester", null],
-    [0, 0, 2, 0, 2, 4],
+    [0, 0, 2, 0, 2, 0],
     [[], [], ["1", "2", "3"], [], ["1", "2", "3"], []],
     5
 );
@@ -225,7 +285,7 @@ const admin_new_account_form = new form("signup", null, "signup", ["id", "passwo
 const admin_new_school_exam_form = new form("make_school_exam", null, "school_exam", ["year", "semester", "term"], "入力に誤りがあります。");
 const admin_new_subject_form = new form("add_subject", null, "subject", ["name", "credits"], "入力に間違いがあります。");
 const admin_new_subject_class_form = new form("make_subject_class", null, "subject_class", ["subject_name", "teacher_id", "students_id", "year", "semester", "number"], "入力に間違いがあります。");
-const admin_new_class_form = new form("make_classrooom", null, "class", ["grade_num", "class_num", "teacher_id", "students_ids"], "入力に間違いがあります。");
+const admin_new_class_form = new form("make_classroom", null, "class", ["grade_num", "class_num", "teacher_id", "students_ids"], "入力に間違いがあります。");
 
 const admin_account_list_table = new table(
     "account_list",

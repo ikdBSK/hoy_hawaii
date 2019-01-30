@@ -27,7 +27,27 @@ public class DataController extends Controller {
     }
 
     private void test(){
+        //debug用にstudentとteacher登録
+        Student s1 = new Student("S0001", default_password, "生徒1", Account.SexTag.male, "A県B市1-1-1");
+        students.add(s1);
+        Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
+        teachers.add(t1);
+        Student s2 = new Student("S6969", default_password, "渡部ちゃん", Account.SexTag.female, "渋谷段ボール１号");
+        students.add(s2);
+        Subject math = new Subject("数学", 6);
+        Subject jap = new Subject("国語", 6);
+        Subject eng = new Subject("英語", 6);
+        subjects.add(math);
+        subjects.add(jap);
+        subjects.add(eng);
 
+        ArrayList<Student> s_set0 = new ArrayList<>();
+        s_set0.add(s1);
+        s_set0.add(s2);
+        SchoolSemester sem = new SchoolSemester(2019, 1);
+        Grade gr1 = new Grade(1, 2019);
+        new SubjectClass(math, t1, s_set0, sem, 1);
+        new ClassRoom(t1, s_set0, gr1, 1, 2019);
     }
 
     //idが一致する生徒を検索
@@ -332,11 +352,7 @@ public class DataController extends Controller {
             return unauthorized();
         }
         connect_session(id);
-        //debug用にstudentとteacher登録
-        Student s1 = new Student("S0001", default_password, "生徒1", Account.SexTag.male, "A県B市1-1-1");
-        students.add(s1);
-        Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
-        teachers.add(t1);
+
         return ok(Json.toJson("ADMIN"));
     }
 
@@ -698,7 +714,31 @@ public class DataController extends Controller {
                 classRooms.addAll(grade.getClassRooms());
             }
         }
-        return ok(Json.toJson(classRooms));
+
+        ArrayList<TMPClassRoom> tmp = new ArrayList<>();
+        for(ClassRoom c : classRooms)
+            tmp.add(new TMPClassRoom(c));
+        return ok(Json.toJson(tmp));
+    }
+
+    class TMPClassRoom {
+        public final int year;
+        public final int grade;
+        public final String teacher;
+        public final String students_id;
+
+        private TMPClassRoom(ClassRoom c){
+            year = c.getYear();
+            grade = c.getGrade().getGrade();
+            teacher = c.getTeacher().get_id();
+            ArrayList<Student> students = c.getStudents();
+            StringBuilder sb = new StringBuilder();
+            for(Student s : students){
+                sb.append(s.get_id());
+                sb.append(",\n");
+            }
+            students_id = sb.toString();
+        }
     }
 
 

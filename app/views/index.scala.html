@@ -99,6 +99,41 @@
                 </form>
                 <div id="student_subject_history_display"></div>
             </div>
+
+            @*外部試験リスト*@
+            <div id="student_external_exam_list" style="display: none">
+                <h1>外部模試：一覧</h1>
+                <button onclick="
+                    student_external_exam_list_table.refresh();
+                    return false;
+                ">更新</button>
+                <div id="student_external_exam_display"></div>
+
+                <div id="student_external_exam_detail_display" style="display: none;"></div>
+            </div>
+
+            @*外部試験科目履歴*@
+            <div id="student_external_subject_history" style="display: none;">
+                <h1>外部模試：科目ごとの成績遷移</h1>
+                <table id="student_external_subject_history_form">
+                    <tr>
+                        <td>外部模試名</td>
+                        <td><input type="text" name="type" title="外部模試名"></td>
+                    </tr>
+                    <tr>
+                        <td>科目名</td>
+                        <td><input type="text" name="name" title="科目名"></td>
+                    </tr>
+                </table>
+                <button onclick="
+                    const sesht_form = $('#student_external_subject_history_form');
+                    student_external_subject_history_table.custom_refresh(
+                        'ex_exam_detail/' + sesht_form.find('[name=type]').val() + '/' + sesht_form.find('[name=name]').val()
+                    );
+                    return false;
+                ">取得</button>
+                <div id="student_ex_subject_history_display"></div>
+            </div>
         </div>
     </div>
 

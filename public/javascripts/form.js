@@ -94,15 +94,15 @@ function get_form(tag) {
 }
 
 // 定期試験のリスト内の詳細ボタン生成
-function init_school_test_list_buttons() {
-    $("#school_exam_list_table tr").each(() => {
-        const year = $(this).find("<td>").eq(0).text();
-        const semester = $(this).find("<td>").eq(1).text();
-        const term = ($(this).find("<td>").eq(2).text() === "中間") ? 0 : 1;
-        $(this).find("<td>").eq(school_test_list_table.label_count - 1).append(
-           $("<button>")
-               .attr("onclick", "open_school_test_detail(" + year + ", " + semester + ", " + term + "); return false;")
-               .text("詳細")
-       );
-    });
-}
+// function init_school_test_list_buttons() {
+//     $("#school_exam_list_table tr").each(() => {
+//         const year = $(this).find("<td>").eq(0).text();
+//         const semester = $(this).find("<td>").eq(1).text();
+//         const term = ($(this).find("<td>").eq(2).text() === "中間") ? 0 : 1;
+//         $(this).find("<td>").eq(school_test_list_table.label_count - 1).append(
+//            $("<button>")
+//                .attr("onclick", "open_school_test_detail(" + year + ", " + semester + ", " + term + "); return false;")
+//                .text("詳細")
+//        );
+//     });
+// }
