@@ -100,10 +100,6 @@
                         <h2>科目情報</h2>
                         <table class="form_table">
                             <tr>
-                                <td>年</td>
-                                <td><input type="number" name="year" min="1945" max="2077" title="西暦" required></td>
-                            </tr>
-                            <tr>
                                 <td>学期</td>
                                 <td><input type="number" name="semester" min="1" max="3" title="学年" required></td>
                             </tr>
@@ -116,6 +112,10 @@
                                     <label for="decide_endterm">期末</label>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>学年</td>
+                                <td><input type="number" name="grade" title="わ、こっちみるな！" min="1" max="3"></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="teacher_add_test_form_right">
@@ -124,6 +124,10 @@
                             <tr>
                                 <td>科目名</td>
                                 <td><input type="text" name="name" title="科目名" required></td>
+                            </tr>
+                            <tr>
+                                <td>年</td>
+                                <td><input type="number" name="year" min="1945" max="2077" title="西暦" required></td>
                             </tr>
                             <tr>
                                 <td>月</td>
@@ -167,6 +171,10 @@
                                     <input type="radio" id="result_endterm" name="term" value="期末" title="期末" required>
                                     <label for="result_endterm">期末</label>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>学年</td>
+                                <td><input type="number" name="grade" min="1" max="3" title="執行猶予" required></td>
                             </tr>
                             <tr>
                                 <td>科目名</td>
@@ -434,11 +442,11 @@
                         </tr>
                         <tr>
                             <td>学年</td>
-                            <td><input type="number" min="1" max="2" required title="学年"></td>
+                            <td><input type="number" name="grade" min="1" max="2" required title="学年"></td>
                         </tr>
                         <tr>
                             <td>年</td>
-                            <td><input type="number" min="1945" max="2077" required title="年"></td>
+                            <td><input type="number" min="1945" name="year" max="2077" required title="年"></td>
                         </tr>
                     </table>
                     <button onclick="admin_new_class_form.post(); return false;">作成</button>

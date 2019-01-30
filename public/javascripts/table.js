@@ -91,7 +91,7 @@ class table{
             );
             count++;
         }
-        this.refresh();
+        // this.refresh();
     }
 
     // サーバからデータを取得し、テーブルの表示を更新

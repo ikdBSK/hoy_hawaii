@@ -726,8 +726,8 @@ public class DataController extends Controller {
             if(teacher == null) return notFound();
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
-            for(int i = 0; i < students_ids.length; i++){
-                Student student = get_student(students_ids[i]);
+            for(String s : students_ids){
+                Student student = get_student(s);
                 if(student != null){
                     student_list.add(student);
                 }
