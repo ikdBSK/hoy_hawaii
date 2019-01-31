@@ -30,7 +30,9 @@ $(function() {
 
 function open_admin_menu(id) {
     $('#admin_screen .content >div').each(function(i, o){
-        $(o).hide();
+        if (o.id !== 'admin_account_list') {
+            $(o).hide();
+        }
     });
     $(id).show();
 }

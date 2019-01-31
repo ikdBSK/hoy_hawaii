@@ -89,7 +89,6 @@ select {
 .content >div {
     padding-bottom: 20px;
 }
-#admin_screen ,
 #student_screen,
 #teacher_screen {
     margin-left: 0;
@@ -167,6 +166,16 @@ select {
     height: 100%;
     text-align: center;
 }
+#admin_screen .content{
+    display: flex;
+}
+#admin_screen .content >div{
+    width: 520px;
+}
+#admin_account_list_display {
+    margin-top: 10px;
+}
+
 
 /** display **/
 #admin_account_list_display table{
@@ -233,14 +242,33 @@ select {
 /** menubar **/
 .menu_bar_container {
 }
+.account-list-button-container {
+    background-color: white;
+    margin-bottom: 10px;
+}
+.account-list-button {
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+    display: block;
+    color: #212121;
+    position: relative;
+    transition: all 0.3s ease-out;
+    font-size: 20px;
+}
+.account-list-button-container :hover {
+    color: #ffffff;
+    background-color: #1e3333;
+}
+#account-list-open:checked + .account-list-button{
+    color: #ffffff;
+    background-color: #1e3333;
+}
 .menu_bar {
     margin-right: 30px;
-    background-color: white;
     width: 210px;
-    padding: 15px;
-    display: flex;
-    font-family: sans-serif;
-    font-size: 20px;
+    background-color: #f0f0f0;
 }
 #admin_menu_bar,#student_menu_bar{
 }
@@ -263,8 +291,10 @@ li a {
     display: block;
 }
 .accordion-menu {
-    padding: 0;
-    width: 100%;
+    background-color: white;
+    padding: 15px;
+    font-family: sans-serif;
+    font-size: 20px;
 }
 .dropdownlink {
     padding: 15px;
