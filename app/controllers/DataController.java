@@ -46,6 +46,7 @@ public class DataController extends Controller {
                 new Student("S0013", default_password, "WINDOWS", Account.SexTag.male, "塾の地下六階"),
                 new Student("S0014", default_password, "GOOOOOOOOOGLE", Account.SexTag.female, "グーグル本社の○○○")
         };
+        students.addAll(Arrays.asList(s1));
 
         Teacher[] t = {
                 new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1"),
@@ -97,6 +98,9 @@ public class DataController extends Controller {
                 new SchoolExam(set[2])
         };
         exams.addAll(Arrays.asList(se));
+        for(SchoolExam s : se){
+            s.release();
+        }
 
         SchoolTime[] st = {
                 new SchoolTime(2019, 1, 31, 1),
@@ -825,7 +829,7 @@ public class DataController extends Controller {
     public Result make_classroom(){
         try{
             final String account_id = get_id();
-            if(account_id == null || !account_id.equals(admin_id)) return badRequest();
+            if(account_id == null || !account_id.equals(admin_id)) return unauthorized("管理者のみにできる操作です。");
             Map<String, String[]> form = request().body().asFormUrlEncoded();
             int year = Integer.parseInt(form.get("year")[0]);
             final int grade_num = Integer.parseInt(form.get("grade")[0]);
@@ -843,10 +847,10 @@ public class DataController extends Controller {
                 grades.add(grade3);
                 grade = get_grade(year, grade_num);
             }
-            if(grade == null) return notFound();
+            if(grade == null) return notFound("その学年は見つかりませんでした。");
             //teacherを特定する
             Teacher teacher = get_teacher(teacher_id);
-            if(teacher == null) return notFound();
+            if(teacher == null) return notFound("そのIDの先生が見つかりませんでした。");
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
             for(String s : students_ids){

@@ -55,6 +55,34 @@ class form{
             body: get_form("#" + this.prefix + "_form")
         }).then(response => {
             if(!response.ok){
+                return response.text();
+            }else{
+                this.display("");
+                return "";
+            }
+        }, error => {
+            this.display(ERROR);
+            console.log(error);
+        }).then(text => {
+                this.display($('<p>').attr("style", "color: red;").text(text));
+            }
+        );
+    }
+
+    login_post(){
+        if (!$("#" + this.prefix + "_form")[0].checkValidity()) {
+            $("#" + this.prefix + "_submit").trigger("click");
+            this.display($("<p>").attr("style", "color:red").append("入力に間違いがあります。"));
+            return false;
+        }
+
+        this.display(LOADING);
+
+        return fetch(this.post_uri, {
+            method: 'post',
+            body: get_form("#" + this.prefix + "_form")
+        }).then(response => {
+            if(!response.ok){
                 this.display(this.error_message);
                 // console.log(response.statusText);
             }else{
