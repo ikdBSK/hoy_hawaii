@@ -163,6 +163,7 @@ const student_external_exam_list_table = new table(
         [],
         [],
         [],
+        [],
         [student_external_exam_list_mod]
     ],
     10
@@ -177,10 +178,9 @@ function student_external_exam_list_mod(tr){
     button.append($('<button>')
         .attr("onclick",
             "$('#student_external_exam_detail_display').toggle();" +
-            "student_external_exam_list_table.custom_refresh('ex_exam_detail/" + year + "/" + month + "/" + day + "/" + type + "');" +
+            "student_external_exam_detail_table.custom_refresh('ex_exam_detail/" + year + "/" + month + "/" + day + "/" + type + "');" +
             "return false;"
-        ))
-        .text("詳細を見る");
+        ).text("詳細を見る"));
 }
 
 const student_external_exam_detail_table = new table(
@@ -208,6 +208,19 @@ const student_external_subject_history_table = new table(
     ],
     10
 );
+
+function student_school_history_load(){
+    fetch("student_school_history_image").then(res => {
+        if (!res.ok) {
+            return "";
+        }
+        else {
+            return res.json();
+        }
+    }).then(json => {
+        $("#student_school_history_image").attr("src", "data:image/png;base64," + json);
+    });
+}
 
 //---------------------------------------------------------------------------------------------------//
 //***************************************************************************************************//

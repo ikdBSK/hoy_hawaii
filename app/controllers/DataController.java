@@ -8,7 +8,14 @@ import play.mvc.*;
 import views.html.*;
 import data.*;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class DataController extends Controller {
     final private String default_password = "0000";
@@ -43,8 +50,8 @@ public class DataController extends Controller {
         Student[] s1 = {
                 new Student("S0011", default_password, "吉井ちゃん", Account.SexTag.female, "某工大　進捗部屋　パソコンNo.69"),
                 new Student("S0012", default_password, "吉川様", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.6兆"),
-                new Student("S0013", default_password, "WINDOWS", Account.SexTag.male, "塾の地下六階"),
-                new Student("S0014", default_password, "GOOOOOOOOOGLE", Account.SexTag.female, "グーグル本社の○○○")
+                new Student("S0013", default_password, "WINDOWS木野田", Account.SexTag.male, "塾の地下六階"),
+                new Student("S0014", default_password, "GOOOOOOOOOGLE星野", Account.SexTag.female, "グーグル本社の○○○")
         };
         students.addAll(Arrays.asList(s1));
 
@@ -128,6 +135,33 @@ public class DataController extends Controller {
             }
         }
 
+        ExternalExamType ext[] = {
+                new ExternalExamType("駿台模試"),
+                new ExternalExamType("河合模試"),
+                new ExternalExamType("進研模試")
+        };
+        ex_types.addAll(Arrays.asList(ext));
+
+        ExternalTime et[] = {
+                new ExternalTime(2019, 1, 31, ext[0]),
+                new ExternalTime(2019, 2, 1, ext[1]),
+                new ExternalTime(2019, 2, 3, ext[2])
+        };
+        ExternalExam ee[] = {
+                new ExternalExam(et[0], ext[0]),
+                new ExternalExam(et[1], ext[1]),
+                new ExternalExam(et[2], ext[2])
+        };
+        ex_exams.addAll(Arrays.asList(ee));
+        for(Subject s : subjects){
+            for(int i = 0; i < 3; i++){
+                ExternalTest test = new ExternalTest(ee[i], et[i], s, ext[i]);
+                for(Student student : s0){
+                    ExternalTestResult result = new ExternalTestResult(rnd.nextInt(101), student, s, rnd.nextDouble() * 100, rnd.nextInt(10000), test.getTime());
+                    test.addResult(student, result);
+                }
+            }
+        }
     }
 
     //idが一致する生徒を検索
@@ -1435,5 +1469,176 @@ public class DataController extends Controller {
             e.printStackTrace();
             return badRequest();
         }
+    }
+
+    //***********************星野のコード**********************//
+    // クライアント側に、可視化されたデータを送信するための処理
+
+    // BufferedImageをJSONに変換できるデータ構造に変換
+    private static String img2Base64Png(final RenderedImage img) {
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(img, "png", os);
+            return Base64.getEncoder().encodeToString(os.toByteArray());
+        } catch (IOException e) {
+            System.out.println("IO ERROR");
+            return "";
+        }
+    }
+
+    private final static int label_width = 200;
+    private final static int height = 600;
+    private final static int stick_bottom_margin = 90;
+    private final static int stick_top_margin = 20;
+    private final static int stick_width = 80;
+    private final static int stick_height = height - stick_bottom_margin - stick_top_margin;
+    private final static int stick_padding = 30;
+    private final static int string_padding = 20;
+    private final static int string_y = height - 50;
+    private final static int circle_size = 10;
+
+    public Result student_school_history_image(){
+        int width = (stick_padding + stick_width) * subjects.size() + label_width * 2;
+
+
+        Student student = get_student(get_id());
+        if(student == null) return notFound();
+        BufferedImage bimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) bimg.getGraphics();
+        Color[] colors = generate_colors(subjects.size() + 1);
+
+        // 背景
+        g.setColor(new Color(137, 187,255));
+        g.fillRect(0, 0, width, height);
+        g.setFont(new Font("sansserif", Font.PLAIN, 20));
+
+        class LocalComparator implements Comparator<TestResult>{
+            public int compare(TestResult t1, TestResult t2){
+                SchoolExamTime time1, time2;
+                time1 = t1.getTime();
+                time2 = t2.getTime();
+                if(time1.getYear() != time2.getYear()) return (time1.getYear() > time2.getYear()) ? 1 : -1;
+                if(time1.getSemester() != time2.getSemester()) return (time1.getSemester() > time2.getSemester()) ? 1 : -1;
+                if(time1.getTerm() != time1.getTerm()) return (time1.getTerm() > time2.getTerm()) ? 1 : -1;
+                return 0;
+            }
+        }
+
+        int count = 0;
+        int total_count = subjects.size();
+        int real_width = stick_width / total_count;
+        for(Subject subject : subjects){
+            ArrayList<TestResult> tests = student.getRecord().getExam(subject);
+            tests.sort(new LocalComparator());
+            int current_x = label_width;
+            for(TestResult test : tests){
+                SchoolExamTime time = test.getTime();
+                current_x += stick_padding;
+                g.setColor(Color.black);
+                g.drawString(time.getYear() + "年", current_x, string_y);
+                g.drawString(time.getSemester() + "学期", current_x, string_y + string_padding);
+                g.drawString(((time.getTerm() == 0) ? "中間" : "期末"), current_x, string_y + string_padding * 2);
+
+                g.setColor(colors[count + 1]);
+                int local_height = stick_height * test.getScore() / 100;
+                g.fillRect(current_x + real_width * count, stick_height - local_height, real_width, local_height);
+
+                current_x += stick_width;
+            }
+            count++;
+        }
+
+        count = 0;
+        for(Subject subject : subjects){
+            ArrayList<TestResult> tests = student.getRecord().getExam(subject);
+            tests.sort(new LocalComparator());
+            int current_x = label_width;
+            int line_previous_x = -1;
+            int line_previous_y = -1;
+            int line_current_x;
+            int line_current_y;
+            for(TestResult test : tests){
+                SchoolExamTime time = test.getTime();
+                current_x += stick_padding;
+
+                double d_val = get_d_value(student, test.getTime(), subject);
+                int local_height = stick_height * (int) d_val / 100;
+
+                line_current_x = current_x + real_width * count + real_width / 2;
+                line_current_y = stick_height - local_height;
+
+                if(line_previous_x != -1){
+                    g.setStroke(new BasicStroke(5));
+                    g.setColor(Color.black);
+                    g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
+                    g.setStroke(new BasicStroke(2));
+                    g.setColor(colors[count + 1]);
+                    g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
+
+                    g.setColor(Color.black);
+                    g.fillOval(line_previous_x - circle_size / 2, line_previous_y - circle_size / 2, circle_size, circle_size);
+                }
+                line_previous_x = line_current_x;
+                line_previous_y = line_current_y;
+
+                g.setColor(Color.black);
+                g.fillOval(line_current_x - circle_size / 2, line_current_y - circle_size / 2, circle_size, circle_size);
+                g.setFont(new Font("sansserif", Font.PLAIN, 13));
+                g.drawString(String.format("%.1f", d_val), line_current_x - 15, line_current_y - 15);
+
+                current_x += stick_width;
+            }
+            count++;
+        }
+
+        // label
+        g.setColor(Color.black);
+        g.fillRect(100, 0, 5, stick_height);
+        g.fillRect(100, stick_height, 20, 5);
+        g.fillRect(100, stick_height / 4 * 3, 20, 5);
+        g.fillRect(100, stick_height / 2, 20, 5);
+        g.fillRect(100, stick_height / 4, 20, 5);
+        g.fillRect(100, 0, 20, 5);
+
+        g.setFont(new Font("sansserif", Font.PLAIN, 20));
+        g.drawString("点数・偏差値", 20, stick_height + 60);
+        g.drawString("0", 50, stick_height + 15);
+        g.drawString("25", 50, stick_height * 3 / 4 + 15);
+        g.drawString("50", 50, stick_height * 2 / 4 + 15);
+        g.drawString("75", 50, stick_height / 4 + 15);
+        g.drawString("100", 50, 15);
+
+        count = 0;
+        for(Subject subject : subjects){
+            g.setColor(colors[count + 1]);
+            g.fillRect(width - label_width + 50, 100 + 60 * count, 80, 40);
+            g.setColor(Color.black);
+            g.setFont(new Font("sansserif", Font.PLAIN, 20));
+            g.drawString(subject.getName(), width - label_width + 50 + 100, 100 + 60 * count + 20);
+            count++;
+        }
+
+
+        return ok(Json.toJson(img2Base64Png(bimg)));
+    }
+
+    private static Color[] generate_colors(int count){
+        ArrayList<Color> colors = new ArrayList<>();
+
+        double div = Math.pow(count, (double) 1 / 3);
+        int div_cut = (int) Math.floor(div);
+
+        for(int i = 0; i <= div_cut; i++){
+            for(int j = 0; j <= div_cut; j++){
+                for(int k = 0; k <= div_cut; k++){
+                    int r = 255 / div_cut * i;
+                    int g = 255 / div_cut * j;
+                    int b = 255 / div_cut * k;
+                    colors.add(new Color(r, g, b));
+                }
+            }
+        }
+
+        return colors.toArray(new Color[0]);
     }
 }
