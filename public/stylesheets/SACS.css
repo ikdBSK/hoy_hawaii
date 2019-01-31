@@ -140,17 +140,17 @@ select {
 
 
 /** display **/
-#admin_account_list_display {
-    margin-top: 10px;
-}
+/*#admin_account_list_display {*/
+    /*margin-top: 10px;*/
+/*}*/
+/*#teacher_subject_class_list_display {*/
+    /*margin-top: 10px;*/
+/*}*/
 #admin_account_list_display table{
     margin: auto;
     font-size: 22px;
 }
-#teacher_subject_class_list_display {
-    margin-top: 10px;
-    justify-content: center;
-}
+
 
 /** form **/
 .form_table {
@@ -310,8 +310,8 @@ li a {
 }
 
 .data_table {
-    width: 100%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 10px auto 0;
     border-collapse: collapse;
     padding: 5px;
     border: solid #225ce2 2px;
