@@ -70,27 +70,36 @@ select {
 /** body **/
 .body {
     display: flex;
-    margin: 30px 200px;
+    justify-content: center;
+    margin: 30px auto;
 }
 
 /* menu_barについては多いので一番下に記載 */
 
 /** content **/
 .content_container {
+    background-color: #f0f0f0;
+}
+.content {
     background-color: white;
-    width: 100%;
-    margin-left: 30px;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+.content >div {
+    padding-bottom: 20px;
+}
+#admin_screen ,
+#student_screen,
+#teacher_screen {
+    margin-left: 0;
+    width: 520px;
 }
 
 /** login screen **/
 #login_screen {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: white;
+    width: 700px;
 }
 #login_screen .content {
-    border-left: solid 120px #f0f0f0;
-    border-right: solid 120px #f0f0f0;
     padding-bottom: 30px;
 }
 #login_table {
@@ -112,53 +121,50 @@ select {
 /** student **/
 #student_screen{
     height: 100%;
-    border-right: solid 130px #f0f0f0;
 }
 
 /** teacher **/
-#teacher_screen {
-    text-align: center;
-    padding-bottom: 30px;
-}
-#teacher_add_test_form,
-#teacher_add_result_form {
-    display: flex;
-}
-#teacher_screen .form_table {
-    padding-right: 60px;
-}
-#teacher_screen .form_table input{
-    width: 150px;
-}
-#teacher_screen .form_table input[type="radio"] + label {
-    padding-left: 20px;
-    position: relative;
-    margin-right: 6px;
-}
-.teacher_add_test_form_left,
-.teacher_add_result_form_left {
-    width: 50%;
-    position: relative;
-    left: 3%;
-}
-.teacher_add_test_form_right,
-.teacher_add_result_form_right {
-    width: 50%;
-    position: relative;
-    left: -3%;
+
+
+@media screen and (min-width: 1100px) {
+    /* 表示領域が1100px以上の場合に適用するスタイル */
+    #teacher_screen {
+        width: 840px;
+    }
+    #teacher_add_test_form,
+    #teacher_add_result_form {
+        display: flex;
+    }
+    #teacher_screen .form_table {
+        padding-right: 60px;
+    }
+    #teacher_screen .form_table input{
+        width: 150px;
+    }
+    #teacher_screen .form_table input[type="radio"] + label {
+        padding-left: 20px;
+        position: relative;
+        margin-right: 6px;
+    }
+    .teacher_add_test_form_left,
+    .teacher_add_result_form_left {
+        width: 50%;
+        position: relative;
+        left: 3%;
+    }
+    .teacher_add_test_form_right,
+    .teacher_add_result_form_right {
+        width: 50%;
+        position: relative;
+        left: -3%;
+    }
 }
 
 
 /** admin **/
 #admin_screen {
     height: 100%;
-    border-right: solid 130px #f0f0f0;
     text-align: center;
-    background-color: white;
-}
-#admin_screen .content,
-#student_screen .content {
-    padding-bottom: 20px;
 }
 
 /** display **/
@@ -225,9 +231,9 @@ select {
 
 /** menubar **/
 .menu_bar_container {
-
 }
 .menu_bar {
+    margin-right: 30px;
     background-color: white;
     width: 210px;
     padding: 15px;
@@ -236,7 +242,6 @@ select {
     font-size: 20px;
 }
 #admin_menu_bar,#student_menu_bar{
-    border-left: solid 150px #f0f0f0;
 }
 ul {
     margin: auto;
@@ -284,23 +289,6 @@ li a {
     display: block;
     padding: 12px 12px 12px 12px;
     transition: all 0.3s ease-out;
-}
-
-/*星野のコード*/
-.data_table th{
-    border: solid #225ce2 2px;
-    color: white;
-    background-color: #009a9a;
-}
-
-.data_table tr td {
-    border: solid black 1px;
-}
-
-.data_table {
-    border-collapse: collapse;
-    padding: 5px;
-    border: solid #225ce2 2px;
 }
 
 
