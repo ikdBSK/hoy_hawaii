@@ -1,6 +1,7 @@
 package controllers;
 
 import data.record.*;
+import play.api.Mode;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -23,21 +24,35 @@ public class DataController extends Controller {
     private ArrayList<ExternalExam> ex_exams = new ArrayList<>();
 
     {
+        // ここをコメントアウトすると初期値がなくなる
         test();
     }
 
+    // デバグ用のテストデータ
     private void test(){
         //debug用にstudentとteacher登録
-        Student[] s = {
-                    new Student("S0001", default_password, "キャプテン　渡部", Account.SexTag.female, "渋谷段ボール１号"),
+        Student[] s0 = {
+                    new Student("S0001", default_password, "キャプテン　渡部", Account.SexTag.female, "山岳部部室　地下一階"),
                     new Student("S0002", default_password, "副キャプテン　いけｄ", Account.SexTag.male, "横浜トタン屋根１－６９－９１１"),
                     new Student("S0003", default_password, "奴隷０　伊藤謙吾", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.34"),
                     new Student("S0004", default_password, "奴隷１　星野シンジ", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.20"),
                     new Student("S0005", default_password, "奴隷２　羽石雅彦", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.23")
                 };
-        students.addAll(Arrays.asList(s));
-        Teacher t1 = new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1");
-        teachers.add(t1);
+        students.addAll(Arrays.asList(s0));
+
+        Student[] s1 = {
+                new Student("S0011", default_password, "吉井ちゃん", Account.SexTag.female, "某工大　進捗部屋　パソコンNo.69"),
+                new Student("S0012", default_password, "吉川様", Account.SexTag.male, "某工大　進捗部屋　パソコンNo.6兆"),
+                new Student("S0013", default_password, "WINDOWS", Account.SexTag.male, "塾の地下六階"),
+                new Student("S0014", default_password, "GOOOOOOOOOGLE", Account.SexTag.female, "グーグル本社の○○○")
+        };
+
+        Teacher[] t = {
+                new Teacher("T0001", default_password, "教師1", Account.SexTag.female, "C県D市1-1-1"),
+                new Teacher("T0002", default_password, "トスリキ・スエイ", Account.SexTag.male, "地獄のどん底")
+        };
+
+        teachers.addAll(Arrays.asList(t));
 
         Subject[] sub = {
             new Subject("数学", 6),
@@ -46,8 +61,8 @@ public class DataController extends Controller {
         };
         subjects.addAll(Arrays.asList(sub));
 
-        ArrayList<Student> s_set0 = new ArrayList<>();
-        s_set0.addAll(Arrays.asList(s));
+        ArrayList<Student> s_set0 = new ArrayList<>(Arrays.asList(s0));
+        ArrayList<Student> s_set1 = new ArrayList<>(Arrays.asList(s1));
 
         SchoolSemester sem1 = new SchoolSemester(2019, 1);
         SchoolSemester sem2 = new SchoolSemester(2019, 2);
@@ -58,8 +73,57 @@ public class DataController extends Controller {
         Grade gr3 = new Grade(3, 2019);
         grades.add(gr1); grades.add(gr2); grades.add(gr3);
 
-        new SubjectClass(sub[0], t1, s_set0, sem1, 1);
-        new ClassRoom(t1, s_set0, gr1, 1, 2019);
+        SubjectClass[] sc = {
+                new SubjectClass(sub[0], t[0], s_set0, sem1, 1),
+                new SubjectClass(sub[1], t[0], s_set0, sem1, 1),
+                new SubjectClass(sub[2], t[1], s_set0, sem1, 1),
+                new SubjectClass(sub[0], t[0], s_set1, sem1, 2),
+                new SubjectClass(sub[1], t[0], s_set1, sem1, 2),
+                new SubjectClass(sub[2], t[1], s_set1, sem1, 2)
+        };
+
+
+        new ClassRoom(t[0], s_set0, gr1, 1, 2019);
+        new ClassRoom(t[1], s_set1, gr2, 6, 2019);
+
+        SchoolExamTime[] set = {
+                new SchoolExamTime(2019, 1, 0),
+                new SchoolExamTime(2018, 4, 0),
+                new SchoolExamTime(2018, 4, 1)
+        };
+        SchoolExam[] se ={
+                new SchoolExam(set[0]),
+                new SchoolExam(set[1]),
+                new SchoolExam(set[2])
+        };
+        exams.addAll(Arrays.asList(se));
+
+        SchoolTime[] st = {
+                new SchoolTime(2019, 1, 31, 1),
+                new SchoolTime(2019, 1, 31, 2),
+                new SchoolTime(2019, 1, 31, 3),
+                new SchoolTime(2018, 12, 25, 1),
+                new SchoolTime(2018, 12, 25, 2),
+                new SchoolTime(2018, 12, 25, 3),
+                new SchoolTime(2018, 11, 11, 1),
+                new SchoolTime(2018, 11, 11, 2),
+                new SchoolTime(2018, 11, 11, 3)
+        };
+
+        Random rnd = new Random();
+        for(int i = 0; i < 3; i++){
+            for(int j= 0; j < 3; j++){
+                new SchoolTest(se[i], st[3 * i + j], sc[j]);
+                new SchoolTest(se[i], st[3 * i + j], sc[3 + j]);
+                for(Student s : s0){
+                    new TestResult(rnd.nextInt(101), s, sc[j], set[i]);
+                }
+                for(Student s : s1){
+                    new TestResult(rnd.nextInt(101), s, sc[3 + j], set[i]);
+                }
+            }
+        }
+
     }
 
     //idが一致する生徒を検索
@@ -994,7 +1058,20 @@ public class DataController extends Controller {
             Student student = get_student(account_id);
             if(student == null) return badRequest();
             List<ExternalTime> list = new ArrayList<>(student.getExRecord().getExams().keySet());
-            return ok(Json.toJson(list));
+
+            ArrayList<TMPExternalExam> tmp = new ArrayList<>();
+            for(ExternalTime e : list){
+//                ExternalExam ex = get_ex_exam(e.getYear(), e.getMonth(), e.getDay(), e.getType().getName());
+                tmp.add(new TMPExternalExam(
+                        e,
+                        get_ex_total(student, e),
+                        get_ex_rate(student, e),
+                        -1, // place holder
+                        -1 // place holder
+                        ));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -1015,18 +1092,47 @@ public class DataController extends Controller {
             ExternalExamType ex_type = get_ex_type(type);
             Set<ExternalTime> time = student.getExRecord().getExams().keySet();
             //year,month,day,typeが一致するExternalTimeを特定
+            ArrayList<ExternalTestResult> exams = null;
             for(ExternalTime t : time){
                 if(t.getYear()==year && t.getMonth()==month && t.getDay()==day && t.getType().equals(ex_type)){
-                    return ok(Json.toJson(student.getExRecord().getExam(t)));
+                    exams = student.getExRecord().getExam(t);
                 }
             }
-            return notFound();
+
+            if(exams == null) return notFound("そのような模試は存在しません。");
+
+            ArrayList<TMPExternalTestResult> tmp = new ArrayList<>();
+            for(ExternalTestResult t : exams){
+                tmp.add(new TMPExternalTestResult(t));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
         }
     }
 
+    class TMPExternalTestResult {
+        public final int year;
+        public final int month;
+        public final int day;
+        public final String subject;
+        public final int score;
+        public final int rank;
+        public final double d_value;
+
+        private TMPExternalTestResult(ExternalTestResult t){
+            ExternalTime time = t.getTime();
+            year = time.getYear();
+            month = time.getMonth();
+            day = time.getDay();
+            subject = t.getSubject().getName();
+            score = t.getScore();
+            rank = t.getRank();
+            d_value = t.getDValue();
+        }
+    }
 
     /**
      * 自身のある模試タイプのある科目の結果一覧を返す
@@ -1043,7 +1149,16 @@ public class DataController extends Controller {
             Subject subject = get_subject(subject_name);
             if(subject == null) return notFound();
             ExternalExamType ex_type = get_ex_type(type);
-            return ok(Json.toJson(student.getExRecord().getExam(ex_type, subject)));
+            ArrayList<ExternalTestResult> list = student.getExRecord().getExam(ex_type, subject);
+            ArrayList<TMPExternalTestResult> tmp = new ArrayList<>();
+
+            for(ExternalTestResult t : list){
+                tmp.add(new TMPExternalTestResult(
+                   t
+                ));
+            }
+
+            return ok(Json.toJson(tmp));
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -1251,12 +1366,31 @@ public class DataController extends Controller {
         public final int month;
         public final int day;
         public final String type;
+        public final int score;
+        public final String rate;
+        public final String d_value;
+        public final int rank;
 
         private TMPExternalExam(ExternalExam e){
             year = e.getTime().getYear();
             month = e.getTime().getMonth();
             day = e.getTime().getDay();
             type = e.getType().getName();
+            score = 0;
+            rate = "null";
+            d_value = "null";
+            rank = 0;
+        }
+
+        private TMPExternalExam(ExternalTime e, int score, double rate, double d_value, int rank){
+            year = e.getYear();
+            month = e.getMonth();
+            day = e.getDay();
+            type = e.getType().getName();
+            this.score = score;
+            this.rate = String.format("%.2f", rate);
+            this.d_value = String.format("%.2f", d_value);
+            this.rank = rank;
         }
     }
 
@@ -1290,7 +1424,7 @@ public class DataController extends Controller {
             if(student == null) return notFound();
             ExternalTest test = get_external_test(year, month, day, type, name);
             if(test == null) return notFound();
-            ExternalTestResult result = new ExternalTestResult(score, student, subject, d_value, rank);
+            ExternalTestResult result = new ExternalTestResult(score, student, subject, d_value, rank, test.getTime());
             test.addResult(result);
             return ok();
         } catch (Exception e) {

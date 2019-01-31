@@ -9,18 +9,22 @@ public class ExternalTestResult {
 	private Subject subject;
 	private double dValue;
 	private int rank;
+	private ExternalTime time;
 
-	public ExternalTestResult(int score, Student student, Subject subject, double dValue, int rank){
+	public ExternalTestResult(int score, Student student, Subject subject, double dValue, int rank, ExternalTime time){
 		this.score = score;
 		this.student = student;
 		this.subject = subject;
 		this.dValue = dValue;
 		this.rank = rank;
+		this.time = time;
 	}
 
 	public int getScore(){ return score; }
 
 	public void setScore(int score){ this.score = score; }
+
+	public ExternalTime getTime() { return time;}
 
 	public Student getStudent(){ return student; }
 

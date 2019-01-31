@@ -291,4 +291,21 @@ li a {
     transition: all 0.3s ease-out;
 }
 
+/*星野のコード*/
+.data_table th{
+    border: solid #225ce2 2px;
+    color: white;
+    background-color: #009a9a;
+}
+
+.data_table tr td {
+    border: solid black 1px;
+}
+
+.data_table {
+    border-collapse: collapse;
+    padding: 5px;
+    border: solid #225ce2 2px;
+}
+
 

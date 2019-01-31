@@ -109,7 +109,7 @@ const student_school_test_list_table = new table(
     ["年", "学期", "中間・期末", "総合点", "得点率", "校内偏差値", "校内順位", "操作"],
     ["year", "semester", "term", "total", "rate", "d_value", "rank", null],
     [0, 2, 2, 0, 0, 0, 0, 4],
-    [[], ["１学期", "２学期", "３学期"], ["中間", "期末"], [], [], [], [], [student_school_test_list_mod]],
+    [[], ["1", "2", "3"], ["中間", "期末"], [], [], [], [], [student_school_test_list_mod]],
     10
 );
 
@@ -253,7 +253,7 @@ function teacher_subject_student_list_refresh(){
 const teacher_subject_student_result_table = new table(
     "students_results",
     "teacher_subject_student_result",
-    ["生徒ID", "点数", "偏差値", "順位"],
+    ["生徒名", "点数", "偏差値", "順位"],
     ["student", "score", "d_value", "rank"],
     [0, 0, 0, 0],
     [[], [], [], []],
