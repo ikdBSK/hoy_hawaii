@@ -468,8 +468,8 @@ public class DataController extends Controller {
      * @param time 返す回
      * @return 得点率
      */
-    private double get_rate(Student student, SchoolExamTime time){
-        return student.getRecord().getRate(time);
+    private int get_rate(Student student, SchoolExamTime time){
+        return (int)student.getRecord().getRate(time);
     }
 
 
@@ -509,8 +509,8 @@ public class DataController extends Controller {
      * @param time 返す回
      * @return 得点率
      */
-    public double get_ex_rate(Student student, ExternalTime time){
-        return student.getExRecord().getRate(time);
+    public int get_ex_rate(Student student, ExternalTime time){
+        return (int)student.getExRecord().getRate(time);
     }
 
     /* ****************** 以下、管理者からのアクセスに対処するメソッド ************************* */
@@ -857,11 +857,11 @@ public class DataController extends Controller {
                 public int semester;
                 public String term;
                 public int total;
-                public double rate;
+                public int rate;
                 public String d_value;
                 public int rank;
 
-                private TMPSchoolExam(SchoolExamTime t, int total, double rate, double d_value, int rank){
+                private TMPSchoolExam(SchoolExamTime t, int total, int rate, double d_value, int rank){
                     year = t.getYear();
                     semester = t.getSemester();
                     term = (0 == t.getTerm()) ? "中間" : "期末";
