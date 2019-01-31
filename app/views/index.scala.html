@@ -142,11 +142,6 @@
 
     <div id="teacher_screen" style="display: none;">
         <div class="content">
-            <div id="teacher_subject_class_list" style="display: none">
-                <h1>担当クラスリスト</h1>
-                <button onclick="teacher_subject_class_list.refresh(); return false;">更新</button>
-                <div id="teacher_subject_class_list_display"></div>
-            </div>
             <div id="teacher_add_test" style="display: none">
                 <h1>新しい試験を作成</h1>
                 <form id="teacher_add_test_form">
@@ -255,47 +250,15 @@
                 <div id="teacher_add_result_display"></div>
                 @helper.CSRF.formField
             </div>
-
-            <div id="teacher_student_result_list" style="display: none;">
-                <h1>生徒の成績</h1>
-                <form id="teacher_subject_student_result_form">
-                    <table class="form_table">
-                        <tr>
-                            <td>年</td>
-                            <td><input type="number" name="year" min="1800" max="2445" title="西暦"></td>
-                        </tr>
-                        <tr>
-                            <td>学期</td>
-                            <td><input type="number" name="semester" min="1" max="3" title="学期"></td>
-                        </tr>
-                        <tr>
-                            <td>中間・期末</td>
-                            <td><input type="number" name="term" min="0" max="1" title="中間が０、期末が１"></td>
-                        </tr>
-                        <tr>
-                            <td>科目名</td>
-                            <td><input type="text" name="name" title="科目名"></td>
-                        </tr>
-                        <tr>
-                            <td>学年</td>
-                            <td><input type="number" name="grade" title="学年"></td>
-                        </tr>
-                    </table>
-                    <button onclick="teacher_subject_student_list_refresh(); return false;">取得</button>
-                    <div id="teacher_subject_student_result_display"></div>
-                </form>
-            </div>
-
             <div id="teacher_external_list" style="display: none;">
                 <h1>外部試験リスト</h1>
                 <button onclick="teacher_external_exam_list_table.refresh(); return false;">更新</button>
                 <div id="teacher_external_list_display"></div>
             </div>
-
             <div id="teacher_external_result_creation" style="display: none;">
                 <h1>外部試験結果入力</h1>
                 <form id="external_exam_result_form">
-                    <table>
+                    <table class="form_table">
                         <tr>
                             <td>年</td>
                             <td><input title="年" type="number" name="year" min="1234" max="4321" required></td>
@@ -337,6 +300,40 @@
                     <button type="submit" id="external_exam_result_submit" style="display: none;"></button>
                     <div id="external_exam_result_display"></div>
                     @helper.CSRF.formField
+                </form>
+            </div>
+            <div id="teacher_subject_class_list" style="display: none">
+                <h1>担当クラスリスト</h1>
+                <button onclick="teacher_subject_class_list.refresh(); return false;">更新</button>
+                <div id="teacher_subject_class_list_display"></div>
+            </div>
+            <div id="teacher_student_result_list" style="display: none;">
+                <h1>生徒の成績</h1>
+                <form id="teacher_subject_student_result_form">
+                    <table class="form_table">
+                        <tr>
+                            <td>年</td>
+                            <td><input type="number" name="year" min="1800" max="2445" title="西暦"></td>
+                        </tr>
+                        <tr>
+                            <td>学期</td>
+                            <td><input type="number" name="semester" min="1" max="3" title="学期"></td>
+                        </tr>
+                        <tr>
+                            <td>中間・期末</td>
+                            <td><input type="number" name="term" min="0" max="1" title="中間が０、期末が１"></td>
+                        </tr>
+                        <tr>
+                            <td>科目名</td>
+                            <td><input type="text" name="name" title="科目名"></td>
+                        </tr>
+                        <tr>
+                            <td>学年</td>
+                            <td><input type="number" name="grade" title="学年"></td>
+                        </tr>
+                    </table>
+                    <button onclick="teacher_subject_student_list_refresh(); return false;">取得</button>
+                    <div id="teacher_subject_student_result_display"></div>
                 </form>
             </div>
         </div>
@@ -600,6 +597,7 @@
                     @helper.CSRF.formField
                 </form>
             </div>
+
             <div id="admin_class_list" style="display: none;">
                 <h1>クラスリスト</h1>
                 <form id="class_list_form">
@@ -612,10 +610,10 @@
                         </tr>
                     </table>
                     <button onclick="admin_class_list.custom_refresh('classroom_list/' + $('#class_list_form').find('[name=grade]').eq(0).val()); return false;">取得</button>
-
                     <div id="class_list_display"></div>
                 </form>
             </div>
+
             <div id="admin_account_list" style="display: none;">
                 <h1>アカウントリスト</h1>
                 <button onclick="admin_account_list_table.refresh(); return false;">更新</button>

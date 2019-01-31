@@ -55,10 +55,15 @@
                 </ul>
             </div>
             <div class="menu_bar" id="teacher_menu_bar" style="display: none;">
+                <div class="account-list-button-container">
+                    <input type="checkbox" id="teacher-class-open" style="display: none;">
+                    <label for="teacher-class-open" class="account-list-button" onclick="open_teacher_fix_menu('#teacher_subject_class_list')">担当授業リスト</label>
+                </div>
+                <div class="account-list-button-container">
+                    <input type="checkbox" id="teacher-result-open" style="display: none;">
+                    <label for="teacher-result-open" class="account-list-button" onclick="open_teacher_fix_menu('#teacher_student_result_list')">生徒の成績</label>
+                </div>
                 <ul class="accordion-menu">
-                    <li>
-                        <a class="dropdownlink" onclick="open_teacher_menu('#teacher_subject_class_list'); return false;">担当授業リスト</a>
-                    </li>
                     <li>
                         <a class="dropdownlink" onclick="open_teacher_menu('#teacher_add_test'); return false;">試験追加</a>
                     </li>
@@ -66,13 +71,10 @@
                         <a class="dropdownlink" onclick="open_teacher_menu('#teacher_add_result'); return false;">試験結果追加</a>
                     </li>
                     <li>
-                        <a class="dropdownlink" onclick="$('#teacher_student_result_list').toggle(); return false;">生徒の成績</a>
+                        <a class="dropdownlink" onclick="open_teacher_menu('#teacher_external_result_creation'); return false;">外部試験結果<br>追加</a>
                     </li>
                     <li>
-                        <a class="dropdownlink" onclick="$('#teacher_external_result_creation').toggle(); return false;">外部試験結果追加</a>
-                    </li>
-                    <li>
-                        <a class="dropdownlink" onclick="$('#teacher_external_list').toggle(); return false;">外部試験リスト</a>
+                        <a class="dropdownlink" onclick="open_teacher_menu('#teacher_external_list'); return false;">外部試験リスト</a>
                     </li>
                 </ul>
             </div>

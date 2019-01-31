@@ -30,11 +30,11 @@ $(function() {
 
 function open_admin_menu(id) {
     $('#admin_screen .content >div').each(function(i, o){
-        if (o.id !== 'admin_account_list') {
+        if (o.id !== 'admin_account_list' && '#'+o.id !== id) {
             $(o).hide();
         }
     });
-    $(id).show();
+    $(id).toggle();
 }
 
 function open_student_menu(id) {
@@ -46,7 +46,21 @@ function open_student_menu(id) {
 
 function open_teacher_menu(id) {
     $('#teacher_screen .content >div').each(function(i, o){
-        $(o).hide();
+        if (o.id !== 'teacher_subject_class_list' && o.id !== 'teacher_student_result_list' && '#'+o.id !== id) {
+            $(o).hide();
+        }
     });
-    $(id).show();
+    $(id).toggle();
+}
+
+function open_teacher_fix_menu(id) {
+    if (id === '#teacher_subject_class_list') {
+        $('#teacher_student_result_list').hide();
+        document.getElementById('teacher-result-open').checked = false;
+        $(id).toggle();
+    } else if (id === '#teacher_student_result_list') {
+        $('#teacher_subject_class_list').hide();
+        document.getElementById('teacher-class-open').checked = false;
+        $(id).toggle();
+    }
 }

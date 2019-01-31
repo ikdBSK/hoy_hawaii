@@ -89,8 +89,7 @@ select {
 .content >div {
     padding-bottom: 20px;
 }
-#student_screen,
-#teacher_screen {
+#student_screen {
     margin-left: 0;
     width: 520px;
 }
@@ -118,69 +117,39 @@ select {
     border-radius: 4px;
 }
 
-/** student **/
-#student_screen{
-    height: 100%;
-}
-
-/** teacher **/
-
-
-@media screen and (min-width: 1100px) {
-    /* 表示領域が1100px以上の場合に適用するスタイル */
-    #teacher_screen {
-        width: 840px;
-    }
-    #teacher_add_test_form,
-    #teacher_add_result_form {
-        display: flex;
-    }
-    #teacher_screen .form_table {
-        padding-right: 60px;
-    }
-    #teacher_screen .form_table input{
-        width: 150px;
-    }
-    #teacher_screen .form_table input[type="radio"] + label {
-        padding-left: 20px;
-        position: relative;
-        margin-right: 6px;
-    }
-    .teacher_add_test_form_left,
-    .teacher_add_result_form_left {
-        width: 50%;
-        position: relative;
-        left: 3%;
-    }
-    .teacher_add_test_form_right,
-    .teacher_add_result_form_right {
-        width: 50%;
-        position: relative;
-        left: -3%;
-    }
-}
-
-
 /** admin **/
 #admin_screen {
     height: 100%;
     text-align: center;
 }
-#admin_screen .content{
+#admin_screen .content,
+#teacher_screen .content {
     display: flex;
 }
-#admin_screen .content >div{
+@media screen and (max-width: 1280px) {
+    #admin_screen .content,
+    #teacher_screen .content {
+        display: block;
+    }
+}
+#admin_screen .content >div,
+#teacher_screen .content >div {
     width: 520px;
 }
-#admin_account_list_display {
-    margin-top: 10px;
-}
+
 
 
 /** display **/
+#admin_account_list_display {
+    margin-top: 10px;
+}
 #admin_account_list_display table{
     margin: auto;
     font-size: 22px;
+}
+#teacher_subject_class_list_display {
+    margin-top: 10px;
+    justify-content: center;
 }
 
 /** form **/
@@ -248,8 +217,7 @@ select {
 }
 .account-list-button {
     padding: 15px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
     cursor: pointer;
     display: block;
     color: #212121;
@@ -261,7 +229,9 @@ select {
     color: #ffffff;
     background-color: #1e3333;
 }
-#account-list-open:checked + .account-list-button{
+#account-list-open:checked + .account-list-button,
+#teacher-class-open:checked + .account-list-button,
+#teacher-result-open:checked + .account-list-button {
     color: #ffffff;
     background-color: #1e3333;
 }
@@ -298,8 +268,7 @@ li a {
 }
 .dropdownlink {
     padding: 15px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
     cursor: pointer;
     display: block;
     border-bottom: 1px solid #cccccc;
@@ -334,6 +303,8 @@ li a {
 }
 
 .data_table {
+    width: 100%;
+    margin: 0 auto;
     border-collapse: collapse;
     padding: 5px;
     border: solid #225ce2 2px;
