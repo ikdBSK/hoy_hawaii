@@ -128,7 +128,7 @@ class table{
             }
         }, error => {
             this.display(ERROR);
-            console.log(error);
+            // console.log(error);
         });
     }
 
