@@ -240,8 +240,6 @@ select {
     width: 210px;
     background-color: #f0f0f0;
 }
-#admin_menu_bar,#student_menu_bar{
-}
 ul {
     margin: auto;
     padding-left: 0;
@@ -282,8 +280,17 @@ li a {
 }
 .submenuItems {
     padding: 0;
+    margin: 0 auto;
+    cursor: pointer;
     display: none;
+    border-bottom: 1px solid #cccccc;
+    color: #212121;
+    position: relative;
     background-color: #f0f0f0;
+}
+.submenuItems a:hover {
+    color: #ffffff;
+    background-color: #1e3333;
 }
 .submenuItems a {
     display: block;
