@@ -28,8 +28,8 @@ GET     /subject_list                           controllers.DataController.subje
 GET     /subject_history/:name                  controllers.DataController.subject_history(name: String)
 GET     /my_ex_exams                            controllers.DataController.my_ex_exams
 GET     /ex_exam_detail/:year/:month/:day/:type     controllers.DataController.ex_exam_detail(year: Integer, month: Integer, day: Integer, type: String)
-GET     /ex_subject_history                     controllers.DataController.ex_subject_history(type: String, subject_name: String)
 GET     /student_school_history_image             controllers.DataController.student_school_history_image
+GET     /ex_subject_history/:type/:subject_name     controllers.DataController.ex_subject_history(type: String, subject_name: String)
 #teacher
 GET   /subject_class_list                       controllers.DataController.subject_class_list
 GET   /school_test_list/:year/:semester/:name/:grade   controllers.DataController.school_test_list(year: Integer, semester: Integer, name: String, grade: Integer)

@@ -346,7 +346,7 @@ public class DataController extends Controller {
         } catch(Exception e){
             return badRequest();
         }
-        return notFound();
+        return notFound("存在しないアカウントIDです。");
     }
 
 
@@ -522,7 +522,7 @@ public class DataController extends Controller {
                 TMPAccount temp = new TMPAccount(admin);
                 return ok(Json.toJson(temp));
             }
-            return notFound();
+            return notFound("存在しないアカウントIDです。");
         } catch (Exception e) {
             e.printStackTrace();
             return badRequest();
@@ -747,7 +747,7 @@ public class DataController extends Controller {
      */
     public Result subject_detail(String name){
         Subject subject = get_subject(name);
-        if(subject == null) return notFound();
+        if(subject == null) return notFound("そのような科目は存在しません。");
 
         class TMPSubjectClass {
             public final String subject;
@@ -792,10 +792,10 @@ public class DataController extends Controller {
             final int grade = Integer.parseInt(form.get("grade")[0]);
             //subjectを特定する
             Subject subject = get_subject(subject_name);
-            if(subject == null) return notFound();
+            if(subject == null) return notFound("そのような科目は存在しません。");
             //teacherを特定する
             Teacher teacher = get_teacher(teacher_id);
-            if(teacher == null) return notFound();
+            if(teacher == null) return notFound("そのIDの先生が見つかりませんでした。");
             //studentsを特定する
             ArrayList<Student> student_list = new ArrayList<>();
             for (String students_id : students_ids) {
@@ -1035,7 +1035,7 @@ public class DataController extends Controller {
 
 
 
-            if(exam == null) return notFound();
+            if(exam == null) return notFound("その定期試験の結果はまだ登録されていません。");
             ArrayList<TMPTestResult> tmp = new ArrayList<>();
             for(TestResult r : exam){
                 tmp.add(new TMPTestResult(
@@ -1066,7 +1066,7 @@ public class DataController extends Controller {
             if(student == null) return badRequest();
             //nameが一致するSubjectの成績一覧を探す
             Subject subject = get_subject(name);
-            if(subject == null) return notFound();
+            if(subject == null) return notFound("そのような科目は存在しません。");
 
             ArrayList<TMPTestResult> tmp = new ArrayList<>();
             for(TestResult r : student.getRecord().getExam(subject)){
@@ -1185,7 +1185,7 @@ public class DataController extends Controller {
             if(student == null) return badRequest();
             //nameが一致するSubjectの成績一覧を探す
             Subject subject = get_subject(subject_name);
-            if(subject == null) return notFound();
+            if(subject == null) return notFound("そのような科目は存在しません。");
             ExternalExamType ex_type = get_ex_type(type);
             ArrayList<ExternalTestResult> list = student.getExRecord().getExam(ex_type, subject);
             ArrayList<TMPExternalTestResult> tmp = new ArrayList<>();
@@ -1252,7 +1252,7 @@ public class DataController extends Controller {
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
-            if(subjectClass == null) return notFound();
+            if(subjectClass == null) return notFound("その科目クラスは登録されていません。");
             return ok(Json.toJson(subjectClass.getTests()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -1277,9 +1277,9 @@ public class DataController extends Controller {
             Teacher teacher = get_teacher(account_id);
             if(teacher == null) return badRequest();
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
-            if(subjectClass == null) return notFound();
+            if(subjectClass == null) return notFound("その科目クラスは登録されていません。");
             SchoolTest test = get_school_test(subjectClass, year, semester, term);
-            if(test == null) return notFound();
+            if(test == null) return notFound("その科目クラスの試験はまだ実施されていません。");
             ArrayList<TestResult> testResults = new ArrayList<>(test.getResult().values());
 
             class TMPResult {
@@ -1326,10 +1326,10 @@ public class DataController extends Controller {
             String name = form.get("name")[0];
             int grade = Integer.parseInt(form.get("grade")[0]);
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
-            if(subjectClass == null) return notFound();
+            if(subjectClass == null) return notFound("その科目クラスは登録されていません。");
             //管理者が作ったSchoolExamリストの中から時期の一致するものを特定
             SchoolExam exam = get_school_exam(year, semester, term);
-            if(exam == null) return notFound();
+            if(exam == null) return notFound("その時期の定期試験はまだ管理者が登録していません。");
             final int month = Integer.parseInt(form.get("month")[0]);
             final int day = Integer.parseInt(form.get("day")[0]);
             final int division = Integer.parseInt(form.get("division")[0]);
@@ -1361,14 +1361,14 @@ public class DataController extends Controller {
             String name = form.get("name")[0];
             int grade = Integer.parseInt(form.get("grade")[0]);
             SubjectClass subjectClass = get_subject_class(teacher, name, grade, year, semester);
-            if(subjectClass == null) return notFound();
+            if(subjectClass == null) return notFound("その科目クラスは登録されていません。");
             SchoolTest test = get_school_test(subjectClass, year, semester, term);
-            if(test == null) return notFound();
+            if(test == null) return notFound("まず実施した試験を登録してください。");
             //とりあえず点数と生徒IDの受け取りのみ実装
             int score = Integer.parseInt(form.get("score")[0]);
             String student_id = form.get("id")[0];
             Student student = get_student(student_id);
-            if(student == null) return notFound();
+            if(student == null) return notFound("そのIDの生徒が見つかりませんでした。");
             TestResult result = new TestResult(score, student, subjectClass, test.getExam().getTime());
             test.addResult(result);
 
@@ -1457,11 +1457,11 @@ public class DataController extends Controller {
             double d_value = Double.parseDouble(form.get("d_value")[0]);
             int rank = Integer.parseInt(form.get("rank")[0]);
             Subject subject = get_subject(name);
-            if(subject == null) return notFound();
+            if(subject == null) return notFound("そのような科目は存在しません。");
             Student student = get_student(student_id);
-            if(student == null) return notFound();
+            if(student == null) return notFound("そのIDの生徒が見つかりませんでした。");
             ExternalTest test = get_external_test(year, month, day, type, name);
-            if(test == null) return notFound();
+            if(test == null) return notFound("その模試はまだ登録されていません。");
             ExternalTestResult result = new ExternalTestResult(score, student, subject, d_value, rank, test.getTime());
             test.addResult(result);
             return ok();
