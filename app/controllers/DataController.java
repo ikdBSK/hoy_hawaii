@@ -1145,7 +1145,7 @@ public class DataController extends Controller {
 
             ArrayList<TMPResult> tmp = new ArrayList<>();
             for(TestResult t : testResults){
-                tmp.add(new TMPResult(t, get_d_value(t.getStudent(), test.getExam().getTime(), t.getSubject().getSubject()), get_rank(t.getStudent(), t.getTime())));
+                tmp.add(new TMPResult(t, get_d_value(t.getStudent(), test.getExam().getTime(), t.getSubject().getSubject()), get_rank(t.getStudent(), t.getTime(), get_subject(name))));
             }
 
             return ok(Json.toJson(tmp));
