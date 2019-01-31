@@ -89,8 +89,8 @@ public class DataController extends Controller {
 
         SchoolExamTime[] set = {
                 new SchoolExamTime(2019, 1, 0),
-                new SchoolExamTime(2018, 4, 0),
-                new SchoolExamTime(2018, 4, 1)
+                new SchoolExamTime(2019, 2, 0),
+                new SchoolExamTime(2019, 3, 1)
         };
         SchoolExam[] se ={
                 new SchoolExam(set[0]),
@@ -117,13 +117,13 @@ public class DataController extends Controller {
         Random rnd = new Random();
         for(int i = 0; i < 3; i++){
             for(int j= 0; j < 3; j++){
-                new SchoolTest(se[i], st[3 * i + j], sc[j]);
-                new SchoolTest(se[i], st[3 * i + j], sc[3 + j]);
+                SchoolTest tmp0 = new SchoolTest(se[i], st[3 * i + j], sc[j]);
+                SchoolTest tmp1 = new SchoolTest(se[i], st[3 * i + j], sc[3 + j]);
                 for(Student s : s0){
-                    new TestResult(rnd.nextInt(101), s, sc[j], set[i]);
+                    tmp0.addResult(new TestResult(rnd.nextInt(101), s, sc[j], set[i]));
                 }
                 for(Student s : s1){
-                    new TestResult(rnd.nextInt(101), s, sc[3 + j], set[i]);
+                    tmp1.addResult(new TestResult(rnd.nextInt(101), s, sc[3 + j], set[i]));
                 }
             }
         }

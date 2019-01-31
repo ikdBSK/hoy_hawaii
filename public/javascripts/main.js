@@ -130,7 +130,7 @@ function student_school_test_list_mod(tr){
 // 定期試験の詳細
 const student_school_test_detail_table = new table(
     "school_exam_detail",
-    "school_test_detail",
+    "student_school_test_detail",
     ["科目", "点数", "順位", "偏差値"],
     ["subject", "score", "rank", "d_value"],
     [0, 0, 0, 0],
