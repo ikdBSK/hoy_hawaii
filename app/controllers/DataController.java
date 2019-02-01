@@ -61,16 +61,45 @@ public class DataController extends Controller {
         };
 
         teachers.addAll(Arrays.asList(t));
+        Random rnd = new Random();
 
         Subject[] sub = {
-            new Subject("数学", 6),
-            new Subject("国語", 6),
-            new Subject("英語", 6)
+                new Subject("数学", 6),
+                new Subject("国語", 6),
+                new Subject("英語", 6),
+                new Subject("物理", 4),
+                new Subject("化学", 4),
+                new Subject("生物", 4),
+                new Subject("地理", 4),
+                new Subject("世界史", 4),
+                new Subject("日本史", 4),
+                new Subject("倫理", 4),
+                new Subject("政治・経済", 4),
+                new Subject("現代社会", 4),
+                new Subject("アニメ観賞",69)
         };
         subjects.addAll(Arrays.asList(sub));
 
+        SchoolSemester[] schoolSemesters = {
+                new SchoolSemester(2019, 1),
+                new SchoolSemester(2019, 2),
+                new SchoolSemester(2019, 3),
+                new SchoolSemester(2019, 4)
+        };
+
         ArrayList<Student> s_set0 = new ArrayList<>(Arrays.asList(s0));
         ArrayList<Student> s_set1 = new ArrayList<>(Arrays.asList(s1));
+
+//        ArrayList<SubjectClass> sc = new ArrayList<>();
+//        for(Subject subject : sub){
+//            for(SchoolSemester ss : schoolSemesters){
+//                int rnam = rnd.nextInt(2);
+//                new SubjectClass(subject, t[rnam], s_set0, ss, 1);
+//                new SubjectClass(subject, t[rnam], s_set1, ss, 2);
+//            }
+//        }
+
+
 
         SchoolSemester sem1 = new SchoolSemester(2019, 1);
         SchoolSemester sem2 = new SchoolSemester(2019, 2);
@@ -96,7 +125,9 @@ public class DataController extends Controller {
 
         SchoolExamTime[] set = {
                 new SchoolExamTime(2019, 1, 0),
+                new SchoolExamTime(2019, 1, 1),
                 new SchoolExamTime(2019, 2, 0),
+                new SchoolExamTime(2019, 2, 1),
                 new SchoolExamTime(2019, 3, 1)
         };
         SchoolExam[] se ={
@@ -121,7 +152,7 @@ public class DataController extends Controller {
                 new SchoolTime(2018, 11, 11, 3)
         };
 
-        Random rnd = new Random();
+
         for(int i = 0; i < 3; i++){
             for(int j= 0; j < 3; j++){
                 SchoolTest tmp0 = new SchoolTest(se[i], st[3 * i + j], sc[j]);
@@ -360,25 +391,27 @@ public class DataController extends Controller {
         accounts.addAll(teachers);
         accounts.addAll(students);
 
-        class TMPAccount{
-            public final String id;
-            public final String name;
-            public final String sex;
-            public final String address;
 
-            private TMPAccount(String id, String name, String sex, String address){
-                this.id = id;
-                this.name = name;
-                this.sex = sex;
-                this. address = address;
-            }
-        }
 
         ArrayList<TMPAccount> tmp = new ArrayList<>();
         for(Account account : accounts){
             tmp.add(new TMPAccount(account.get_id(), account.get_name(), account.get_sex().display(), account.get_address()));
         }
         return ok(Json.toJson(tmp));
+    }
+
+    class TMPAccount{
+        public final String id;
+        public final String name;
+        public final String sex;
+        public final String address;
+
+        private TMPAccount(String id, String name, String sex, String address){
+            this.id = id;
+            this.name = name;
+            this.sex = sex;
+            this. address = address;
+        }
     }
 
 
@@ -1380,6 +1413,40 @@ public class DataController extends Controller {
         }
     }
 
+    public Result subject_class_detail(String subject){
+        try {
+            String id = get_id();
+            if (get_teacher(id) == null) return unauthorized("この操作は、先生でなければできません。");
+            Subject obj_subject = null;
+            for (Subject s : subjects) {
+                if (s.getName().equals(subject)) {
+                    obj_subject = s;
+                    break;
+                }
+            }
+
+            SubjectClass subject_class = null;
+            for (SubjectClass sc : obj_subject.getClasses()){
+                if(sc.getTeacher().get_id().equals(id)){
+                    subject_class = sc;
+                    break;
+                }
+            }
+
+            if(subject_class == null) return unauthorized("これは、あなたの担当する授業ではありません。");
+
+            ArrayList<TMPAccount> tmp = new ArrayList<>();
+            for(Student s : subject_class.getStudents()){
+                tmp.add(new TMPAccount(s.get_id(), s.get_name(), s.get_sex().display(), s.get_address()));
+            }
+
+            return ok(Json.toJson(tmp));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest("サーバでエラーが生じました。管理者にこの問題について問い合わせてください。");
+        }
+    }
+
 
     /**
      * 模試一覧を得る
@@ -1498,128 +1565,134 @@ public class DataController extends Controller {
     private final static int circle_size = 10;
 
     public Result student_school_history_image(){
-        int width = (stick_padding + stick_width) * subjects.size() + label_width * 2;
+        try {
+            int width = (stick_padding + stick_width) * exams.size() + label_width + 400;
 
 
-        Student student = get_student(get_id());
-        if(student == null) return notFound();
-        BufferedImage bimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = (Graphics2D) bimg.getGraphics();
-        Color[] colors = generate_colors(subjects.size() + 1);
+            Student student = get_student(get_id());
+            if (student == null) return notFound();
+            BufferedImage bimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = (Graphics2D) bimg.getGraphics();
+            Color[] colors = generate_colors(subjects.size() + 1);
 
-        // 背景
-        g.setColor(new Color(137, 187,255));
-        g.fillRect(0, 0, width, height);
-        g.setFont(new Font("sansserif", Font.PLAIN, 20));
-
-        class LocalComparator implements Comparator<TestResult>{
-            public int compare(TestResult t1, TestResult t2){
-                SchoolExamTime time1, time2;
-                time1 = t1.getTime();
-                time2 = t2.getTime();
-                if(time1.getYear() != time2.getYear()) return (time1.getYear() > time2.getYear()) ? 1 : -1;
-                if(time1.getSemester() != time2.getSemester()) return (time1.getSemester() > time2.getSemester()) ? 1 : -1;
-                if(time1.getTerm() != time1.getTerm()) return (time1.getTerm() > time2.getTerm()) ? 1 : -1;
-                return 0;
-            }
-        }
-
-        int count = 0;
-        int total_count = subjects.size();
-        int real_width = stick_width / total_count;
-        for(Subject subject : subjects){
-            ArrayList<TestResult> tests = student.getRecord().getExam(subject);
-            tests.sort(new LocalComparator());
-            int current_x = label_width;
-            for(TestResult test : tests){
-                SchoolExamTime time = test.getTime();
-                current_x += stick_padding;
-                g.setColor(Color.black);
-                g.drawString(time.getYear() + "年", current_x, string_y);
-                g.drawString(time.getSemester() + "学期", current_x, string_y + string_padding);
-                g.drawString(((time.getTerm() == 0) ? "中間" : "期末"), current_x, string_y + string_padding * 2);
-
-                g.setColor(colors[count + 1]);
-                int local_height = stick_height * test.getScore() / 100;
-                g.fillRect(current_x + real_width * count, stick_height - local_height, real_width, local_height);
-
-                current_x += stick_width;
-            }
-            count++;
-        }
-
-        count = 0;
-        for(Subject subject : subjects){
-            ArrayList<TestResult> tests = student.getRecord().getExam(subject);
-            tests.sort(new LocalComparator());
-            int current_x = label_width;
-            int line_previous_x = -1;
-            int line_previous_y = -1;
-            int line_current_x;
-            int line_current_y;
-            for(TestResult test : tests){
-                SchoolExamTime time = test.getTime();
-                current_x += stick_padding;
-
-                double d_val = get_d_value(student, test.getTime(), subject);
-                int local_height = stick_height * (int) d_val / 100;
-
-                line_current_x = current_x + real_width * count + real_width / 2;
-                line_current_y = stick_height - local_height;
-
-                if(line_previous_x != -1){
-                    g.setStroke(new BasicStroke(5));
-                    g.setColor(Color.black);
-                    g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
-                    g.setStroke(new BasicStroke(2));
-                    g.setColor(colors[count + 1]);
-                    g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
-
-                    g.setColor(Color.black);
-                    g.fillOval(line_previous_x - circle_size / 2, line_previous_y - circle_size / 2, circle_size, circle_size);
-                }
-                line_previous_x = line_current_x;
-                line_previous_y = line_current_y;
-
-                g.setColor(Color.black);
-                g.fillOval(line_current_x - circle_size / 2, line_current_y - circle_size / 2, circle_size, circle_size);
-                g.setFont(new Font("sansserif", Font.PLAIN, 13));
-                g.drawString(String.format("%.1f", d_val), line_current_x - 15, line_current_y - 15);
-
-                current_x += stick_width;
-            }
-            count++;
-        }
-
-        // label
-        g.setColor(Color.black);
-        g.fillRect(100, 0, 5, stick_height);
-        g.fillRect(100, stick_height, 20, 5);
-        g.fillRect(100, stick_height / 4 * 3, 20, 5);
-        g.fillRect(100, stick_height / 2, 20, 5);
-        g.fillRect(100, stick_height / 4, 20, 5);
-        g.fillRect(100, 0, 20, 5);
-
-        g.setFont(new Font("sansserif", Font.PLAIN, 20));
-        g.drawString("点数・偏差値", 20, stick_height + 60);
-        g.drawString("0", 50, stick_height + 15);
-        g.drawString("25", 50, stick_height * 3 / 4 + 15);
-        g.drawString("50", 50, stick_height * 2 / 4 + 15);
-        g.drawString("75", 50, stick_height / 4 + 15);
-        g.drawString("100", 50, 15);
-
-        count = 0;
-        for(Subject subject : subjects){
-            g.setColor(colors[count + 1]);
-            g.fillRect(width - label_width + 50, 100 + 60 * count, 80, 40);
-            g.setColor(Color.black);
+            // 背景
+            g.setColor(new Color(137, 187, 255));
+            g.fillRect(0, 0, width, height);
             g.setFont(new Font("sansserif", Font.PLAIN, 20));
-            g.drawString(subject.getName(), width - label_width + 50 + 100, 100 + 60 * count + 20);
-            count++;
+
+            class LocalComparator implements Comparator<TestResult> {
+                public int compare(TestResult t1, TestResult t2) {
+                    SchoolExamTime time1, time2;
+                    time1 = t1.getTime();
+                    time2 = t2.getTime();
+                    if (time1.getYear() != time2.getYear()) return (time1.getYear() > time2.getYear()) ? 1 : -1;
+                    if (time1.getSemester() != time2.getSemester())
+                        return (time1.getSemester() > time2.getSemester()) ? 1 : -1;
+                    if (time1.getTerm() != time1.getTerm()) return (time1.getTerm() > time2.getTerm()) ? 1 : -1;
+                    return 0;
+                }
+            }
+
+            int count = 0;
+            int total_count = subjects.size();
+            int real_width = stick_width / total_count;
+            for (Subject subject : subjects) {
+                ArrayList<TestResult> tests = student.getRecord().getExam(subject);
+                tests.sort(new LocalComparator());
+                int current_x = label_width;
+                for (TestResult test : tests) {
+                    SchoolExamTime time = test.getTime();
+                    current_x += stick_padding;
+                    g.setColor(Color.black);
+                    g.drawString(time.getYear() + "年", current_x, string_y);
+                    g.drawString(time.getSemester() + "学期", current_x, string_y + string_padding);
+                    g.drawString(((time.getTerm() == 0) ? "中間" : "期末"), current_x, string_y + string_padding * 2);
+
+                    g.setColor(colors[count + 1]);
+                    int local_height = stick_height * test.getScore() / 100;
+                    g.fillRect(current_x + real_width * count, stick_height - local_height, real_width, local_height);
+
+                    current_x += stick_width;
+                }
+                count++;
+            }
+
+            count = 0;
+            for (Subject subject : subjects) {
+                ArrayList<TestResult> tests = student.getRecord().getExam(subject);
+                tests.sort(new LocalComparator());
+                int current_x = label_width;
+                int line_previous_x = -1;
+                int line_previous_y = -1;
+                int line_current_x;
+                int line_current_y;
+                for (TestResult test : tests) {
+                    SchoolExamTime time = test.getTime();
+                    current_x += stick_padding;
+
+                    double d_val = get_d_value(student, test.getTime(), subject);
+                    int local_height = stick_height * (int) d_val / 100;
+
+                    line_current_x = current_x + real_width * count + real_width / 2;
+                    line_current_y = stick_height - local_height;
+
+                    if (line_previous_x != -1) {
+                        g.setStroke(new BasicStroke(5));
+                        g.setColor(Color.black);
+                        g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
+                        g.setStroke(new BasicStroke(2));
+                        g.setColor(colors[count + 1]);
+                        g.drawLine(line_previous_x, line_previous_y, line_current_x, line_current_y);
+
+                        g.setColor(Color.black);
+                        g.fillOval(line_previous_x - circle_size / 2, line_previous_y - circle_size / 2, circle_size, circle_size);
+                    }
+                    line_previous_x = line_current_x;
+                    line_previous_y = line_current_y;
+
+                    g.setColor(Color.black);
+                    g.fillOval(line_current_x - circle_size / 2, line_current_y - circle_size / 2, circle_size, circle_size);
+                    g.setFont(new Font("sansserif", Font.PLAIN, 13));
+                    g.drawString(String.format("%.1f", d_val), line_current_x - 15, line_current_y - 15);
+
+                    current_x += stick_width;
+                }
+                count++;
+            }
+
+            // label
+            g.setColor(Color.black);
+            g.fillRect(100, 0, 5, stick_height);
+            g.fillRect(100, stick_height, 20, 5);
+            g.fillRect(100, stick_height / 4 * 3, 20, 5);
+            g.fillRect(100, stick_height / 2, 20, 5);
+            g.fillRect(100, stick_height / 4, 20, 5);
+            g.fillRect(100, 0, 20, 5);
+
+            g.setFont(new Font("sansserif", Font.PLAIN, 20));
+            g.drawString("点数・偏差値", 20, stick_height + 60);
+            g.drawString("0", 50, stick_height + 15);
+            g.drawString("25", 50, stick_height * 3 / 4 + 15);
+            g.drawString("50", 50, stick_height * 2 / 4 + 15);
+            g.drawString("75", 50, stick_height / 4 + 15);
+            g.drawString("100", 50, 15);
+
+            count = 0;
+            for (Subject subject : subjects) {
+                g.setColor(colors[count + 1]);
+                g.fillRect(width - 400 + 50, 10 + (60 - subjects.size()) * count, 80, (height - 200) / subjects.size());
+                g.setColor(Color.black);
+                g.setFont(new Font("sansserif", Font.PLAIN, 20));
+                g.drawString(subject.getName(), width - 400 + 50 + 100, 10 +  (60 - subjects.size()) * count + 20);
+                count++;
+            }
+
+
+            return ok(Json.toJson(img2Base64Png(bimg)));
+        }catch(Exception e){
+            e.printStackTrace();
+            return badRequest();
         }
-
-
-        return ok(Json.toJson(img2Base64Png(bimg)));
     }
 
     private static Color[] generate_colors(int count){

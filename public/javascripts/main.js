@@ -231,8 +231,29 @@ const teacher_subject_class_list = new table(
     "teacher_subject_class_list",
     ["科目名", "担当教師", "学年", "年", "学期", "詳細"],
     ["subject", "teacher", "grade", "year", "semester", null],
-    [0, 0, 2, 0, 2, 0],
-    [[], [], ["1", "2", "3"], [], ["1", "2", "3"], []],
+    [0, 0, 2, 0, 2, 4],
+    [[], [], ["1", "2", "3"], [], ["1", "2", "3"], [teacher_subject_class_detail_mod]],
+    5
+);
+function teacher_subject_class_detail_mod(tr){
+    const subject = tr.find("td").eq(0).text();
+    const button = tr.find("td").eq(5);
+
+    button.append($("<button>")
+        .attr("onclick",
+            "$('#teacher_subject_class_detail_display').toggle();" +
+            "teacher_subject_class_detail_table.custom_refresh('subject_class_detail/ + " + subject + "');" +
+            "return false;")
+        .text("詳細"));
+}
+
+const teacher_subject_class_detail_table = new table(
+    "subject_class_detail",
+    "teacher_subject_class_detail",
+    ["生徒名", "生徒ID", "性別", "住所"],
+    ["name", "id", "sex", "address"],
+    [0, 0, 2, 0],
+    [[], [], ["男性", "女性"], []],
     5
 );
 

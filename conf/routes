@@ -38,6 +38,7 @@ POST  /add_test                                 controllers.DataController.add_t
 POST  /add_result                               controllers.DataController.add_result
 GET   /external_exam_list                       controllers.DataController.external_exam_list
 POST  /add_ex_result                            controllers.DataController.add_ex_result()
+GET   /subject_class_detail/:subject            controllers.DataController.subject_class_detail(subject: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /robot.txt                              controllers.Default.notFound
