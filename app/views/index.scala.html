@@ -513,54 +513,6 @@
                 </form>
             </div>
 
-            <div id="admin_edit_account" style="display: none;">
-                <h1>アカウント編集</h1>
-                <form id="account_edit_form">
-                    <table class="form_table">
-                        <tr>
-                            <td>ID</td>
-                            <td>
-                                <input type="text" name="id" required title="ID" readonly id="admin_account_edit_id">
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>パスワード</td>
-                            <td>
-                                <input type="password" name="password" required title="パスワード">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>名前</td>
-                            <td>
-                                <input type="text" required title="名前" name="name">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>性別</td>
-                            <td>
-                                <div>
-                                    <input type="radio" name="sex" value="male" id="signup_man2">
-                                    <label for="signup_man2" class="signup_checkbox">男性</label>
-                                    <input type="radio" name="sex" value="female" id="signup_woman2">
-                                    <label for="signup_woman2" class="signup_checkbox">女性</label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>住所</td>
-                            <td>
-                                <textarea rows="5" cols="30" name="address" required title="住所"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                    <button onclick="admin_edit_account_form.custom_post('edit/' + $('#admin_account_edit_id').val());return false;">作成</button>
-                    <button type="submit" id="account_edit_submit" style="display: none;"></button>
-                    <div id="account_edit_display"></div>
-                    @helper.CSRF.formField
-                </form>
-            </div>
-
             <div id="admin_subject_list" style="display: none;">
                 <h1>科目リスト</h1>
                 <button onclick="admin_subject_list_table.refresh(); return false;">更新</button>
@@ -620,6 +572,54 @@
                 <h1>アカウントリスト</h1>
                 <button onclick="admin_account_list_table.refresh(); return false;">更新</button>
                 <div id="admin_account_list_display"></div>
+            </div>
+
+            <div id="admin_edit_account" style="display: none;">
+                <h1>アカウント編集</h1>
+                <form id="account_edit_form">
+                    <table class="form_table">
+                        <tr>
+                            <td>ID</td>
+                            <td>
+                                <input type="text" name="id" required title="ID" readonly id="admin_account_edit_id">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>パスワード</td>
+                            <td>
+                                <input type="password" name="password" required title="パスワード">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>名前</td>
+                            <td>
+                                <input type="text" required title="名前" name="name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>性別</td>
+                            <td>
+                                <div>
+                                    <input type="radio" name="sex" value="male" id="signup_man2">
+                                    <label for="signup_man2" class="signup_checkbox">男性</label>
+                                    <input type="radio" name="sex" value="female" id="signup_woman2">
+                                    <label for="signup_woman2" class="signup_checkbox">女性</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>住所</td>
+                            <td>
+                                <textarea rows="5" cols="30" name="address" required title="住所"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <button onclick="admin_edit_account_form.custom_post('edit/' + $('#admin_account_edit_id').val());return false;">作成</button>
+                    <button type="submit" id="account_edit_submit" style="display: none;"></button>
+                    <div id="account_edit_display"></div>
+                    @helper.CSRF.formField
+                </form>
             </div>
         </div>
     </div>
